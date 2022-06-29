@@ -5,7 +5,7 @@ import ADS1256
 import RPi.GPIO as GPIO
 import csv,os
 
-date = '20220623'
+date = '20220629'
 action = 'test'
 round = '1'
 
@@ -23,14 +23,14 @@ try:
         time.sleep(3)
         t1 = time.time()
         for i in range(500):
-                GPIO.output(channel,GPIO.HIGH)
+                GPIO.output(channel,1)
                 ADC_Value = ADC.ADS1256_GetAll()
                 I1 = int(ADC_Value[0]*5000/0x7fffff)
                 Q1 = int(ADC_Value[1]*5000/0x7fffff)
                 I2 = int(ADC_Value[2]*5000/0x7fffff) 
                 Q2 = int(ADC_Value[3]*5000/0x7fffff)
                 time.sleep(0.01)
-                GPIO.output(channel,GPIO.LOW)
+                GPIO.output(channel,0)
                 ADC_Value = ADC.ADS1256_GetAll()
                 I3 = -(int(ADC_Value[0]*5000/0x7fffff))
                 Q3 = -(int(ADC_Value[1]*5000/0x7fffff))

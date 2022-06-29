@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-date = '20220623'
+date = '20220629'
 action = 'test'
 round = '1'
 #ai = 45
@@ -11,16 +11,21 @@ tmax = hp/25
 vmax =300
 
 #Vo =[2475,2467,2503,2492]#0112
-Vo =[2474,2469,2503,2492]#0114-0119-0120
+#Vo =[2474,2469,2503,2492]#0114-0119-0120
 
 f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), 'r')
 df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), delimiter=",",
                    skip_header=1)  # np.genfromtxt()を使うと欠損値がnp.nanとして読み込まれる
 
+#DCshift
+print(type(df))
+Vo = df.mean(axis = 0)[1:9]
+print(Vo)
+
 fig = plt.figure(figsize=(12, 4))  # Figureを設定
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-t=df[:,0]/25
+t=df[:,0]/10.7
 # Tx1-Rx1 Svv=I1+jQ1
 I1 = df[:, 1] - Vo[0]
 Q1 = df[:, 2] - Vo[1]
@@ -32,13 +37,13 @@ Q2 = df[:, 4] - Vo[3]
 A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
 P2=(np.arctan2(Q2,I2))
 # Tx2-Rx1 Svh=I3+jQ3
-I3 = -df[:, 5] -Vo[0]
-Q3 = -df[:, 6] - Vo[1]
+I3 = df[:, 5] - Vo[4]
+Q3 = df[:, 6] - Vo[5]
 A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
 P3=(np.arctan2(Q3,I3))
 # Tx2-Rx2 Shh=I4+jQ4
-I4 = -df[:, 7] - Vo[2]
-Q4 = -df[:, 8] - Vo[3]
+I4 = df[:, 7] - Vo[6]
+Q4 = df[:, 8] - Vo[7]
 A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
 P4=(np.arctan2(Q4,I4))
 
