@@ -33,9 +33,9 @@ import RPi.GPIO as GPIO
 import time
 
 # Pin definition
-RST_PIN         = 18
-CS_PIN       = 22
-DRDY_PIN        = 17
+RST_PIN         = 18 # ADS1256 reset input (pin 12)
+CS_PIN       = 22 # ADS1256 chip select (pin 15)
+DRDY_PIN        = 17 #ADS1256 data ready output (pin 11)
 
 # SPI device, bus = 0, device = 0
 SPI = spidev.SpiDev(0, 0)

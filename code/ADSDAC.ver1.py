@@ -10,7 +10,7 @@ action = 'test'
 round = '1'
 
 GPIO.setmode(GPIO.BCM)
-channel = 24
+channel = 24 #p5 pin
 GPIO.setup(channel,GPIO.OUT)
 
 try:
@@ -23,14 +23,14 @@ try:
         time.sleep(3)
         t1 = time.time()
         for i in range(500):
-                GPIO.output(channel,1)
+                GPIO.output(channel,HIGH)
                 ADC_Value = ADC.ADS1256_GetAll()
                 I1 = int(ADC_Value[0]*5000/0x7fffff)
                 Q1 = int(ADC_Value[1]*5000/0x7fffff)
                 I2 = int(ADC_Value[2]*5000/0x7fffff) 
                 Q2 = int(ADC_Value[3]*5000/0x7fffff)
                 time.sleep(0.01)
-                GPIO.output(channel,0)
+                GPIO.output(channel,LOW)
                 ADC_Value = ADC.ADS1256_GetAll()
                 I3 = -(int(ADC_Value[0]*5000/0x7fffff))
                 Q3 = -(int(ADC_Value[1]*5000/0x7fffff))
