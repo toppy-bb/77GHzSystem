@@ -2,16 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-date = '20220629'
+date = '20220707'
 action = 'test'
 round = '1'
 #ai = 45
 hp = 750
 tmax = hp/25
-vmax =300
+#vmax =300
 
 #Vo =[2475,2467,2503,2492]#0112
-#Vo =[2474,2469,2503,2492]#0114-0119-0120
+Vo =[2474,2469,2503,2492,-2474,-2469,-2503,-2492]#0114-0119-0120
 
 f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), 'r')
 df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), delimiter=",",
@@ -19,7 +19,7 @@ df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date
 
 #DCshift
 print(type(df))
-Vo = df.mean(axis = 0)[1:9]
+#Vo = df.mean(axis = 0)[1:9]
 print(Vo)
 
 fig = plt.figure(figsize=(12, 4))  # Figureを設定
@@ -47,6 +47,7 @@ Q4 = df[:, 8] - Vo[7]
 A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
 P4=(np.arctan2(Q4,I4))
 
+vmax = max(A1.max(),A2.max(),A3.max(),A4.max())
 
 #Tx1-Rx1
 ax1 = fig.add_subplot(1, 4, 1)   #1行4列の1番目
@@ -74,7 +75,7 @@ plt.ylim(0,vmax)
 ax3 = fig.add_subplot(1, 4, 3)   #1行4列の3番目
 cm = plt.cm.get_cmap('hsv') # カラーマップ
 mappable = ax3.scatter(t, A3, c=P3, vmin=-(np.pi), vmax=np.pi, s=3, cmap=cm)
-fig.colorbar(mappable, ax=ax2 ) # カラーバーを付加
+#fig.colorbar(mappable, ax=ax2 ) # カラーバーを付加
 plt.title("V-H",fontsize=12)
 plt.xlabel("time [s]", fontsize=10)
 plt.ylabel("amplitude [mV]", fontsize=10)

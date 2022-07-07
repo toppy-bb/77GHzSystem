@@ -5,7 +5,7 @@ import ADS1256
 import RPi.GPIO as GPIO
 import csv,os
 
-date = '20220629'
+date = '20220707'
 action = 'test'
 round = '1'
 
