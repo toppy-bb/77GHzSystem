@@ -1,0 +1,126 @@
+% Encoding: UTF-8
+
+@Article{T.Susuki1991,
+  author  = {T.Susuki and I.Arai},
+  journal = {IEICE Transactions},
+  title   = {Advance on undergroud radars},
+  year    = {1991},
+  number  = {2},
+  pages   = {289--294},
+  volume  = {E74},
+}
+
+@Article{T.Counts2007,
+  author  = {T.Counts and A.C.Gurbuz and W.R.Scott.Jr and J.H.McClellan and K.Kim},
+  journal = {IEEE Transrations on Geoscience and Remote Sensing},
+  title   = {Multistatic ground-penetrating radar experiments},
+  year    = {2007},
+  number  = {10},
+  pages   = {2544--2553},
+  volume  = {45},
+}
+
+@Article{CC.Chen2000,
+  author  = {C-C.Chen and S.Nag and W.D.Burnside and J.I.Halman and K.A.Shubert and L.Peters.Jr},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  title   = {A standoff, focused-beam land mine radar},
+  year    = {2000},
+  number  = {1},
+  pages   = {507--514},
+  volume  = {38},
+}
+
+@Article{Groenenboom2002,
+  author  = {Jeroen Groenenboom and Alexander Yarovoy},
+  journal = {Subsurface Sensing Technologies and Applications},
+  title   = {Data processing and imaging in GPR system dedicated for landminedetection},
+  year    = {2002},
+  number  = {4},
+  pages   = {387--402},
+  volume  = {3},
+}
+
+@Article{Alexander.G.Yarovoy2002,
+  author  = {Alexander.G.Yarovoy and Leo.P.Ligthart},
+  journal = {Subsurface Sensing Technologies and Applications},
+  title   = {Polarimetric video impulse radar for landmine detection},
+  year    = {2002},
+  number  = {4},
+  pages   = {271--293},
+  volume  = {3},
+}
+
+@Article{M.Sato2004,
+  author  = {M.Sato and Y.Hamada and X.Feng and F.N.Kong and Z.Zeng and G.Fang},
+  journal = {Near Subsurface Geophysics},
+  title   = {GPR using an array antenna for land-mine detection},
+  year    = {2004},
+  pages   = {7--13},
+  volume  = {3},
+}
+
+@Article{M.Sato2005,
+  author  = {M.Sato and K.Takahashi and X.Feng and T.Kobayashi},
+  journal = {IEEE Geoscience and Remote Sensing Society Newsletter},
+  title   = {Dual sensor alis evaluation test in Afghanistan},
+  year    = {2005},
+  pages   = {22--24},
+}
+
+@Article{S.Masuyama2007,
+  author  = {S.Masuyama and A.Hirose},
+  journal = {IEEE Transactionson Geoscience and Remote Sensing},
+  title   = {Walled LTSA array for rapid, high spatial resolution,and phase sensitive imaging to visualize plastic landmines},
+  year    = {2007},
+}
+
+@Article{S.Masuyama2008,
+  author  = {S.Masuyama and K.Yasuda and A.Hirose},
+  journal = {IEEE Geoscience and Remote Sensing Letters},
+  title   = {Multiple mode selection ofwalled-ltsa array elements for high resolution imaging to visualize antipersonnelplastic landmines},
+  year    = {2008},
+  number  = {4},
+  pages   = {745--749},
+  volume  = {5},
+}
+
+@Article{Y.Nakano2009,
+  author  = {Y.Nakano and A.Hirose},
+  journal = {IEICE Transactions on Electronics},
+  title   = {Improvement of plastic landmine visualization performance by use of ring-csom and frequency-domain local correlation},
+  year    = {2009},
+  number  = {1},
+  pages   = {102--108},
+  volume  = {E92-C},
+}
+
+@Article{Y.Nakano2010,
+  author  = {Y.Nakano and A.Hirose},
+  journal = {Australian Journal of Intelligent Information Processing Systems},
+  title   = {Adaptive identification of landmine class by evaluating the total degree of conformity of ring-SOM},
+  year    = {2010},
+  pages   = {22-28},
+}
+
+@InCollection{Satoa,
+  author    = {Motoyuki Sato and Kazunori Takahashi},
+  booktitle = {Anti-personnel Landmine Detection for Humanitarian Demining},
+  publisher = {Springer London},
+  title     = {Development of Dual Sensors and Deployment in Mine Affected Countries},
+  pages     = {27--44},
+  doi       = {10.1007/978-1-84882-346-4_3},
+}
+
+@Article{KARLINA2016,
+  author    = {Riafeni KARLINA and Motoyuki SATO},
+  journal   = {{IEICE} Transactions on Electronics},
+  title     = {Model-Based Compressive Sensing Applied to Landmine Detection by {GPR}},
+  year      = {2016},
+  number    = {1},
+  pages     = {44--51},
+  volume    = {E99.C},
+  doi       = {10.1587/transele.e99.c.44},
+  publisher = {Institute of Electronics, Information and Communications Engineers ({IEICE})},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

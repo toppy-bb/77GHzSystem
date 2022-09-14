@@ -1,0 +1,28 @@
+\contentsline {chapter}{\numberline {第1章}序章}{2}
+\contentsline {section}{\numberline {1.1}研究背景}{2}
+\contentsline {subsection}{\numberline {1.1.1}地中探査レーダによる地雷探査}{2}
+\contentsline {subsection}{\numberline {1.1.2}地雷可視化システム}{2}
+\contentsline {section}{\numberline {1.2}目的}{3}
+\contentsline {chapter}{\numberline {第2章}地雷可視化システム}{4}
+\contentsline {section}{\numberline {2.1}従来のフロントエンド}{4}
+\contentsline {subsection}{\numberline {2.1.1}以前提案した1次元アレイアンテナ式地雷可視化システム}{6}
+\contentsline {section}{\numberline {2.2}可視化処理}{9}
+\contentsline {subsection}{\numberline {2.2.1}前処理}{9}
+\contentsline {subsection}{\numberline {2.2.2}CSOMを用いた地雷可視化}{9}
+\contentsline {subsection}{\numberline {2.2.3}特徴量ベクトルの抽出}{10}
+\contentsline {subsection}{\numberline {2.2.4}地雷クラスの同定}{11}
+\contentsline {chapter}{\numberline {第3章}異方性を軽減する自己組織化マップ}{12}
+\contentsline {section}{\numberline {3.1}異方的重み付け}{12}
+\contentsline {section}{\numberline {3.2}複素内積での勝者クラス決定法}{13}
+\contentsline {section}{\numberline {3.3}1次元アレイアンテナ式地雷可視化システムの高速化と保守性の向上}{14}
+\contentsline {chapter}{\numberline {第4章}模擬地雷計測実験}{17}
+\contentsline {section}{\numberline {4.1}実験方法}{17}
+\contentsline {section}{\numberline {4.2}計測結果}{18}
+\contentsline {section}{\numberline {4.3}自己組織化マップの使用に対する2つの新手法と区分画像}{20}
+\contentsline {chapter}{\numberline {第5章}考察と今後の課題}{22}
+\contentsline {section}{\numberline {5.1}考察}{22}
+\contentsline {subsection}{\numberline {5.1.1}新型システムの有用性}{22}
+\contentsline {subsection}{\numberline {5.1.2}勝者クラスの決定法の選択によるCSOMの変化}{22}
+\contentsline {section}{\numberline {5.2}今後の課題}{22}
+\contentsline {chapter}{参考文献}{24}
+\contentsline {chapter}{発表文献}{26}

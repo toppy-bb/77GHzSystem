@@ -1,0 +1,398 @@
+﻿\documentclass[12pt,oneside]{jsbook}
+\bibliographystyle{junsrt}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{multicol}
+\usepackage[dvips]{graphicx}
+\usepackage{comment}
+
+\usepackage{epsf}
+%\setlength{\textheight}{186mm}
+\setlength{\columnseprule}{0.3pt}
+\begin{document}
+\pagestyle{empty}
+\begin{center}
+\vspace*{3cm} \underline{\HUGE 卒業論文} \\
+\vspace{0.5cm}
+\bf{ \Huge 位相感受型ニューラルネットワークによる適応的ミリ波イメージング }\\
+\vspace{0.5cm}
+\huge 平成25年2月7日提出 \\
+\vspace{3cm}
+\huge 指導教官 \hspace{5cm} 廣瀬　明　教授 \\
+\vspace{2cm}
+\huge 電子情報工学科 \\
+\vspace{1cm}
+\huge 110404 \hspace{5cm} 有馬　悠也
+\end{center}
+
+
+\newpage 
+\setcounter{page}{1}
+\pagestyle{headings}
+\tableofcontents
+
+\newpage 
+\chapter{序章}
+\section{研究背景}
+\subsection{ミリ波とイメージング}
+ミリ波はその名の通り波長がミリメートルオーダーの電磁波のことである（図~\ref{pic:chart}）。周波数ではおよそ30～300GHzにあたり、携帯電話や無線LANに使われている電波の10～100倍の周波数である、このような波長が短く、周波数が高いという特長を生かして、車載レーダーや高速無線通信に用いられている。そして近年特に注目されている応用技術にイメージングと呼ばれる技術がある。
+
+イメージングとは、肉眼では見えない（あるいは見えにくい）物体の情報を様々な方法で測定し、画像として可視化する技術のことである。イメージング技術として使用する場合、ミリ波には以下のような特徴がある。\\
+\\
+マイクロ波（UHF，SHFなど）と比較して次の利点を持つ。
+\begin{itemize} 
+\item 波長が短いので高い分解能を得られる
+\item アンテナが小型で済む
+\end{itemize}
+また、可視光と比較して次の利点を持つ。
+\begin{itemize} 
+\item 減衰が少なく、雲や煙、布などの物質を通過する
+\end{itemize}
+加えて、ミリ波はX線などの電離放射線と異なり人体に無害であるとされる。\\
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=35 395 757 578,width=\hsize]{SURA_EMS_chart_thin.pdf}
+\caption{電磁波の周波数帯\protect\footnotemark[1]} \label{pic:chart} 
+\end{center}
+\end{figure}
+\footnotetext[1]{“SURA Technology Commercialization Terahertz” http://www.sura.org/commercialization/terahertz.html}
+
+イメージングには対象物そのものから発生する電磁波を検出し画像化するパッシブイメージング方式と、ある既知の波長の電磁波を対象物に照射し、その透過波または反射波を検出して画像化するアクティブイメージング方式がある（図~\ref{pic:activepassive}）。人間をはじめ温度を有するすべての物体はその温度に応じてミリ波～サブミリ波帯の一定のスペクトルを持つ電磁波を黒体放射として多く放射している。パッシブイメージングではこの黒体放射による電磁波を検出し画像化する\cite{SasakiNagatsuma00:_milli_wave_imagi_using_and_elect_detec_as_a}。パッシブ方式のミリ波イメージングの研究では東北大学の水野研究室が代表的である\cite{Mizuno05:_new_appli_of_milli_wave_incoh_imagi}。しかし、黒体放射は温度に依存しているため室内などでは十分なコントラストが得られないことがある。また、黒体放射の電力は小さいため、広帯域に渡って低雑音増幅を行う必要があり、計測に時間がかかる。一方、アクティブイメージングでは電磁波を測定対象物に当て、その反射を検出することで、よりコントラストの高い像を短い計測時間で得ることが出来る\cite{tavakol2008:_syste_model_for_activ_mm_wave_imagi_syste}。また、照射する電磁波に多様な変調方式を用いて応用することが出来、位相情報を得られるという利点もある。しかし、アクティブ方式ではコヒーレント波を対象に当てるため、対象面で拡散反射した波がランダムな位相関係で干渉し合い、スペックルと呼ばれる輝点を生じる。これはイメージング画質を落とす要因となる。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=92 535 520 702,width=\hsize]{imaging.pdf}
+\caption{パッシブイメージングとアクティブイメージング} \label{pic:activepassive} 
+\end{center}
+\end{figure}
+
+\subsection{既存のミリ波イメージング装置}
+近年、世界中でテロ対策意識が高まっている。特に空港での保安検査は以前より大変厳しい物になっている。しかし、液体爆弾のような非金属製かつ身につけられるような危険物は従来の金属探知機では対応出来ない。そこで、アメリカの空港などではすでにミリ波を用いたイメージングシステム（図~\ref{pic:provision}）が導入されている\cite{Sheen01:_three_dimen_milli_wave_imagi_for_conce_weapo_detec}。しかし、現在のミリ波イメージングシステムには以下のような問題点がある。
+\begin{enumerate} 
+\item ミリ波は衣服などを透過するため、撮影画像に体のラインが出てしまい乗客のプライバシーが侵害される恐れがある。
+\item 対象を走査して測定するため、停止する必要があり時間がかかってしまう。そのため、駅の改札など多くの人が利用する場所に設置することができない。
+\item 高周波の部品には非常に高価なものが多く、システムのコストが高くなる。
+\end{enumerate}
+\begin{figure}[htbp]
+\begin{minipage}{.4\textwidth}
+\centering
+\includegraphics[bb=0 0 688 864,width=\hsize]{pro-vision.pdf}
+{\small (a) 装置外観\protect\footnotemark[2]}
+\end{minipage} \hfill
+\begin{minipage}{.6\textwidth}
+\includegraphics[bb= 27 46 400 260,width=\hsize]{pro-vision-pic.pdf}
+{\small (b) 取得される画像\protect\footnotemark[3]}
+\centering
+\end{minipage} 
+\caption{アメリカの空港で実際に利用されているミリ波イメージング装置「ProVision」}\label{pic:provision}
+\end{figure}
+\footnotetext[2]{"TSA: How It Works" http://www.tsa.gov/approach/tech/ait/how\_it\_works.shtm}
+\footnotetext[3]{"The TSA Blog: You asked for it...You got it, Millimeter Wave images."\\ http://blog.tsa.gov/2008/05/you-asked-for-ityou-got-it-millimeter.html}
+
+\newpage
+\section{目的}
+我々が提案するシステムでは以下の手法によって上記の問題点を解決する。
+\begin{enumerate}
+\item 画像処理に複素自己組織化マップ（Complex-valued Self Organizing Map: CSOM）を用いることで、低解像度のデータからでも適応的に画像を区分出来るため、高解像度の画像を取得する必要がなくなり、乗客のプライバシーを守ることが出来る。
+\item 取得するデータが低解像度であることに加え、指向性の高い受信アンテナを一次元アレイ状に並べて、対象が前方を通過する際に測定出来るようにすることで計測時間を短縮する（図~\ref{pic:gate}）。
+\item 振幅変調したミリ波とEnvelope Phase Detection(EPD)可能なフロントエンドを用いることで、受信部回路内でミリ波を引き回す必要が無く、高価な高周波部品の使用を減らす。
+\end{enumerate}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 1059 682,width=.8\hsize]{system.pdf}
+\caption{我々が構築を目指すミリ波イメージングシステムの概略図} \label{pic:gate} 
+\end{center}
+\end{figure}
+
+
+\chapter{適応的ミリ波イメージングシステム}
+\section{システム構成}
+システムの概略を図~\ref{pic:const_ov}に示す。システムは送信部、受信部、画像処理部から構成されている。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 994 594,width=\hsize]{construction_over_view.pdf}
+\caption{構築したシステムの概要図} \label{pic:const_ov} 
+\end{center}
+\end{figure}
+
+送信部は図~\ref{pic:transmit}のような構造をしている。Gunn発振器で発生させた34GHzのミリ波を信号発生器で発生させた900MHz程度の周波数の信号で振幅変調し、ホーンアンテナから送信する。従来のアクティブイメージング手法ではミリ波の波長である数mm程度の距離情報しか扱えなかったが、振幅変調することにより900MHzの波長である30cm程度の距離情報を扱えるようになる。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=358 61 1345 1127,width=.6\hsize]{Transmitter.pdf}
+\caption{送信部の全体図} \label{pic:transmit} 
+\end{center}
+\end{figure}
+
+受信部は以下のコンポーネントによって構成される。
+\begin{enumerate}
+\item アレイ状のフロントエンド（図~\ref{pic:array}）
+\item 信号増幅器
+\item I/Q復調器
+\item A/Dコンバータ
+\end{enumerate}
+
+フロントエンドにはLinearly Taper Slot Antenna (LTSA)（図~\ref{pic:ltsa}）が使われている。このLTSAは我々の研究室で製作されたものであり、ミリ波帯のEPDを行うのに適している\cite{damri09:_proposal_of_bulk_LTSA}。受信された信号は直ちに図~\ref{pic:circuit}に示す回路で全波整流され、ローパスフィルタを通過することによって変調周波数にまで落とされる。この回路によってミリ波の引き回しが無くなり、減衰やノイズに対する設計コストが大幅に減る。続くアンプによって信号は増幅され、I/Q復調器において変調信号とホモダイン検波を行うことによって同相成分と逆相成分に復調される。復調された信号はA/Dコンバータを通してPCに送られる。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb= 0 0 1293 1163,width=.8\hsize]{array_antenna.pdf}
+\caption{フロントエンド} \label{pic:array} 
+\end{center}
+\end{figure}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb= 0 0 1443 420,width=.9\hsize]{LTSA.pdf}
+\caption{LTSA} \label{pic:ltsa} 
+\end{center}
+\end{figure}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 381 262,width=.7\hsize]{circuit.pdf}
+\caption{フロントエンドで用いられるアンテナ直結型検波回路} \label{pic:circuit} 
+\end{center}
+\end{figure}
+
+画像処理部では受信部から送られてきた測定データをSelf-Organizing Map(SOM)によって処理し、区分化する。
+\newpage
+\section{自己組織化マップ(SOM)}
+SOMとはニューラルネットワークの一種で、与えられた入力情報の類似度をマップ上での距離で表現するモデルである\cite{kohonen95:_self_organ_maps}\cite{kohonen84:_self_organ_assoc_memor}。SOMの最大の特徴は、様々な高次元データを教師信号無しにクラスタリングできる点である。
+
+SOMは規則的に配置された複数のユニットで構成される。各ユニットは入力ベクトルと同次元の参照ベクトルを持っている。SOMは入力ベクトルを最も近い参照ベクトルを持つユニットの座標へと変換する。この操作を写像といい、SOMは入力ベクトルや参照ベクトルが存在するベクトル空間から、ユニットが配置されている座標空間へと入力ベクトルを写像する。また、SOMはベクトル空間上での入力ベクトル同士の関係性が、写像された座標空間上でも保たれるように自分自身で学習を行う。SOMに入力ベクトルが与えられると、入力ベクトルに最も近い参照ベクトルを持つユニットが勝者ユニットになる。このとき、座標空間上でより勝者ユニットの近くに位置するユニットほど強く学習する権利を獲得し、その強さに応じて参照ベクトルを入力ベクトルに近づけるように学習する。こうして参照ベクトルの更新を繰り返していくことによって、ベクトル空間上での参照ベクトル同士の関係性が座標空間上でも保たれるようになる。
+
+本システムでは図~\ref{pic:ringsom}で示すような、ユニットを1次元のリング状に並べたRing-SOMを用いる。また、振幅と位相のデータ、つまり複素数のデータを扱うため、複素数に対応したSOMであるCSOM（Complex-valued SOM）を利用している\cite{cvnn2012_second}。測定データから特徴量を抽出し、SOMを利用して各ピクセルの類似度を1次元の値として表現する。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 426 498,width=.5\hsize]{Ring-CSOM.pdf}
+\caption{Ring-CSOM} \label{pic:ringsom} 
+\end{center}
+\end{figure}
+
+\subsection{特徴量ベクトルの抽出}\label{sec:feature}
+測定された空間$P_x$ピクセル×$P_y$ピクセル×周波数$f_N$点の複素振幅データに対し、次のように局所複素テクスチャ特徴量を抽出する。
+\begin{enumerate}
+\item 注目するピクセルに対し$L_x$×$L_y$（$L_x,L_y$：ウィンドウサイズ）の局所的な領域を切り出す。
+\item 特徴量としてこの局所領域における実空間上の相関係数$\mathbf{K}_s$と周波数空間上の相関係数$\mathbf{K}_f$を計算する（式~(\ref{eq:ks}),(\ref{eq:kf})）。
+\item これらの値と局所領域の複素平均$M$（式~(\ref{eq:m})）とを成分に持つベクトルを特徴量ベクトル$\mathbf{K}$とする（式~(\ref{eq:k})）。
+\end{enumerate}
+\begin{eqnarray}
+\mathbf{K} & = & \left[ M, \mathbf{K}_s, \mathbf{K}_f \right] \label{eq:k}\\
+M & = & \frac{1}{L_x L_y N} \sum^{L_x}_{l_x = 1} \sum^{L_y}_{l_y = 1} \sum^N_{n = 1} z(l_x,l_y, f_n) \label{eq:m}\\
+\mathbf{K}_s & = & \left[ K_s(0,0), K_s(1,0), K_s(0,1), K_s(1,1) \right] \\
+K_s(i, j) & = & \frac{1}{L_x L_y N} \sum^{L_x}_{l_x = 1} \sum^{L_y}_{l_y = 1} \sum^N_{n = 1} z^*(l_x, l_y, f_n) z(l_x + i,l_y + j, f_n) \label{eq:ks}\\
+\mathbf{K}_f & = &  \left[ K_f(f_1), \ldots , K_f(f_{N-1}) \right] \\
+K_f(f_n) & = & \frac{1}{L_x L_y} \sum^{L_x}_{l_x = 1} \sum^{L_y}_{l_y = 1}  z^*(l_x, l_y, f_n) z(l_x,l_y, f_{n+1}) \label{eq:kf}
+\end{eqnarray}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=74 207 506 748,width=.5\hsize]{window.pdf}
+\caption{特徴量ベクトルの抽出} \label{pic:window} 
+\end{center}
+\end{figure}
+
+\newpage
+\subsection{入力ベクトルと参照ベクトルの距離}
+SOMに入力された特徴量ベクトル$\mathbf{K}$と参照ベクトル$\mathbf{W_c}$の類似度を測る尺度として、本研究では複素内積を用いる\cite{aoyagi2010:_compl_value_self_organ_map_clust_using_compl_inner_produ}。ユークリッド距離を用いることも出来るが、複素内積を用いるのは位相情報をより重視した距離測度を可能とするためである。式~(\ref{eq:inner_prod})は複素内積による距離測度を表す。複素内積ではその絶対値が大きいものほど距離が近いことを表す。
+\begin{eqnarray}
+\mathbf{W_c} & \equiv & \left[ \begin{array}{c}
+|w_{c1}| \exp(i\psi _{c1})\\
+|w_{c2}| \exp(i\psi _{c2})\\
+\vdots
+\end{array} \right]\label{eq:w_vector}\\
+\mathbf{K} & \equiv & \left[ \begin{array}{c}
+|M| \exp(i\theta _M)\\
+|K_s(0,0)| \exp(i\theta _s(0,0))\\
+|K_s(1,0)| \exp(i\theta _s(1,0))\\
+\vdots\\
+|K_f(f_1)| \exp(i\theta _{f_1})\\
+|K_f(f_2)| \exp(i\theta _{f_2})\\
+\vdots
+\end{array} \right]\label{eq:k_vector}
+\end{eqnarray}
+\begin{eqnarray}
+\mathbf{K^* W_c} &=& \sum _{j}\left[ |K_j|\exp(-i\theta _j) \right]\left[ |w_{cj}|\exp(+i\psi _{cj})\right]\nonumber\\
+&=& \sum _{j}|K_j||w_{cj}|\exp(i(\psi _{cj}-\theta _j))\label{eq:inner_prod}
+\end{eqnarray}
+
+\subsection{更新則の導出}
+勝者ユニットの参照ベクトルの長さと偏角を入力ベクトルに近づけるために、次のようにして更新式を導出した。まず入力ベクトルと参照ベクトルの要素を以下のようにおく。
+\begin{eqnarray}
+K &=& |K| \exp(i\theta)\\
+W &=& |w| \exp(i\psi)
+\end{eqnarray}
+するとエネルギー関数は次式のようになる。
+\begin{eqnarray}
+E &=& \frac{1}{2}|K-W|^2\nonumber\\
+&=& \frac{1}{2}(|K|^2 +|w|^2)-\mathbf{Re}(K^* W)\nonumber\\
+&=& \frac{1}{2}(|K|^2 +|w|^2)-|K||w|\cos(\psi -\theta)\label{eq:energy}
+\end{eqnarray}
+このエネルギー関数$E$を最小化する過程を考えるが、$E$は$|w|$と$\psi$の関数なので、それぞれにおける偏微分を考える。
+\begin{eqnarray}
+\frac{\partial E}{\partial |w|} &=& |w|-|K|\cos(\psi -\theta)\label{eq:parti_w}\\
+\frac{1}{|w|}\frac{\partial E}{\partial \psi} &=& -|K|\sin(\psi -\theta)\label{eq:parti_psi}
+\end{eqnarray}
+したがって、離散時間における$|w|$と$\psi$の更新式は自己組織化係数$\alpha(t)$を用いて以下のようになる\cite{cvnn2012_second}。
+\begin{eqnarray}
+|w|(t+1) &=& |w|(t)-\alpha(t)\frac{\partial E}{\partial |w|}\nonumber\\
+&=& |w|(t)-\alpha(t)(|w|-|K|\cos(\psi -\theta))\nonumber\\
+&=& (1-\alpha(t))|w|+\alpha(t)|K|\cos(\psi -\theta)\label{eq:abs_up}\\
+\psi(t+1) &=& \psi(t)-\alpha(t)\frac{1}{|w|}\frac{\partial E}{\partial\psi}\nonumber\\
+&=& \psi(t)+\alpha(t)|K|\sin(\psi-\theta)\label{eq:psi_up}
+\end{eqnarray}
+
+
+ゆえに勝者参照ベクトルの振幅・位相の自己組織化式は式~(\ref{eq:win_w}),(\ref{eq:win_psi})、近傍参照ベクトルの振幅・位相の自己組織化式は式~(\ref{eq:nei_w}),(\ref{eq:nei_psi})となる。ただし、$\beta(t)$は$\alpha(t)$より小さい値であり、勝者参照クラスを$\hat{c}$、近傍クラスを$\hat{c}\pm 1$としている。
+\begin{eqnarray}
+|w_{\hat{c}j}|(t+1) &=& (1-\alpha(t))|w_{\hat{c}j}|+\alpha(t)|K_j|\cos(\psi _{\hat{c}j}(t)-\theta _j)\label{eq:win_w}\\
+\psi _{\hat{c}j}(t+1) &=& \psi _{\hat{c}j}(t)+\alpha(t)|K_j|\sin(\psi _{\hat{c}j}-\theta _j)\label{eq:win_psi}\\
+\nonumber\\
+|w_{\hat{c}\pm1j}|(t+1) &=& (1-\beta(t))|w_{\hat{c}\pm1j}|+\beta(t)|K_j|\cos(\psi _{\hat{c}\pm1j}(t)-\theta _j)\label{eq:nei_w}\\
+\psi _{\hat{c}\pm1j}(t+1) &=& \psi _{\hat{c}\pm1j}(t)+\beta(t)|K_j|\sin(\psi _{\hat{c}\pm1j}-\theta _j)\label{eq:nei_psi}
+\end{eqnarray}
+
+\newpage
+\chapter{計測と画像処理}
+\section{計測}\label{sec:measure}
+送信アンテナ、フロントエンド、測定対象を図~\ref{pic:ykrt}の位置に配置して測定を行った。対象は10cm程の小容器に水を入れたものを利用し、図~\ref{pic:obj0cm}のようにXYステージに固定し、XYステージを図~\ref{pic:ykrt}の矢印方向に移動させながら測定した。変調周波数は884MHzから9MHzおきに10点である。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 1309 740,width=.9\hsize]{SetupAntennaAll.pdf}
+\caption{測定の様子} \label{pic:ykrt} 
+\end{center}
+\end{figure}
+
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 1600 1200,width=.7\hsize]{obj_point_0cm.pdf}
+\caption{測定した小容器} \label{pic:obj0cm} 
+\end{center}
+\end{figure}
+
+\section{データの補正}\label{sec:corr}
+測定データは次の式によって補正される。\ref{sec:measure}~節での測定データを$z_{raw}$、測定対象物が無い状態での測定データ（背景データ）を$z_{coup}$としている。まず式~(\ref{eq:dire})によって直接結合成分が除去される。次に装置の個体差と、図~\ref{pic:path} に示す受信アンテナごとの経路差による位相のずれがあるため、式~(\ref{eq:fab}),(\ref{eq:path})によって補正する\cite{masu07:_remov_of_direc_coupl_in_a_Walle_LTSA_array_for}。ただしここで$l$は典型的な距離で計算している。
+\begin{eqnarray}
+z_{tmp}(l_{x},l_{y},f_{n}) & = & z_{raw}(l_{x},l_{y},f_{n}) - z_{coup}(l_{x},l_{y},f_{n}) \label{eq:dire} \\
+z_{tmp'}(l_{x},l_{y},f_{n}) & = & z_{tmp}(l_{x},l_{y},f_{n}) \exp(-i\angle z_{coup}) \label{eq:fab} \\
+z_{tmp''}(l_{x},l_{y},f_{n}) & = & z_{tmp'}(l_{x},l_{y},f_{n}) \exp(-i\angle\theta _{path}) \label{eq:path} \\
+\theta _{path} & = & \frac{2 \cdot 2\pi}{\lambda} \sqrt{h^2 + d^2 + l^2} \nonumber
+\end{eqnarray}
+
+また図~\ref{pic:way} に示されるようにシステム受信部のケーブルの長さの違いによる経路差もあるため次の式で補正している。この式における$0.66$は使用した同軸ケーブルの波長の短縮率である。
+\begin{eqnarray}
+z(l_{x},l_{y},f_{n}) & = & z_{tmp''}(l_{x},l_{y},f_{n})  \exp(-i\angle\theta _{way}) \label{eq:way} \\
+\theta _{way} & = & \frac{2 \cdot 2\pi}{0.66\lambda} d_2 - \frac{2 \cdot 2\pi}{0.66\lambda} d_1 \nonumber
+\end{eqnarray}
+
+振幅は全データのうち最大振幅と最小振幅のものが、それぞれ0および1のデシベル振幅値を持つように正規化している。図~\ref{pic:amp} に補正前および補正後の振幅および位相を示す。補正前では直接結合によって位相の時間変化のレンジが小さくなっていたものが、補正後には広くなっている。また、アンテナごとの値のばらつきが補正後では抑制されているのが分かる。
+
+\begin{figure}[hbtp]
+\begin{minipage}{.35\textwidth}
+\centering
+\includegraphics[bb=177 109 404 396,width=\hsize]{path2.pdf}
+{\small (a) 上面}
+\end{minipage} \hfill
+\begin{minipage}{.64\textwidth}
+\centering
+\includegraphics[bb=72 456 470 715,width=\hsize]{path1.pdf}
+{\small (b) 側面}
+\end{minipage} 
+\caption{経路差} \label{pic:path}
+\end{figure}
+
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=95 459 522 675,width=.9\hsize]{way.pdf}
+\caption{ケーブル長の差} \label{pic:way} 
+\end{center}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+\begin{center}
+\includegraphics[bb=183 23 503 1154,height=\vsize]{amp.pdf}
+\caption{複素振幅}  \label{pic:amp}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\section{区分画像}
+\ref{sec:corr}~節で補正したデータから抽出した特徴量ベクトルをSOMに通すと、図~\ref{pic:output}のような画像が得られる。この画像において、横軸は\ref{sec:feature}~節における特徴量抽出ウィンドウの基準点の時間、縦軸はアンテナ番号を表している。また、各色はSOMのユニットに対応したクラスを表している。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=126 491 481 673,width=.8\hsize]{output.pdf}
+\caption{区分画像の例}  \label{pic:output}
+\end{center}
+\end{figure}
+
+\section{SOMの自己組織化係数と区分画像}\label{sec:parameter}
+勝者ユニットとその近傍ユニットの自己組織化係数α、βを変化させながらSOMによる区分化を行った。αの値を0.002から0.256、βの値を$0.01\alpha$から$0.32\alpha$に変化させたときの区分化の結果が図~\ref{pic:somlog} である。この中では$ \alpha = 0.064 , \beta = 0.4\alpha $ の時が最も良く区分化されていると思われる。そこで、さらに詳しく見るためαを0.056から0.072、βを$0.02\alpha$から$0.05\alpha$に設定して同様に区分化した結果が図~\ref{pic:somliner}である。やはり $ \alpha = 0.056 $から$\alpha = 0.068 $ 、$ \beta = 0.04\alpha $ のあたりでよく区分出来ており、$ \alpha = 0.064 , \beta = 0.4\alpha $が適切なパラメータの一つであることが分かる。 
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=66 265 734 721,width=.8\hsize]{som_time-indep_ave.out_8AntennaStep_ykrt_530_2Raw.csv_10_2_0.002-0.256_0.01000-0.32000_100.pdf}
+\caption{自己組織化係数による区分結果への影響}  \label{pic:somlog}
+
+\includegraphics[bb=62 426 838 724,width=\hsize]{som_time-indep_ave.out_8AntennaStep_ykrt_530_2Raw.csv_10_2_0.056-0.072_0.02000-0.05000_100.pdf}
+\caption{自己組織化係数による区分結果への影響}  \label{pic:somliner}
+\end{center}
+\end{figure}
+\newpage
+\section{自己組織化による参照ベクトルの変化}\label{sec:coeff}
+SOMでは自己組織化が安定するまで、抽出した特徴ベクトルデータを冒頭から順次入力し、最後まで到達したら冒頭に戻るという操作を繰り返し行っている。この1回の操作を1ループとして、各ループが終了した時点での参照ベクトルの成分の値をグラフ化することによって、SOMの自己組織化の様子を可視化してみた。パラメータとしては$ \alpha = 0.064 , \beta = 0.4\alpha $ を用いている。実装しているSOMは10個のユニットを持つが、そのうち特徴的だったグラフを3つ、図~\ref{pic:nerve1}, \ref{pic:nerve2}, \ref{pic:nerve3}に示す。横軸はループ数を表しており、縦軸は各成分の値を示す。各参照ベクトルは14個の複素数要素を持っているためグラフでは実数成分と虚数成分に分けた28の系列が示されている。図~\ref{pic:nerve1}のように参照ベクトルのそれぞれの値が一定値を取るようになるか、図~\ref{pic:nerve1}のように周期的な振動を行っているときそのユニットは安定しているといえる。一方、図~\ref{pic:nerve3}のように全く学習が行われないユニットも存在している。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 1063 666,width=\hsize]{nerve_42_2/nerve-9.pdf}
+\caption{SOMのループ回数と参照ベクトルの変化}  \label{pic:nerve1}
+\end{center}
+\end{figure}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=0 0 1063 666,width=\hsize]{nerve_42_2/nerve-2.pdf}
+\caption{SOMのループ回数と参照ベクトルの変化}  \label{pic:nerve2}
+\includegraphics[bb=0 0 1063 666,width=\hsize]{nerve_42_2/nerve-5.pdf}
+\caption{SOMのループ回数と参照ベクトルの変化}  \label{pic:nerve3}
+\end{center}
+\end{figure}
+
+\newpage
+\section{初期値依存性}\label{sec:initial}
+自己組織化係数が同一であってもSOMの参照ベクトルの初期値が異なれば区分結果は異なってくる。現在の実装では参照ベクトルの初期値を乱数を用いて決定しているため、試行ごとに区分結果は異なる。そこで、$ \alpha = 0.064, \beta = 0.04\alpha $に設定し、参照ベクトルの初期値だけが異なる状態で49回区分化を繰り返したときの結果を図~\ref{pic:som49} に示す。このように同一のパラメータであっても、参照ベクトルの初期値の違いにより区分結果には大きな違いが生じている。期待通りに区分化出来た結果を数え上げると25個であり、おおよそ全体の半数であった。
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[bb=49 121 784 512,width=\hsize]{som_time-indep_ave.out_8AntennaStep_ykrt_530_2Raw.csv_10_2_0.064_0.04000_100.pdf}
+\caption{区分結果}  \label{pic:som49}
+\end{center}
+\end{figure}
+
+
+\clearpage
+\chapter{考察と今後の課題}
+\section{考察}
+図~\ref{pic:classfy}にSOMによって区分化する前の複素振幅データの一部と図~\ref{pic:som49}のうち最も区分化が上手くいったと思われるものの画像を並べて示す。このように肉眼で見てもほとんど何も判別出来ないような複素振幅データからでも、SOMによって区分化し可視化することが出来た。さらにこの区分結果の画像を測定対象物の写真に重ね、調整したものを図~\ref{pic:layer}に示す。小容器の位置がclass 9に、万力の位置がclass 3に区分されており、かなり細かく区分出来る場合もあることが分かる。
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=85 186 739 437,width=\hsize]{classfy.pdf}
+\caption{区分前と区分後}  \label{pic:classfy}
+\end{center}
+\end{figure}
+\begin{figure}[hbtp]
+\begin{center}
+\includegraphics[bb=187 435 535 650,width=.8\hsize]{layer.pdf}
+\caption{区分結果と測定対象}  \label{pic:layer}
+\end{center}
+\end{figure}
+
+\newpage
+\section{今後の課題}
+しかし\ref{sec:initial}~節からわかるように現状では適切なパラメータを使用しても確実に区分を行えているわけでは無い。また、測定データによっては区分化が上手くいかないものや、最適なパラメータが\ref{sec:coeff}~節のものと異なっているものがある。そこで、今後の課題として以下のようなことを行いたい。
+\begin{itemize} 
+\item 条件を変えた測定データをさらに取得し、SOMによる区分化の試行数を増やすことで区分化の成否を決定する要素の見極めを行う。
+\item 多数の測定データに対し適切に区分出来るような普遍的なパラメータを探す。
+\item 安定して区分出来るような初期値の取り方を探す。
+\end{itemize}
+
+\chapter*{謝辞}
+\addcontentsline{toc}{chapter}{謝辞}
+この研究を進めるにあたり、熱心にご指導をいただいた廣瀬明教授に感謝いたします。また、アドバイスや時に励ましの言葉をくださった研究室の皆様にもお礼申し上げます。
+
+\nocite{onojima2012:_one_dimen_array_milli_wave_imagi_of_movin_targe_for_secur_purpo}
+\bibliography{mybib_millimeter,mybib_landmine,cvnn_bib}
+\
+\end{document}

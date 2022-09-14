@@ -1,0 +1,309 @@
+\documentclass[a4paper,12pt]{jsarticle}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{multicol}
+\usepackage{atbegshi}
+\ifnum 42146=\euc"A4A2
+  \AtBeginShipoutFirst{\special{pdf:tounicode EUC-UCS2}}
+\else
+  \AtBeginShipoutFirst{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+\fi
+% "
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage[headsep=10pt, head=30pt,foot=10pt]{geometry}
+%\usepackage{epsf}
+\setlength{\columnseprule}{0.3pt}
+\begin{document}
+\begin{center}
+\vspace*{3cm} \underline{\HUGE 卒業論文中間報告 } \\
+\vspace{0.5cm}
+\bf{ \Huge 自己組織化マップを用いた\\
+\Huge 一次元アレイアンテナ式\\
+\Huge 地雷可視化システム}\\
+\vspace{0.5cm}
+\huge 平成25年9月20日提出 \\
+\vspace{3cm}
+\huge 指導教官 \hspace{5cm} 廣瀬　明　教授 \\
+\vspace{2cm}
+\huge 電気電子工学科 \\
+\vspace{1cm}
+\huge 120472 \hspace{5cm} 小山　英利香
+\end{center}
+\newpage 
+\tableofcontents
+
+\newpage
+\section{はじめに}
+電磁波を用いた地中探査レーダ（Ground-Penetrating Radar:GPR）は探査対象へ
+の非接触・非破壊探知が可能なため、埋設物探査や地下水調査など多くの分野で
+用いられている。同様に、プラスチックなどの非金属で製作された地雷の探査に
+も活用できる技術として、GPRは多くの研究の対象となった\cite{2007TCounts}
+\cite{2004MSato}。しかしGPRを用いた
+地雷探査には、対象となる地雷が小型であること、金属に比して反射率が低いこ
+と、地中の浅い部分を探査するために地表面の影響が相対的に大きいこと、ほか
+の散乱体の存在などの要因により、反射波の位相と振幅のデータだけで地雷を特
+定することは難しい。最近の研究\cite{2013RKarlina}でも、GPRにより地中に埋
+められたある物体を検出することは出来ても、そ
+の物体が地雷かどうかは判別することが出来ていない。\\
+これに対して、本研究室ではGPRの反射波により得られた地雷に特有のテクスチャ
+の特徴量を自己組織化マップ（Self-Organizing Map:SOM）によって特定するこ
+とで、地雷の可視化を実現させた。
+しかしこの地雷可視化システムにはまだ課題があった。このシステムでは、
+$12\times12$の二次元アレイに配置されたアンテナの送受信を20個のメカニカル
+スイッチで切り替えてデータ取得しており、これらは信号の減衰が少ない理想的
+なスイッチではあるが繰り返し使用するうちに壊れてしまうという実用面での欠
+点がある。また配線が複雑となりアンテナのメンテナンスにも時間がかかってし
+まう。これらの問題を回避するために、新しいフロントエンドが提案された\cite{ejiri}。本
+研究はこのフロントエンドを用いて実際に地中を測定し、自己組織化マップを適
+用して従来のシステムと遜色なく地雷を可視化することを目標とする。本稿では地
+雷の埋まっている地表を計測したデータを元にSOMを生成し、現段階での新型フ
+ロントエンドの性能における検知結果を報告する。
+\newpage
+\section{新型フロントエンド製作の背景}
+\subsection{地雷可視化システムの概要}
+地雷可視化のプロセスは、以下に示す様に三段階に分けられる。
+\begin{itemize}
+ \item[(1)] GPRを用いて地表面からの反射波データを取得する。
+ \item[(2)] 取得したデータに前処理をして二種類のテクスチャ特徴量を計算、抽出する。
+ \item[(3)] 抽出した二種類のテクスチャ特徴量を複素化により情報統合してSOMにかけ、地
+雷のクラスタリングを行う。
+\end{itemize}
+ベクトルネットワークアナライザ（VNA）がマイクロ波を発生させ、スイッチの
+切り替えにより1つのアンテナに電磁波が導かれ送信される。反射波
+は別の1つのアンテナが受信し、スイッチを通ってVNAで観測される。\\
+取得したデータはノート型パーソナルコンピュータに転送され、そこで解析が行
+われる。まずアンテナからアンテナへ地面を反射せずに到達する図\ref{dc}（a）
+のような直接結合（direct coupling）の校正データ（$z_{coup}$）を予め用意
+しておき、取得したデータ$z_{raw}$を補正する\cite{2008SMas}。
+\begin{figure}[btp]
+ \begin{center}
+  \begin{tabular}{c}
+   \begin{minipage}{0.4\hsize}
+\includegraphics[width =\hsize ]{directcoup.eps}
+\caption{直接結合（a）と補正のための経路長（b）}
+\label{dc}      
+   \end{minipage}
+   \begin{minipage}{0.6\hsize}
+\includegraphics[width =\hsize ]{flowchart.eps}
+\caption{データ取得から地雷可視化までの流れ}
+\label{flow}          
+   \end{minipage}
+  \end{tabular}
+ \end{center}
+\end{figure}
+\begin{equation}
+ z_{tmp}(x,y,f)=z_{raw}(x,y,f)-z_{coup}(x,y,f)
+\end{equation}
+\begin{equation}
+ z_{after}(x,y,f)=exp(-i\theta_{path})\cdot exp(-i\angle z_{coup}(x,y,f))\cdot z_{tmp}(x,y,f)
+\end{equation}
+\begin{equation}
+ \theta_{path}=\frac{2\cdot2\pi}{\lambda} \sqrt{d^2+h^2}
+\end{equation}
+ここで、$d$、$h$とは図\ref{dc}（b）に示した部分の長さである。ただし$h$は
+実際には分からないため、一般的に対人地雷の埋まっている深さである5cmを採用した。
+なお従来は、振幅の減衰差はそれほどないものとし、位相にのみ直接結合の補正
+を行なっていた。\\
+直接結合の補正の後、振幅をdB変換し、人間の目の感覚に近づけ、振幅を正規化
+する。ここまでを前処理とし、これによって得られたデータをSOMに掛けてクラ
+スタリングを行う。SOMを扱う式は紙面の都合上省くが、処理のおおまかな流れ
+は図\ref{flow}のようになる。
+\newpage
+\subsection{従来のフロントエンドの概要}
+従来のフロントエンドはタワー状になっており、底面にアンテナが取り付けられ
+ていたため、フロントエンドを持ち上げて計測したい地表の真上に持っていく必要があっ
+た。アンテナは2006年に本研究室が提案した Walled linearly
+tapered slot antennea（Walled LTSA）\cite{2007SMas}を$12\times12$の二次
+元アレイ状に配置
+している。このアンテナは広帯域かつ高ゲインであり、近接場イメージングに適
+している。このシステムにおいてGPRに用いる周波数帯は8$\sim$12[GHz]で、8[G
+Hz]から0.4[GHz]刻みで反射波を取得する。\\
+しかし従来のフロントエンドのデータ取得ではアンテナの配線数が多くなりメンテナン
+スに非常に時間がかかるという問題があった。配線が増えるとコネクタ部の故障
+に対応する手間も増えるためである。また信号の減衰が少ない理想的なスイッチ
+であるために高周波用のメカニカルスイッチ20個が多層化されて用いられ、これがさ
+まざまな送受信の組み合わせを可能にしていた\cite{2008SMas}
+が、機械式であるために電子スイッチに比べ反復使用で壊れやすいという難点
+もあった。さらに高密度にアンテナを配置しているため、直接結合の影響を物理
+的に極力排除することを考えたWalled LTSAでも、実際には直接結合の影響が無
+視できないほど大きく出ていた。
+
+\subsection{新型フロントエンドの概要}
+前節の問題を解決するために、図\ref{so2}のようにアンテナを一列に配置した配線数の少な
+いフロントエンドが製作された\cite{ejiri}。これにより、用いるスイッチの数も大幅
+に削減することができ、信頼度が向上した。\\
+このシステムのスイッチング回路には一部にpinダイオードスイッチが使用されて
+いる（図\ref{scircuit}）。pinダイオードとは一般のダイオードに用いられるP層とN層の間に真性半
+導体のI層がある三層構造となっているダイオードで、高周波におけるスイッチ
+特性に優れているために広く使われている。しかしpinダイオードは信号の減衰
+が大きいために、このシステムでは高速かつ頻繁な切り替えが求められる部分に
+これを使用し、それほど切り替えが頻繁である必要がない部分にはメカニカルス
+イッチを用いることで、信号の減衰を抑えている。\\
+また、データ点の取り方は図\ref{so2get}のようになっている。従来のシステム
+では1つ隣、2つ隣、1つ下、1つ斜め下の4種類505点のデータを取得したが、新型
+のシステムでは1つ隣、2つ隣の2種類のデー
+タしか取れない。これは一見して情報量の減少と見えるが、サーボを用いてアン
+テナを自由に前後に動かせるため、実際には同程度の情報量を得ることができる。
+今回の実験では、一列のアンテナで21点の計測が可能であることを受けてサーボ
+の進行方向にもアンテナの列長14.3cmと同じ距離の間に21点のデータを取ることとし、
+441点のデータを得た。
+\begin{figure}[p]
+ \begin{center}
+  \begin{tabular}{c}
+  \begin{minipage}{0.35\hsize}
+\includegraphics[width =\hsize ]{so2.eps}
+\caption{一次元アレイアンテナの地雷探知システム}
+\label{so2}
+  \end{minipage}
+  \begin{minipage}{0.65\hsize}
+\includegraphics[width =\hsize ]{switch-circuit.eps}
+\caption{新型システムのスイッチング回路図}
+\label{scircuit}
+  \end{minipage}
+ \end{tabular}
+  \end{center}
+ \end{figure}
+\begin{figure}[btp]
+ \includegraphics[width =\hsize ]{switch-circuit2.eps}
+\caption{新型システムでのデータ取得}
+\label{so2get}
+\end{figure}
+
+\newpage
+\section{実験}
+新型フロントエンドはほぼ完成している状態であったが、地雷の計測はまだ試行
+されたことがなかった。反射特性と直接結合の影響が計測されており、従来のフ
+ロントエンドと反射特性は大きく変わっておらず、直接結合は低減されているこ
+とが分かっていた\cite{ejiri}。そこで、Walled LTSAを用いているために影響が少ないと思
+われる直接結合については考慮しないことにし、従来のシステ
+ムを適用して直径7.7cm・高さ4.1cmのプラスチック地雷を地表0cmの深さに埋め
+て実際に計測した。\\
+近傍のニューロを利用した複素自己組織化マップ（CSOM）には様々なものがある
+が、今回は従来のシステムで用いられていた、ring-CSOMのトポロジーを利用し
+た高速地雷クラス同定法\cite{nakano}を用いて実験を行った。この同定法の詳細は文献を参照
+いただくとし、ここでは簡単な説明のみに留める。\\
+この手法は、地雷を同定し結果の分かっているサンプル画像をCSOMに掛けたもの
+と、検知したい未知の画像をCSOMに掛けたものの全体の類似度を計算し、未知の
+画像のそれぞれのクラスとサンプル画像の地雷クラスとの類似度を数値的に表す
+ことで地雷クラスを同定するものである。
+\section{結果}
+実験の結果、サンプル画像の計測データは図\ref{samp}、これをCSOMにかけたも
+のは図\ref{sampsom1}、未知の画像の計測データは図\ref{unknown}、これをCSO
+Mにかけたものは図\ref{unknownsom1}のようになった。しかし
+従来には見られなかった縦縞が計測され、それが地雷クラスの同定にも悪影響を
+及ぼし、結果、図\ref{ringsom1}のように、明るい部分がより地雷らしいと表示されるのだが、
+縦長の別のクラスを地雷だと検知してしまった。\\
+これの一因として、予想以上に直接結合の影響が強く出たと考え、直接結合の補
+正をかけた。その結果、サン
+プル画像をCSOMに掛けたものは図\ref{sampsom2}、未知の画像をCSOMに掛けたも
+のは図\ref{unknownsom2}のように
+なり、地雷クラスの同定結果は図\ref{ringsom2}のようになった。これによれば、まだ多少縦縞
+のノイズは乗るが、地雷クラスを同定し可視化することに成功した。
+しかし再現性は50％を切っており、検知できないこともまだ多々ある。
+
+\begin{figure}[btp]
+ \begin{center}
+\includegraphics[width =\hsize ]{sample0807.eps}
+\caption{サンプル画像の計測データ}
+\label{samp}
+  \end{center}
+ \end{figure}
+ \begin{figure}[btp]
+  \begin{center}
+\includegraphics[width =\hsize ]{SOMsample0807.eps}
+\caption{サンプルのCSOM画像}
+\label{sampsom1}
+   \end{center}
+\end{figure}
+\begin{figure}[btp]
+ \begin{center}
+\includegraphics[width =\hsize ]{unknown0807.eps}
+\caption{未知の画像の計測データ}
+\label{unknown}
+  \end{center}
+\end{figure}
+\begin{figure}[btp]
+ \begin{center}
+ \begin{tabular}{c}
+  \begin{minipage}{0.5\hsize}
+   \includegraphics[width =\hsize ]{20130807_mine6.eps}
+\caption{未知のCSOM画像}
+\label{unknownsom1}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \includegraphics[width =\hsize ]{20130807_mine6_fi.eps}
+\caption{図\ref{unknownsom1}を図\ref{sampsom1}でクラス同定した結果}
+\label{ringsom1}
+  \end{minipage}
+ \end{tabular}
+  \end{center}
+ \end{figure}
+\begin{figure}[btp]
+ \begin{center}
+\includegraphics[width =\hsize ]{SOM20130807h_mine1-5.png}
+\caption{直接結合を複素数で補正したサンプルのCSOM画像}
+\label{sampsom2}
+  \end{center}
+ \end{figure}
+\begin{figure}[btp]
+ \begin{center}
+ \begin{tabular}{c}
+  \begin{minipage}{0.5\hsize}
+   \includegraphics[width =\hsize ]{SOM20130807h_mine6.png}
+\caption{直接結合を複素数で補正した未知のCSOM画像}
+\label{unknownsom2}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \includegraphics[width =\hsize ]{SOM20130807h_mine6_fi.png}
+\caption{図\ref{unknownsom2}を図\ref{sampsom2}でクラス同定した結果}
+\label{ringsom2}
+  \end{minipage}
+ \end{tabular}
+ \end{center}
+\end{figure}
+\section{考察と今後の課題}
+\subsection{考察}
+実験結果の通り、いまだ縦縞の影響を排除できていない。計測データを人間の目
+で見た時には確かに地雷の影のようなものが写っているのだが、これをCSOMに掛
+けると縦縞の影響で十分に検知されなくなってしまう。
+再現性の問題も、従来のフロントエンドでは発生しなかったことから、新しい
+フロントエンドで計測したサンプル画像からはっきりと地雷の形を読み取ること
+が出来ない、つまりこれもやはり縦縞の影響を受けているためであると推測される。
+\subsection{今後の課題}
+今後の方針として、縦縞の原因をまず突き止める必要がある。縦縞を排除出来れ
+ば、地雷の可視化に再現性が見られるようになり、その先の精度向上などに繋げ
+ることが可能になる。地雷可視化が完成したら、次は他の条件での可視化再現な
+どを試したい。\\
+また、実用に堪えるように、画像範囲のデータを全て取得してから計算処理をするのではなく、
+アームを前に出すごとに計算処理を行い検知結果を更新するようなシステムを実
+装したい。
+
+\newpage 
+\begin{thebibliography}{99}
+\bibitem{2007TCounts} T. Counts, A. C. Gurbuz, W. R. Scott Jr.,
+        J. H. McClellan, and K. Kim, "Multistatic
+ground-penetrating radar experiments," IEEE Transrations on Geoscience and
+Remote Sensing, vol. 45, no. 10, pp. 2544-2553, October 2007.
+\bibitem{2004MSato}M. Sato, Y. Hamada, F. N. Kong, Z. Zeng, and G. Fang, "GPR using an array an-
+tenna for land-mine detection," Near Subsurface Geophysics, vol. 2,
+        pp. 7-13, 2004.
+        \bibitem{2013RKarlina}R. Larlina and M. Sato, "Compressive Sensing
+                Applied Handheld GPR Sensor System for Landmine
+                Detection," IEICE/IEE, EMT-13-066, June 2013.
+\bibitem{ejiri} A. Ejiri, "High-performance landmine visualization
+        system using neural network," MasterThesis, February 2012.
+\bibitem{2008SMas} S. Masuyama, K. Yasuda, K. Yasuda, and A. Hirose, "Multiple mode selection of
+walled-ltsa array elements for high resolution imaging to visualize antipersonnel
+plastic landmines," IEEE Geoscience and Remote Sensing Letters, vol. 5,
+        no. 4, pp. 745-749, October 2008.
+\bibitem{2007SMas} S. Masuyama and A. Hirose, "Walled LTSA array for rapid, high spatial resolution,
+and phase sensitive imaging to visualize plastic landmines," IEEE Transactions
+on Geoscience and Remote Sensing, vol. 45, no. 8, pp. 2536-2543, August 2007.
+\bibitem{nakano} Y. Nakano and A. Hirose, "Improvement of plastic
+        landmine visualization performance by use of ring-csom and
+        frequency-domain local correlation," IEICE Transactions on
+        Electronics, vol. E92-C, no. 1, pp. 102-108, January 2009.
+\end{thebibliography}
+\begin{verbatim}
+\end{verbatim}
+
+\end{document}

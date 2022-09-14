@@ -1,0 +1,41 @@
+\contentsline {chapter}{\numberline {第1章}序章}{3}
+\contentsline {section}{\numberline {1.1}研究背景}{3}
+\contentsline {subsection}{\numberline {1.1.1}地中探査レーダによる地雷探査}{3}
+\contentsline {subsection}{\numberline {1.1.2}地雷可視化システム}{3}
+\contentsline {section}{\numberline {1.2}目的}{5}
+\contentsline {chapter}{\numberline {第2章}地雷可視化システム}{6}
+\contentsline {section}{\numberline {2.1}従来のフロントエンド}{6}
+\contentsline {subsection}{\numberline {2.1.1}システムの概要}{6}
+\contentsline {subsection}{\numberline {2.1.2}従来のフロントエンドの問題点}{7}
+\contentsline {section}{\numberline {2.2}以前提案した1次元アレイアンテナ式地雷可視化システム}{9}
+\contentsline {section}{\numberline {2.3}可視化処理}{12}
+\contentsline {subsection}{\numberline {2.3.1}前処理}{12}
+\contentsline {subsection}{\numberline {2.3.2}CSOM}{14}
+\contentsline {subsection}{\numberline {2.3.3}特徴量ベクトルの抽出}{15}
+\contentsline {subsection}{\numberline {2.3.4}地雷クラスの同定}{15}
+\contentsline {section}{\numberline {2.4}異方性を軽減する自己組織化マップ}{17}
+\contentsline {subsection}{\numberline {2.4.1}異方的重み付け}{17}
+\contentsline {subsection}{\numberline {2.4.2}複素内積での勝者クラス決定法}{18}
+\contentsline {section}{\numberline {2.5}模擬地雷計測実験と縦縞ノイズ問題}{20}
+\contentsline {subsection}{\numberline {2.5.1}計測方法}{20}
+\contentsline {subsection}{\numberline {2.5.2}計測結果}{21}
+\contentsline {chapter}{\numberline {第3章}提案1: アンテナ素子のエレメント外周の曲線化}{26}
+\contentsline {section}{\numberline {3.1}Taper-Walled LTSAをアレイ化した際の問題点}{26}
+\contentsline {section}{\numberline {3.2}新型フロントエンドのアレイアンテナとしての評価}{26}
+\contentsline {section}{\numberline {3.3}フロントエンドに実装しての比較}{26}
+\contentsline {section}{\numberline {3.4}計測実験}{35}
+\contentsline {chapter}{\numberline {第4章}提案2: 高周波経路別キャリブレーション}{38}
+\contentsline {section}{\numberline {4.1}システムのモデル化}{38}
+\contentsline {section}{\numberline {4.2}補正データの取得}{39}
+\contentsline {section}{\numberline {4.3}補正結果}{40}
+\contentsline {chapter}{\numberline {第5章}提案3: 特徴量ベクトルの取捨}{48}
+\contentsline {section}{\numberline {5.1}取捨手法の提案}{48}
+\contentsline {section}{\numberline {5.2}各手法による自己組織化マップの変化}{48}
+\contentsline {chapter}{\numberline {第6章}考察と今後の課題}{58}
+\contentsline {section}{\numberline {6.1}考察}{58}
+\contentsline {subsection}{\numberline {6.1.1}アンテナ素子のエレメント外周の曲線化}{58}
+\contentsline {subsection}{\numberline {6.1.2}高周波経路別キャリブレーションによる縦縞ノイズ補正}{58}
+\contentsline {subsection}{\numberline {6.1.3}特徴量ベクトルの取捨によるCSOMの変化}{58}
+\contentsline {section}{\numberline {6.2}今後の課題}{59}
+\contentsline {chapter}{参考文献}{60}
+\contentsline {chapter}{発表文献}{62}

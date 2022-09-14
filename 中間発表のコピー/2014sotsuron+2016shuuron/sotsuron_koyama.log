@@ -1,0 +1,538 @@
+This is e-pTeX, Version 3.1415926-p3.2-110415-2.3 (utf8.euc) (TeX Live 2011) (format=platex 2012.3.22)  26 FEB 2015 19:20
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**sotsuron_koyama.tex
+(./sotsuron_koyama.tex
+pLaTeX2e <2006/11/10> (based on LaTeX2e <2009/09/24> patch level 0)
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, af
+rikaans, arabic, basque, bulgarian, catalan, pinyin, croatian, czech, danish, d
+utch, ukenglish, usenglishmax, esperanto, estonian, farsi, finnish, french, gal
+ician, german, ngerman, swissgerman, hungarian, icelandic, indonesian, interlin
+gua, irish, italian, kurmanji, latin, latvian, lithuanian, mongolian, mongolian
+lmc, bokmal, nynorsk, polish, portuguese, romanian, russian, serbian, serbianc,
+ slovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian
+, welsh, ancientgreek, ibycus, monogreek, greek, coptic, loaded.
+(/usr/local/texlive/2011/texmf-dist/tex/platex/jsclasses/jsbook.cls
+Document Class: jsbook 2010/03/14 okumura
+LaTeX Info: Redefining \rmfamily on input line 339.
+LaTeX Info: Redefining \sffamily on input line 342.
+LaTeX Info: Redefining \ttfamily on input line 345.
+\symmincho=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
+(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 410.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 599.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 599.
+\fullwidth=\dimen118
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 7.68799pt on input line 754.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 7.68799pt on input line 754.
+\c@part=\count81
+\c@chapter=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\@lnumwidth=\dimen119
+\bibindent=\dimen120
+LaTeX Info: Redefining \TeX on input line 1768.
+LaTeX Info: Redefining \LaTeX on input line 1794.
+LaTeX Info: Redefining \LaTeXe on input line 1819.
+\heisei=\count90
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks15
+\ex@=\dimen121
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen122
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count91
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count92
+\leftroot@=\count93
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count94
+\DOTSCASE@=\count95
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box41
+\strutbox@=\box42
+\big@size=\dimen123
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count96
+\c@MaxMatrixCols=\count97
+\dotsspace@=\muskip10
+\c@parentequation=\count98
+\dspbrk@lvl=\count99
+\tag@help=\toks16
+\row@=\count100
+\column@=\count101
+\maxfields@=\count102
+\andhelp@=\toks17
+\eqnshift@=\dimen124
+\alignsep@=\dimen125
+\tagshift@=\dimen126
+\tagwidth@=\dimen127
+\totwidth@=\dimen128
+\lineht@=\dimen129
+\@envbody=\toks18
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2009/07/02 v2.20.1
+\thm@style=\toks20
+\thm@bodyfont=\toks21
+\thm@headfont=\toks22
+\thm@notefont=\toks23
+\thm@headpunct=\toks24
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks25
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/arydshln/arydshln.sty
+Package: arydshln 2004/08/31 v1.71 
+\dashlinedash=\dimen130
+\dashlinegap=\dimen131
+\adl@box=\box43
+\adl@height=\dimen132
+\adl@heightsave=\dimen133
+\adl@depth=\dimen134
+\adl@depthsave=\dimen135
+\adl@finaldepth=\dimen136
+\adl@columns=\count103
+\adl@ncol=\count104
+\adl@currentcolumn=\count105
+\adl@currentcolumnsave=\count106
+\adl@totalheight=\count107
+\adl@totalheightsave=\count108
+\adl@dash=\count109
+\adl@gap=\count110
+\adl@cla=\count111
+\adl@clb=\count112
+\adl@everyvbox=\toks26
+\adl@LTpagetotal=\dimen137
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
+\c@tracingmulticols=\count113
+\mult@box=\box44
+\multicol@leftmargin=\dimen138
+\c@unbalance=\count114
+\c@collectmore=\count115
+\doublecol@number=\count116
+\multicoltolerance=\count117
+\multicolpretolerance=\count118
+\full@width=\dimen139
+\page@free=\dimen140
+\premulticols=\dimen141
+\postmulticols=\dimen142
+\multicolsep=\skip49
+\multicolbaselineskip=\skip50
+\partial@page=\box45
+\last@line=\box46
+\mult@rightbox=\box47
+\mult@grightbox=\box48
+\mult@gfirstbox=\box49
+\mult@firstbox=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\c@columnbadness=\count119
+\c@finalcolumnbadness=\count120
+\last@try=\dimen143
+\multicolovershoot=\dimen144
+\multicolundershoot=\dimen145
+\mult@nat@firstbox=\box68
+\colbreak@box=\box69
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks27
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvipdfmx.def on input line 91.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/dvipdfmx-def/dvipdfmx.def
+File: dvipdfmx.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen146
+\Gin@req@width=\dimen147
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup7
+\symboldletters=\mathgroup8
+\symboldsymbols=\mathgroup9
+\symboldmincho=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
+LaTeX Info: Redefining \bm on input line 204.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2010/01/09 v3.1m Customizing captions (AR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2010/01/14 v3.1m caption3 kernel (AR)
+\captionmargin=\dimen148
+\captionmargin@=\dimen149
+\captionwidth=\dimen150
+\caption@indent=\dimen151
+\caption@parindent=\dimen152
+\caption@hangindent=\dimen153
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used on input line 1084.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->{\small \advance \lefts
+kip .0628\linewidth \advance \rightskip .0628\linewidth \vskip \abovecaptionski
+p \sbox \@tempboxa {#1\hskip 1zw\relax #2}\ifdim \wd \@tempboxa <\hsize \center
+ing \fi #1\hskip 1zw\relax #2\par \vskip \belowcaptionskip }.
+\c@ContinuedFloat=\count121
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+\epsfxsize=\dimen154
+\epsfysize=\dimen155
+)
+(./sotsuron_koyama.aux)
+\openout1 = `sotsuron_koyama.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 18.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 4.805pt on input line 18.
+LaTeX Font Info:    Try loading font information for U+msa on input line 18.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 18.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 18.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 18.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 4.805pt on input line 18.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 28.82996pt on input line 18.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 28.82996pt on input line 18.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <30> not available
+(Font)              size <24.88> substituted on input line 18.
+
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 20.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 20.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 20.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 20.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 20.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 23.90964pt on input line 20.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 20.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 23.90964pt on input line 20.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 25.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 19.9311pt on input line 25.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 25.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 19.9311pt on input line 25.
+[1
+
+]
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 23.90964pt on input line 38.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 23.90964pt on input line 38.
+ (./sotsuron_koyama.toc)
+\tf@toc=\write4
+\openout4 = `sotsuron_koyama.toc'.
+
+ [1
+
+]
+第1章
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 19.9311pt on input line 41.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 19.9311pt on input line 41.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 42.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 42.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 42.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 42.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 43.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 43.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 43.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 43.
+[2
+
+] [3]
+第2章
+File: so1.eps Graphic file (type eps)
+<so1.eps> [4
+
+]
+File: LTSA.eps Graphic file (type eps)
+ <LTSA.eps> [5]
+File: so2.png Graphic file (type bmp)
+ <so2.png>
+File: walled-taper.png Graphic file (type bmp)
+ <walled-taper.png> [6]
+File: switch-circuit.eps Graphic file (type eps)
+
+<switch-circuit.eps>
+File: switch-circuit2.eps Graphic file (type eps)
+ <switch-circuit2.eps> [7] [8]
+File: directcoup.eps Graphic file (type eps)
+ <directcoup.eps>
+File: flowchart.png Graphic file (type bmp)
+
+<flowchart.png>
+Overfull \hbox (15.33331pt too wide) in paragraph at lines 241--253
+ [] 
+ []
+
+[9] [10] [11]
+第3章
+[12
+
+]
+File: maha.png Graphic file (type bmp)
+ <maha.png>
+File: innerproduct.png Graphic file (type bmp)
+ <innerproduct.png> [13] [14]
+File: so2-2.png Graphic file (type bmp)
+ <so2-2.png>
+File: LED.png Graphic file (type bmp)
+ <LED.png>
+File: LED2.png Graphic file (type bmp)
+ <LED2.png>
+[15] [16]
+第4章
+File: landmine.png Graphic file (type bmp)
+<landmine.png> [17
+
+]
+File: 20150204_mine1_raw_a.eps Graphic file (type eps)
+ <20150204_mine1_raw_a.eps>
+File: 20150204_mine1_raw_p.eps Graphic file (type eps)
+ <20150204_mine1_raw_p.eps>
+File: 20150204_mine2_raw_a.eps Graphic file (type eps)
+
+<20150204_mine2_raw_a.eps>
+File: 20150204_mine2_raw_p.eps Graphic file (type eps)
+ <20150204_mine2_raw_p.eps>
+File: 20150204_mine3_raw_a.eps Graphic file (type eps)
+
+<20150204_mine3_raw_a.eps>
+File: 20150204_mine3_raw_p.eps Graphic file (type eps)
+ <20150204_mine3_raw_p.eps>
+File: 20150204_mine4_raw_a.eps Graphic file (type eps)
+
+<20150204_mine4_raw_a.eps>
+File: 20150204_mine4_raw_p.eps Graphic file (type eps)
+ <20150204_mine4_raw_p.eps>
+File: 20150204_mine5_raw_a.eps Graphic file (type eps)
+
+<20150204_mine5_raw_a.eps>
+File: 20150204_mine5_raw_p.eps Graphic file (type eps)
+ <20150204_mine5_raw_p.eps>
+File: 20150204_mine6_raw_a.eps Graphic file (type eps)
+
+<20150204_mine6_raw_a.eps>
+File: 20150204_mine6_raw_p.eps Graphic file (type eps)
+ <20150204_mine6_raw_p.eps>
+File: 20150204_mine7_raw_a.eps Graphic file (type eps)
+
+<20150204_mine7_raw_a.eps>
+File: 20150204_mine7_raw_p.eps Graphic file (type eps)
+ <20150204_mine7_raw_p.eps>
+File: 20150204_mine8_raw_a.eps Graphic file (type eps)
+
+<20150204_mine8_raw_a.eps>
+File: 20150204_mine8_raw_p.eps Graphic file (type eps)
+ <20150204_mine8_raw_p.eps>
+File: 20150204_mine9_raw_a.eps Graphic file (type eps)
+
+<20150204_mine9_raw_a.eps>
+File: 20150204_mine9_raw_p.eps Graphic file (type eps)
+ <20150204_mine9_raw_p.eps>
+File: 20150204_mine10_raw_a.eps Graphic file (type eps)
+
+<20150204_mine10_raw_a.eps>
+File: 20150204_mine10_raw_p.eps Graphic file (type eps)
+ <20150204_mine10_raw_p.eps>
+File: 20150204_none1_raw_a.eps Graphic file (type eps)
+
+<20150204_none1_raw_a.eps>
+File: 20150204_none1_raw_p.eps Graphic file (type eps)
+ <20150204_none1_raw_p.eps>
+File: 20150206_direct2_raw_a.eps Graphic file (type eps)
+
+<20150206_direct2_raw_a.eps>
+File: 20150206_direct2_raw_p.eps Graphic file (type eps)
+ <20150206_direct2_raw_p.eps>
+File: 20150204_mine6_Bhosei_a.eps Graphic file (type eps)
+
+<20150204_mine6_Bhosei_a.eps>
+File: 20150204_mine6_Bhosei_p.eps Graphic file (type eps)
+ <20150204_mine6_Bhosei_p.eps>
+File: SOM_mine6_02005_e_raw.eps Graphic file (type eps)
+
+<SOM_mine6_02005_e_raw.eps>
+File: SOM_mine6_02005_e_wsqrt.eps Graphic file (type eps)
+ <SOM_mine6_02005_e_wsqrt.eps>
+Overfull \hbox (24.0pt too wide) in paragraph at lines 811--822
+ [] 
+ []
+
+[18] [19]
+File: SOM_mine6_02005_i_raw.eps Graphic file (type eps)
+ <SOM_mine6_02005_i_raw.eps>
+File: SOM_mine6_02005_i_wsqrt.eps Graphic file (type eps)
+ <SOM_mine6_02005_i_wsqrt.eps>
+Overfull \hbox (24.0pt too wide) in paragraph at lines 832--843
+ [] 
+ []
+
+[20] [21]
+第5章
+[22
+
+] [23]
+LaTeX Font Info:    Font shape `JT1/mc/m/it' in size <10> not available
+(Font)              Font shape `JT1/mc/m/n' tried instead on input line 905.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 905.
+LaTeX Font Info:    Font shape `JY1/mc/m/it' in size <10> not available
+(Font)              Font shape `JY1/mc/m/n' tried instead on input line 905.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 905.
+ [24
+
+] [25] [26
+
+] (./sotsuron_koyama.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 5.12pt have occurred.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3233 strings out of 494163
+ 44960 string characters out of 3160586
+ 121347 words of memory out of 3000000
+ 6554 multiletter control sequences out of 15000+200000
+ 20397 words of font info for 91 fonts, out of 3000000 for 9000
+ 750 hyphenation exceptions out of 8191
+ 36i,15n,38p,246b,531s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on sotsuron_koyama.dvi (27 pages, 58444 bytes).
