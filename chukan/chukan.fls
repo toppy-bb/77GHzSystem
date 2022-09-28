@@ -336,5 +336,40 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT ../img/poincar.png
+INPUT ../img/poincar.png
+INPUT ../img/poincar.png
+INPUT extractbb -B cropbox -O ../img/poincar.png
+INPUT ../img/newral.png
+INPUT ../img/newral.png
+INPUT ../img/newral.png
+INPUT extractbb -B cropbox -O ../img/newral.png
+INPUT ../img/reservoir.png
+INPUT ../img/reservoir.png
+INPUT ../img/reservoir.png
+INPUT extractbb -B cropbox -O ../img/reservoir.png
+INPUT ../img/system.png
+INPUT ../img/system.png
+INPUT ../img/system.png
+INPUT extractbb -B cropbox -O ../img/system.png
+INPUT ../img/diagram.png
+INPUT ../img/diagram.png
+INPUT ../img/diagram.png
+INPUT extractbb -B cropbox -O ../img/diagram.png
+INPUT ../img/process.png
+INPUT ../img/process.png
+INPUT ../img/process.png
+INPUT extractbb -B cropbox -O ../img/process.png
+INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
+INPUT extractbb -B cropbox -O ../img/20220707_test_1_AmPh4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
+INPUT extractbb -B cropbox -O ../img/20220707_test_1_IQ4_2Tx2Rx.png
+INPUT ../img/20220707_test_1_PS_2.png
+INPUT ../img/20220707_test_1_PS_2.png
+INPUT ../img/20220707_test_1_PS_2.png
+INPUT extractbb -B cropbox -O ../img/20220707_test_1_PS_2.png
 INPUT chukan.aux

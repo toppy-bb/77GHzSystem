@@ -24,7 +24,7 @@
 \end{minipage}
 \begin{center}
 \begin{minipage}{0.7\hsize}
-{\huge 指導教員　　　廣瀬　明　教授\\ 夏秋　嶺　准教授}
+{\huge 指導教員　　　廣瀬　明　教授\\　　　　　　　夏秋　嶺　准教授}
 \vspace{1cm}\\
 \centering
 {\huge 電気電子工学科\\}
@@ -41,7 +41,7 @@
 \section{序論}
 \subsection{背景}
 近年，電磁波を用いたセンシング技術は医療，セキュリティなど
-様々な分野において利用されている．
+様々な分野において利用されている\cite{human_motion}．
 例えば，自宅や病院にいる高齢者，患者が安全に過ごすための遠隔システムなどに応用される．
 電磁波を使って非接触で生体計測を行うことで，身体の異常検知を行うものである．
 可視光によるイメージングも多く使用されているが，
@@ -61,12 +61,23 @@
 以上のように，電磁波によるセンシングは有効であるが，非接触型であるために，
 精度に欠けるなど，課題が残されている．
 
+従来，ヒトの動作の分類にはCNN，SOMなどが用いられてきた\cite{cnn}\cite{som}．
+CNNによる動作の分類では測定回数や学習コストの増加が見られる．
+また，SOMは静的な信号の処理を行うため，動作のような時系列信号には向かない．
+そこで，時系列情報の処理に呈しており，かつ学習コストの低いリザバーコンピューティング
+による分類が有効であると考えられる．
+%また，四元数も複素数と同様に，単なる 4 次元の
+%データでなくひとまとまりに処理されるひとつの構造とし
+%て取り扱うべきものであり，それを処理するニューラルネッ
+%トワークにおいてもその四元数化がもたらす効能が期待さ
+%れる．
+
 \subsection{目的}
 以上から，電磁波を用いてセンシングを行い，ヒトの動作を分類することは．医療分野，
 セキュリティー分野において重要である．
 そこで，本研究では，四元数リザバーコンピューティングを提案し，その有用性を示す．
 
-\section{関連技術}
+\section{関連技術}\label{section:2}
 \subsection{偏波とポアンカレ球}
 偏波の状態は，ストークスベクトル$\bm{g}$により，
 ポアンカレ球で表現できる．4つのストークスパラメータを
@@ -131,9 +142,15 @@ $g_3$は左回り円偏波成分(left-handed circle: LHC)
       \right)
 \end{equation}
 
-ポアンカレベクトル$\bm{P}$は図\ref{1}のようにポアンカレ球で表現できる．
-これは偏波の状態を視覚化するのに便利な表現方法である．
+ポアンカレベクトル$\bm{P}$は図\ref{fig:poincar}のようにポアンカレ球で表現できる．
+これは偏波の状態を視覚化するのに便利な表現方法である\cite{poincar}．
 
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=110mm]{../img/poincar.png}
+    \caption{ポアンカレ球}
+    \label{fig:poincar}
+\end{figure}
 
 \subsection{四元数}
 四元数は，複素数を拡張した数である．
@@ -174,10 +191,18 @@ $g_3$は左回り円偏波成分(left-handed circle: LHC)
 %\end{figure}
 %それに対して図%\ref{fig:echo_state}
 %に示すように 
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=110mm]{../img/newral.png}
+    \caption{ニューラルネットワーク}
+	\label{fig:neural}
+\end{figure}
+
 リザバーコンピューティングは時系列情報処理に適した機械学習の枠組みの一つであり，
 学習が極めて高速であるという点が特徴である．
 まず，オーソドックスなニューラルネットワークについて説明する．
-この場合は図\ref{fig:neural_network}に示すように
+この場合は図\ref{fig:neural}に示すように
 ニューロンが層状に並んでいて信号が入力端子から出力端子に向かって一方向に流れていく．
 各ニューロンの入力信号ベクトルを$\bm{x}_{\rm{in}}$，
 そのニューロンに設定された重みを要素とする行列を
@@ -193,7 +218,14 @@ $\bm{s}_{\rm{out}}$とすると，$\bm{t}_{\rm{out}}$と${\bm{s}_{\rm{out}}}$
 の平均二乗誤差が最小となるように誤差逆伝搬ですべての重み
 $\mathbf{W}$を更新していく．この更新作業が学習にあたる．
 
-一方，図\ref{fig:echo_state}に示すように
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=110mm]{../img/reservoir.png}
+    \caption{リザバーコンピューティング}
+	\label{fig:reservoir}
+\end{figure}
+
+一方，図\ref{fig:reservoir}に示すように
 リザバーコンピューティングシステムの中間層に相当する部分は層状になっていない．
 また信号の流れも一方向ではなくフィードバックがかかっている．
 このフィードバックのため，過去の信号の影響が残る．
@@ -203,30 +235,32 @@ $\mathbf{W}$を更新していく．この更新作業が学習にあたる．
 中間層相当の内部で相互にやりとりする信号にかける重み
 $\mathbf{W_{\rm{res}}}$は
 学習によって更新されないという特徴をもつ．
-この中間層相当にあたる部分はリザバー（reservoir:ため池）と呼ばれる．
+この中間層相当にあたる部分はリザバーと呼ばれる．
 更新されるのは中間層から出力層へ信号が流れるときにかかる重み
 $\mathbf{W}_{\rm{out}}$のみである．
 
 入力層の信号を$\bm{s}_{\rm{in}}$，リザバー部の各ニューロンの出力信号を$\bm{x}$，
 出力層における出力信号を$\bm{s}_{\rm{out}}$とし，
-離散時間$n$におけるリザバー部の出力信号を$\bm{x}(n)$と記述すると
-\begin{equation}
-    \bm{x}(n) = f_{\rm{a}}(\mathbf{W_{\rm{res}}} \bm{x}(n-1) + \mathbf{W}_{\rm{in}} \bm{s}_{\rm{in}}(n))
+時間$t$におけるリザバー部の出力信号を$\bm{x}(t)$と記述すると
+\begin{equation}\label{equa:5}
+    \bm{x}(t) = f_{\rm{a}}(\mathbf{W_{\rm{res}}} \bm{x}(t-1) + \mathbf{W}_{\rm{in}} \bm{s}_{\rm{in}}(t))
 \end{equation}
 
-\begin{equation}
-    \bm{s}_{\rm{out}}(n) = f_{\rm{a}}(\mathbf{W}_{\rm{out}} \bm{x}(n))
+\begin{equation}\label{equa:6}
+    \bm{s}_{\rm{out}}(t) = f_{\rm{a}}(\mathbf{W}_{\rm{out}} \bm{x}(t))
 \end{equation}
 
 これらの式よりリザバー部の出力信号と出力層の出力信号が求められる．
 
-$\bm{s}_{\rm{in}}(n)$に対応する教師データを$\bm{t}(n)$とする．
-$n$を$1$から$n_{\rm{end}}$の範囲で考えて$\mathbf{T}=(\bm{t}(1), \bm{t}(2), \cdots \bm{t}(n_{\rm{end}}))$としさらに$\mathbf{X}=(\bm{x}(1), \bm{x}(2), \cdots \bm{x}(n_{\rm{end}}))$とすると
-\begin{equation}
+$\bm{s}_{\rm{in}}(t)$に対応する教師データを$\bm{t}(t)$とする．
+$t$を$1$から$t_{\rm{end}}$の範囲で考えて
+$\mathbf{T}=(\bm{t}(1), \bm{t}(2), \cdots \bm{t}(t_{\rm{end}}))$
+としさらに$\mathbf{X}=(\bm{x}(1), \bm{x}(2), \cdots \bm{x}(t_{\rm{end}}))$とすると
+\begin{equation}\label{equa:7}
     \mathbf{W}_{\rm{out}} \mathbf{X} = f_{\rm{a}}^{-1}(\mathbf{T})
 \end{equation}
 となるように$\mathbf{W}_{\rm{out}}$を学習すればよい．すなわち
-\begin{equation}
+\begin{equation}\label{equa:8}
     \mathbf{W_{out}}=f_{\rm{a}}^{-1}(\mathbf{T}) \mathbf{X}_{\rm{pinv}}
 \end{equation}
 ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である．更新，学習するのは$W_{\rm{out}}$だけなので高速な学習が期待できる．
@@ -235,6 +269,19 @@ $n$を$1$から$n_{\rm{end}}$の範囲で考えて$\mathbf{T}=(\bm{t}(1), \bm{t}
 \section{四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}
 
 \subsection{システムの構成}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.3]{../img/system.png}
+    \caption{偏波リモートセンシングシステム・フロントエンド}
+	\label{fig:system}
+\end{figure}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=110mm]{../img/diagram.png}
+    \caption{ブロックダイアグラム}
+	\label{fig:diagram}
+\end{figure}
+
 図\ref{fig:system}は本研究で用いるシステムのフロントエンドである．
 また，このシステムのブロックダイアグラムを図\ref{fig:diagram}に示す．
 
@@ -250,48 +297,173 @@ $n$を$1$から$n_{\rm{end}}$の範囲で考えて$\mathbf{T}=(\bm{t}(1), \bm{t}
 使用する電磁波は77GHzのミリ波である．ミリ波は，直進性，分解能が高いという性質がある．
 人体に対して無害であるため，生体に対する計測にも多く用いられている．
 
-\subsection{四元数リザバーコンピューティング}
+\subsection{散乱行列による送信偏波の拡張}
+使用する偏波リモートセンシングシステムでは，水平偏波，垂直偏波の送受信を行っている．
+送受信偏波から散乱行列$\bm{S} = 
+\begin{pmatrix}
+    S_{\rm{HH}} & S_{\rm{HV}} \\
+    S_{\rm{VH}} & S_{\rm{VV}} \\
+\end{pmatrix}
+    $は送信信号$\bm{E^{\rm{t}}} =
+\left(
+    \begin{array}{c}
+        E_{\rm{H}}^{\rm{t}}\\
+        E_{\rm{V}}^{\rm{t}}
+    \end{array}
+\right)$
+  と受信信号$\bm{E^{\rm{r}}} =
+\left(
+    \begin{array}{c}
+        E_{\rm{H}}^{\rm{r}}\\
+        E_{\rm{V}}^{\rm{r}}
+    \end{array}
+\right)$
+  について以下の関係を持つ．
+\begin{align}\label{equa:9}
+    \bm{E^{\rm{r}}} &= 
+    \left(
+    \begin{array}{c}
+        E_{\rm{H}}^{\rm{r}}\\
+        E_{\rm{V}}^{\rm{r}}
+    \end{array}
+    \right)
+     = \bm{S}\bm{E^{\rm{t}}} \\
+     &=  
+    \begin{pmatrix}
+        S_{\rm{HH}} & S_{\rm{HV}} \\
+        S_{\rm{VH}} & S_{\rm{VV}} \\
+    \end{pmatrix}
+    \left(
+    \begin{array}{c}
+        E_{\rm{H}}^{\rm{t}}\notag \\
+        E_{\rm{V}}^{\rm{t}}
+    \end{array}
+    \right)
+\end{align}
 
+$\bm{S}$を求めることで，水平偏波，垂直偏波以外が
+送信偏波であった際の受信偏波を計算により求めることができる．
+今回は，送信信号として，水平偏波，垂直偏波，
+$+45^\circ$偏波，$-45^\circ$偏波，
+左回り円偏波と右回り円偏波の6つを考える．
+
+\begin{align*}
+    &水平偏波: \left(
+        \begin{array}{c}
+            1 \\
+            0
+        \end{array}
+        \right) \qquad
+    &&垂直偏波: \left(
+        \begin{array}{c}
+            0 \\
+            1
+        \end{array}
+        \right)\\
+    &+45^\circ 偏波: \frac{1}{\sqrt{2}}\left(
+        \begin{array}{c}
+            1 \\
+            1
+        \end{array}
+        \right) \qquad
+    &&-45^\circ 偏波: \frac{1}{\sqrt{2}}\left(
+        \begin{array}{c}
+            -1 \\
+            1
+        \end{array}
+    \right)\\
+    &左回り円偏波: \frac{1}{\sqrt{2}}\left(
+        \begin{array}{c}
+            1 \\
+            j
+        \end{array}
+        \right) \qquad
+    &&右回り円偏波: \frac{1}{\sqrt{2}}\left(
+        \begin{array}{c}
+            1 \\
+            -j
+        \end{array}
+        \right)
+\end{align*}
+
+このように，送信偏波を増やすことで，
+リザバーコンピューティングによる学習の正確性を向上させる．
+
+\subsection{四元数リザバーコンピューティング}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.4]{../img/process.png}
+    \caption{学習・分類までの処理の流れ}
+	\label{fig:process}
+\end{figure}
+
+まず，処理の流れを図\ref{fig:process}に示す．
+式\ref{equa:9}により，6つの偏波について時系列の情報が得られる．
+それぞれについて，
+前章\ref{section:2}に基づきポアンカレベクトル$p(t)$，
+四元数$q(t)$を求める．こうして求めた6つの四元数を要素にもつベクトルを
+入力端子への入力ベクトル
+$\bm{s}_{\rm{in}}(t) = 
+\left(
+    \begin{array}{c}
+        q_{\rm{H}}(t)\\
+        q_{\rm{V}}(t)\\
+        q_{+45^\circ}(t)\\
+        q_{-45^\circ}(t)\\
+        q_{\rm{LHC}}(t)\\
+        q_{\rm{RHC}}(t)
+    \end{array}
+\right)$とする．四元数を要素にもつ重みを$\bf{W_{\rm{in}}}$と$\bf{W_{\rm{res}}}$，
+活性化関数を$f_a$とし，式\ref{equa:5}- \ref{equa:8}と同様の操作を行うことにより，
+$W_{out}$を求める．現在，未実装であるため，重みの各要素の値，活性化関数，教師データは
+検討中である．
 
 
 \section{実験}
+システムの動作を確認するため，装置の前に何も置かず，壁に向かって送信し測定を行った．
+得られたIQ信号，そこから求められる散乱行列，
+ポアンカレベクトルを図\ref{fig:iq}-\ref{fig:ps}に示す．
+ポアンカレ球上での偏波は6つともある程度まとまっているため，
+偏波リモートセンシングシステムおよび計算に問題はないであろうと考えられる．
+なお，四元数リザバーコンピューティングのプログラミングが未実装である．
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.6]{../img/20220707_test_1_AmPh4_2Tx2Rx.png}
+    \caption{水平偏波および垂直偏波を送信し得られたIQ信号}
+	\label{fig:iq}
+\end{figure}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.4]{../img/20220707_test_1_IQ4_2Tx2Rx.png}
+    \caption{散乱行列の各要素}
+	\label{fig:scatter}
+\end{figure}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.4]{../img/20220707_test_1_PS_2.png}
+    \caption{ポアンカレ球上での偏波情報}
+	\label{fig:ps}
+\end{figure}
 
 
 \section{今後の予定}
-
+今回の実験ではA/D変換にarduinoを用いていたが，より分解能とサンプリングレートの高いA/D変換器を
+用いる予定である．また，四元数リザバーコンピューティング部分のソフトを完成させ，
+適切な重み，活性化関数を検討する．
 
 \newpage 
 \begin{thebibliography}{99}
 		
-	\bibitem{echostate} JAEGER, Herbert. The “echo state” approach to analysing and training recurrent neural networks-with an erratum note. Bonn, Germany: German National Research Center for Information Technology GMD Technical Report, 2001, 148.34: 13.
+	\bibitem{human_motion} B. Jokanovic, M. Amin and B. Erol, ”Multiple joint-variable domains recognition of human motion,” 2017 IEEE Radar Conference (RadarConf), 2017, pp. 0948- 0952
 	
-	\bibitem{physical_reservoir} TANAKA, Gouhei, et al. Recent advances in physical reservoir computing: A review. Neural Networks, 2019, 115: 100-123.
+    \bibitem{cnn} Y. Kim and T. Moon, ”Human Detection and Activity Classification Based on Micro-Doppler Signatures Using Deep Convolutional Neural Networks,” in IEEE Geoscience and Remote Sensing Letters, vol. 13, no. 1, pp. 8-12, Jan. 2016
 	
-	\bibitem{spin_wave_reservoir} NAKANE, Ryosho; TANAKA, Gouhei; HIROSE, Akira. Reservoir computing with spin waves excited in a garnet film. IEEE Access, 2018, 6: 4462-4469.
-	
-	\bibitem{autoencoder} HINTON, Geoffrey E.; SALAKHUTDINOV, Ruslan R. Reducing the dimensionality of data with neural networks. science, 2006, 313.5786: 504-507.
-	
-	\bibitem{ad_by_autoencoder_space} SAKURADA, Mayu; YAIRI, Takehisa. Anomaly detection using autoencoders with nonlinear dimensionality reduction. In: Proceedings of the MLSDA 2014 2nd Workshop on Machine Learning for Sensory Data Analysis. 2014. p. 4-11.
-	
-	\bibitem{ad_by_autoencoder_space_in_japanese} 櫻田麻由; 矢入健久. オートエンコーダを用いた次元削減による宇宙機の異常検知. In: 人工知能学会全国大会論文集 第 28 回全国大会 (2014). 一般社団法人 人工知能学会, 2014. p. 2F32-2F32.
-	
-	\bibitem{ad_by_autoencoder_machine_in_japanese} 峯誉明, et al. オートエンコーダを用いた機械装置の異常検知. In: 日本知能情報ファジィ学会 ファジィ システム シンポジウム 講演論文集 第 35 回ファジィシステムシンポジウム. 日本知能情報ファジィ学会, 2019. p. 506-508.
-	    
-	\bibitem{dcase2020}
-	    \url{http://dcase.community/challenge2020/task-unsupervised-detection-of-anomalous-sounds}
-	
-	\bibitem{dataset_toy} KOIZUMI, Yuma, et al. ToyADMOS: A dataset of miniature-machine operating sounds for anomalous sound detection. In: 2019 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA). IEEE, 2019. p. 313-317.
-	
-	\bibitem{dataset_machine} PUROHIT, Harsh, et al. MIMII dataset: Sound dataset for malfunctioning industrial machine investigation and inspection. arXiv preprint arXiv:1909.09347, 2019.
-	
-	\bibitem{ecg200}
-	    \url{http://www.timeseriesclassification.com/description.php?Dataset=ECG200}
+    \bibitem{som} J. Owens and A. Hunter, ”Application of the self-organising map to trajec- tory classification,” Proceedings Third IEEE International Workshop on Visual Surveillance, 2000, pp. 77-83
 
-	\bibitem{esn_ae} CHOUIKHI, Naima, et al. Bi-level multi-objective evolution of a Multi-Layered Echo-State Network Autoencoder for data representations. Neurocomputing, 2019, 341: 195-211.\\
-	    \url{https://codeocean.com/capsule/1279641/tree/v2}
+    \bibitem{poincar} B. T. Walkenhorst and S. Nichols, ”Revisiting the Poincar ́e Sphere as a Repre- sentation of Polarization State,” 2020 14th European Conference on Antennas and Propagation (EuCAP), 2020, pp. 1-5
 	
-	\bibitem{esn_ae_simple} CHOUIKHI, Naima; AMMAR, Boudour; ALIMI, Adel M. Genesis of basic and multi-layer echo state network recurrent autoencoders for efficient data representations. arXiv preprint arXiv:1804.08996, 2018.\\
-	    \url{https://codeocean.com/capsule/6293716/tree/v2}
+	
 	    
 
 \end{thebibliography}

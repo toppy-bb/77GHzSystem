@@ -4,9 +4,10 @@
 \contentsline {section}{\numberline {2}関連技術}{3}{}%
 \contentsline {subsection}{\numberline {2.1}偏波とポアンカレ球}{3}{}%
 \contentsline {subsection}{\numberline {2.2}四元数}{4}{}%
-\contentsline {subsection}{\numberline {2.3}リザバーコンピューティング}{4}{}%
-\contentsline {section}{\numberline {3}四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}{5}{}%
-\contentsline {subsection}{\numberline {3.1}システムの構成}{5}{}%
-\contentsline {subsection}{\numberline {3.2}四元数リザバーコンピューティング}{6}{}%
-\contentsline {section}{\numberline {4}実験}{6}{}%
-\contentsline {section}{\numberline {5}今後の予定}{6}{}%
+\contentsline {subsection}{\numberline {2.3}リザバーコンピューティング}{5}{}%
+\contentsline {section}{\numberline {3}四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}{6}{}%
+\contentsline {subsection}{\numberline {3.1}システムの構成}{6}{}%
+\contentsline {subsection}{\numberline {3.2}散乱行列による送信偏波の拡張}{8}{}%
+\contentsline {subsection}{\numberline {3.3}四元数リザバーコンピューティング}{8}{}%
+\contentsline {section}{\numberline {4}実験}{9}{}%
+\contentsline {section}{\numberline {5}今後の予定}{11}{}%
