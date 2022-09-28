@@ -13,7 +13,8 @@
 \begin{center}
 \vspace*{3cm} \underline{\HUGE 卒業論文中間報告 }\\
 \vspace{1cm}
-\bf{ \Huge 四元数リザバーコンピューティングによる\\}
+\bf{ \Huge 四元数リザバーコンピューティングに基づく
+偏波リモートセンシングによるヒトの動作の分類\\}
 \vspace{3cm}
 \huge 2022年9月30日提出 \\
 \vspace{3cm}
@@ -23,7 +24,7 @@
 \end{minipage}
 \begin{center}
 \begin{minipage}{0.7\hsize}
-{\huge 指導教員　　　廣瀬　明　教授\\}
+{\huge 指導教員　　　廣瀬　明　教授\\ 夏秋　嶺　准教授}
 \vspace{1cm}\\
 \centering
 {\huge 電気電子工学科\\}
@@ -37,98 +38,178 @@
 
 \newpage 
 
-\section{序章}
+\section{序論}
 \subsection{背景}
-近年のAI活用の拡大ともないデータセットの転送によるネットワーク負荷は増大し、それらのデータセットを処理するために GPU(Graphics Processing Unit) などを長時間使用することにより消費電力もまた増大している。またデータセンターで一極集中で処理することはそこに障害が発生したときに社会の広範囲の機能が同時に失われる恐れがある。これらの問題を解決しなくては持続可能な社会は危うい。その解決策の一つとしていわゆるエッジコンピューティングというものがある。その場でデータを集積、処理しようとするものである。
+近年，電磁波を用いたセンシング技術は医療，セキュリティなど
+様々な分野において利用されている．
+例えば，自宅や病院にいる高齢者，患者が安全に過ごすための遠隔システムなどに応用される．
+電磁波を使って非接触で生体計測を行うことで，身体の異常検知を行うものである．
+可視光によるイメージングも多く使用されているが，
+電磁波による観測には多くのメリットが存在する．
 
-エッジコンピューティングの実現のための一つの方法としてReservoir Computing Systemの活用がある。Reservoir Computing Systemとは Echo State Network \cite{echostate}と呼ばれる特殊なニューラルネットワークに由来するものである。Reservoir Computing Systemの一つの重要な特徴は学習に必要となる時間が短いということである。そのためGPUを長時間稼働させて多量の電力を消費する必要がなくなる。このReservoir Computing Systemは非線形な物理現象で実装できる例が報告されている\cite{physical_reservoir}。その中でスピン波で実装したものはオンチップデバイスにすることでエッジコンピューティングの実現が期待できるし、また配線が少ないという特徴からさらなる消費電力の削減も見込める\cite{spin_wave_reservoir}。
+第一に，電磁波を使用することでプライバシーを保護することができる．
+身体の異常検知において，対象の観測が長期間に及ぶ．
+カメラでの観測は個人のプライバシー面において不快に思うものも多いだろう．
+その点，電磁波ではプライバシー面の問題が生じない．
 
-エッジコンピューティングに向いているタスクの一つに異常検知がある。エッジコンピューティングであれば異常検知の対象は分散して存在し、さらには移動の可能性をもつ多種多様な個体をも対象にできる可能性があるからである。例えば機械類、人などである。その他にも株価、監視カメラの映像、クレジットカードの使用履歴に対して異常検知を適用したりと対象は広範囲にわたる。もちろん未開拓の潜在的な社会需要もまだまだたくさんあることであろう。
+第二に，電磁波による観測は，明暗によらず，また観測範囲が広い．
+カメラであれば，夜間の観測は困難である．
+また，カメラは範囲外の可視光を捉えられなかったり，
+障害物があれば，その後ろの観測を行えない．
+一方，電磁波であれば，障害物を回折し，見えないものの観測も可能である．
 
-実用化に向けてこのスピン波によるReservoir Computing Systemのデバイスにはどのような異常検知をタスクとして処理できそうかを見定める必要がある。そのためにデータセットの確保、確認をしタスクの内容を吟味し、それが処理可能かをあらかじめシミュレーションで確認することは有意義であろう。またReservoir Computing Systemの構成や活用方法そして前後の処理などは、データの存否、質そしてタスクの種類などによって左右されるのであらかじめ検証しておく必要がある。
+以上のように，電磁波によるセンシングは有効であるが，非接触型であるために，
+精度に欠けるなど，課題が残されている．
 
-\subsection{研究の目的}
-本研究の目的はデータセットを確保、確認しつつ Echo State  Network 、Reservoir Computing Systemのシミュレーションをすることで、スピン波リザバーコンピューティングの実用化に向けた端緒を探るものである。
+\subsection{目的}
+以上から，電磁波を用いてセンシングを行い，ヒトの動作を分類することは．医療分野，
+セキュリティー分野において重要である．
+そこで，本研究では，四元数リザバーコンピューティングを提案し，その有用性を示す．
 
-Reservoir Computing Systemで処理すべきタスクとしては機械類の異常検知とした。また使える学習用のデータセットは正常、異常のラベル付きデータではなく、正常データのみで構成されているものとした。
+\section{関連技術}
+\subsection{偏波とポアンカレ球}
+偏波の状態は，ストークスベクトル$\bm{g}$により，
+ポアンカレ球で表現できる．4つのストークスパラメータを
+$g_0，g_1，g_2，g_3$とすると，
+\begin{align}
+    \bm{g} = 
+      \left(
+        \begin{array}{c}
+            g_0 \\
+            g_1 \\
+            g_2 \\
+            g_3
+        \end{array}
+      \right)
+    = \left(
+        \begin{array}{c}
+            |E_{\rm{H}}^{\rm{r}}|^2 + |E_{\rm{V}}^{\rm{r}}|^2 \\
+            |E_{\rm{H}}^{\rm{r}}|^2 - |E_{\rm{V}}^{\rm{r}}|^2 \\
+            2\mathrm{Re}((E_{\rm{H}}^{\rm{r}})^*E_{\rm{V}}^{\rm{r}}) \\
+            2\mathrm{Im}((E_{\rm{H}}^{\rm{r}})^*E_{\rm{V}}^{\rm{r}})
+        \end{array}
+      \right)
+\end{align}
+とかける．ここで，$E_{\rm{H}}^{\rm{r}}$は受信した偏波の水平成分，
+$E_{\rm{V}}^{\rm{r}}$は受信した偏波の垂直成分である．
+また，$g_0$は受信した全電力，$g_1$は水平偏波成分と垂直偏波成分の電力差，
+$g_2$は$+45^\circ$偏波成分と$-45^\circ$偏波成分の電力差，
+$g_3$は左回り円偏波成分(left-handed circle: LHC)
+と右回り円偏波成分(right-handed circle:RHC)の電力差である．
+ストークスパラメータは全て実数であり，受信電力の測定から与えられる．
+さらに，
+\begin{align*}
+    &g_1^2 + g_2^2 + g_3^2 \\
+    &= (|E_{\rm{H}}^{\rm{r}}|^2 - |E_{\rm{V}}^{\rm{r}}|^2)^2
+      + (|E_{+45^\circ}^{\rm{r}}|^2 - |E_{-45^\circ}^{\rm{r}}|^2)^2
+      + (|E_{\mathrm{LHC}}^{\rm{r}}|^2 - |E_{\mathrm{RHC}}^{\rm{r}}|^2)^2\\
+    &= (|E_{\rm{H}}^{\rm{r}}|^2 - |E_{\rm{V}}^{\rm{r}}|^2)^2
+      + ((E_{\rm{H}}^{\rm{r}})^*E_{\rm{V}}^{\rm{r}} + (E_{\rm{V}}^{\rm{r}})^*E_{\rm{H}}^{\rm{r}})^2
+      + (-j)((E_{\rm{H}}^{\rm{r}})^*E_{\rm{V}}^{\rm{r}} - (E_{\rm{V}}^{\rm{r}})^*E_{\rm{H}}^{\rm{r}})\\
+    &= |E_{\rm{H}}^{\rm{r}}|^4 - 2|E_{\rm{H}}^{\rm{r}}|^2|E_{\rm{V}}^{\rm{r}}|^2 + |E_{\rm{V}}^{\rm{r}}|^4 + 4|E_{\rm{H}}^{\rm{r}}E_{\rm{V}}^{\rm{r}}|^2\\
+    &= |E_{\rm{H}}^{\rm{r}}|^4 + 2|E_{\rm{H}}^{\rm{r}}|^2|E_{\rm{V}}^{\rm{r}}|^2 + |E_{\rm{V}}^{\rm{r}}|^4\\
+    &= (|E_{\rm{H}}^{\rm{r}}|^2 + |E_{\rm{V}}^{\rm{r}}|^2)^2\\
+    &= g_0^2
+\end{align*}
+が成り立つので，$g_1$，$g_2$，$g_3$を$g_0$で割ると，
+3つのパラメータから得られる座標は，単位球上の点になる．
+この3つのパラメータからポアンカレベクトル$\bm{P}$は以下のように得られる．
+\begin{equation}
+    \bm{P} 
+    = \left(
+        \begin{array}{c}
+            g_1/g_0 \\
+            g_2/g_0 \\
+            g_3/g_0 \\
+        \end{array}
+      \right)
+    = \left(\begin{array}{c}
+            x \\
+            y \\
+            z \\
+        \end{array}
+      \right)
+\end{equation}
 
-\section{本研究に関する基本事項の確認}
-本研究で用いるいくつかの基本的な事柄について確認する。
-\subsection{Reservoir Computing System}
-まずはオーソドックスなニューラルネットワークについて説明する。この場合は図\ref{fig:neural_network}に示すようにニューロンが層状に並んでいて信号が入力端子から出力端子に向かって一方向に流れていく。各ニューロンに入力された信号たちベクトルを$\bm{x}_{\rm{in}}$そのニューロンに設定された重みという数を要素とする行列を$\mathbf{W}$そして活性化関数$f_{\rm{a}}$とすると各ニューロンの出力$\bm{x}_{\rm{out}}$は次の式で決定される。
+ポアンカレベクトル$\bm{P}$は図\ref{1}のようにポアンカレ球で表現できる．
+これは偏波の状態を視覚化するのに便利な表現方法である．
+
+
+\subsection{四元数}
+四元数は，複素数を拡張した数である．
+実数$a，b，c，d$，虚数単位を$i，j，k$とすると，$q = a + bi + cj  + dk$
+とかける．
+ポアンカレベクトル$\bm{P}$を四元数で扱うと，実部を0，虚部を$\bm{P}$の要素として
+次のように表現できる．
+\begin{equation}
+    \bm{q} = \left(\begin{array}{c}
+        0\\
+        g_1/g_0 \\
+        g_2/g_0 \\
+        g_3/g_0 \\
+    \end{array}
+  \right)
+\end{equation}
+
+四元数は3次元空間における回転と相性が良いため，ポアンカレベクトルを四元数に拡張
+することで学習がうまく進みやすい．
+
+
+\subsection{リザバーコンピューティング}
+%まずはオーソドックスなニューラルネットワークについて説明する．この場合は図\ref{fig:neural_network}に示すようにニューロンが層状に並んでいて信号が入力端子から出力端子に向かって一方向に流れていく．各ニューロンに入力された信号たちベクトルを$\bm{x}_{\rm{in}}$そのニューロンに設定された重みという数を要素とする行列を$\mathbf{W}$そして活性化関数$f_{\rm{a}}$とすると各ニューロンの出力$\bm{x}_{\rm{out}}$は次の式で決定される．
+%\begin{equation}
+    %\bm{x}_{\rm{out}} = f_{\rm{a}}(\mathbf{W} \bm{x}_{\rm{in}})
+%\end{equation}
+%\begin{figure}[hbtp]
+%	\centering
+%	\includegraphics[width=110mm]{../img/neural_network.pdf}
+%	\caption{ニューラルネットワーク}
+%	\label{fig:neural_network}
+%\end{figure}
+
+%\begin{figure}[hbtp]
+%	\centering
+%	\includegraphics[width=110mm]{../img/Echo_State_Network.pdf}
+%	\label{fig:echo_state}
+%\end{figure}
+%それに対して図%\ref{fig:echo_state}
+%に示すように 
+リザバーコンピューティングは時系列情報処理に適した機械学習の枠組みの一つであり，
+学習が極めて高速であるという点が特徴である．
+まず，オーソドックスなニューラルネットワークについて説明する．
+この場合は図\ref{fig:neural_network}に示すように
+ニューロンが層状に並んでいて信号が入力端子から出力端子に向かって一方向に流れていく．
+各ニューロンの入力信号ベクトルを$\bm{x}_{\rm{in}}$，
+そのニューロンに設定された重みを要素とする行列を
+$\bf{W}$，
+そして活性化関数を$f_{\rm{a}}$とすると，
+各ニューロンの出力$\bm{x}_{\rm{out}}$は次の式で決定される．
 \begin{equation}
     \bm{x}_{\rm{out}} = f_{\rm{a}}(\mathbf{W} \bm{x}_{\rm{in}})
 \end{equation}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=110mm]{../img/neural_network.pdf}
-	\caption{ニューラルネットワーク}
-	\label{fig:neural_network}
-\end{figure}
-入力端子への入力$\bm{s}_{\rm{in}}$に対応した正解である教師データを$\bm{t}_{\rm{out}}$、ネットワークの出力層が出力したデータを$\bm{s}_{\rm{out}}$とすると、$\bm{t}_{\rm{out}}$と${\bm{s}_{\rm{out}}}$の平均二乗誤差が最小となるように誤差逆伝搬ですべての重み$\mathbf{W}$を更新していく。この更新作業が学習にあたる。
+入力端子への入力$\bm{s}_{\rm{in}}$に対応した正解である教師データを
+$\bm{t}_{\rm{out}}$，ネットワークの出力層が出力したデータを
+$\bm{s}_{\rm{out}}$とすると，$\bm{t}_{\rm{out}}$と${\bm{s}_{\rm{out}}}$
+の平均二乗誤差が最小となるように誤差逆伝搬ですべての重み
+$\mathbf{W}$を更新していく．この更新作業が学習にあたる．
 
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=110mm]{../img/Echo_State_Network.pdf}
-	\caption{Reservoir Computing System}
-	\label{fig:echo_state}
-\end{figure}
-それに対して図\ref{fig:echo_state}に示すように Echo State Network の中間層相当の部分は層状にはなっていない。また信号の流れも一方向ではなくフィードバックがかかっている。フィードバックのため過去の信号の影響が残る。これが記憶を持つことに相当し、時系列データ処理の可能性を生む。このようなニューラルネットワークの構造をリカレントニューラルネットワークという。Echo State Network はさらに入力端子信号にかかる重み$\mathbf{W_{\rm{in}}}$と中間層相当内部で相互にやりとりする信号にかける重み$\mathbf{W_{\rm{res}}}$は学習によって更新されないという特徴をもつ。中間層相当の重みを更新する必要がないことが物理リザバー実現に有利に働く。この中間層相当にあたる部分はリザバー（reservoir:ため池）と呼ばれる。更新されるのは中間層から出力層へ信号が流れるときにかかる重み$\mathbf{W}_{\rm{out}}$のみである。これに類似するモデルは他にもLiquid State Machineというものがあったが、両者を抽象化し統合したものがReservoir Computing Systemと呼ばれるものである。
+一方，図\ref{fig:echo_state}に示すように
+リザバーコンピューティングシステムの中間層に相当する部分は層状になっていない．
+また信号の流れも一方向ではなくフィードバックがかかっている．
+このフィードバックのため，過去の信号の影響が残る．
+これが記憶を持つことに相当し，時系列データ処理の可能性を生む．
+リザバーコンピューティングシステムは
+さらに，入力端子信号にかかる重み$\mathbf{W_{\rm{in}}}$と
+中間層相当の内部で相互にやりとりする信号にかける重み
+$\mathbf{W_{\rm{res}}}$は
+学習によって更新されないという特徴をもつ．
+この中間層相当にあたる部分はリザバー（reservoir:ため池）と呼ばれる．
+更新されるのは中間層から出力層へ信号が流れるときにかかる重み
+$\mathbf{W}_{\rm{out}}$のみである．
 
-いま入力端子のニューロンがL個、リザバーのそれがM個、出力層ではN個あるとする。入力層の信号$\bm{s}_{\rm{in}}$、リザバー部の各ニューロンの出力信号(以後リザバーの状態と呼ぶ)を$\bm{x}$、出力層における出力信号を$\bm{s}_{\rm{out}}$とすると
-
-$
-    \bm{s}_{in} = \left(
-                        \begin{array}{c}
-                            s_{\rm{in}_1} \\
-                            s_{\rm{in}_2} \\
-                            \vdots \\
-                            s_{\rm{in}_L}
-                        \end{array}
-                      \right)
-    , \quad
-        \bm{x} = \left(
-                        \begin{array}{c}
-                            x_1 \\
-                            x_2 \\
-                            \vdots \\
-                            x_M
-                        \end{array}
-                      \right)
-    , \quad
-            \bm{s}_{out} = \left(
-                        \begin{array}{c}
-                            s_{\rm{out}_1} \\
-                            s_{\rm{out}_2} \\
-                            \vdots \\
-                            s_{\rm{out}_N}
-                        \end{array}
-                      \right)
-$ \quad
-また$\mathbf{W}_{\rm{in}} = \begin{pmatrix}
-                            in_{11} & in_{12} & \cdots & in_{1L}\\
-                            in_{21} & in_{22} & \cdots & in_{2L}\\
-                            \cdots & \cdots & \cdots\\
-                            in_{M1} & in_{M2} & \cdots & in_{ML}\\
-                            \end{pmatrix}
-    , \\
-        \mathbf{W}_{\rm{res}} = \begin{pmatrix}
-                            r_{11} & r_{12} & \cdots & r_{1M}\\
-                            r_{21} & r_{22} & \cdots & r_{2M}\\
-                            \cdots & \cdots & \cdots\\
-                            r_{M1} & r_{M2} & \cdots & r_{MM}\\
-                            \end{pmatrix}
-    , \quad
-        \mathbf{W}_{\rm{out}} = \begin{pmatrix}
-                            r_{11} & r_{12} & \cdots & r_{1M}\\
-                            r_{21} & r_{22} & \cdots & r_{2M}\\
-                            \cdots & \cdots & \cdots\\
-                            r_{N1} & r_{N2} & \cdots & r_{NM}\\
-                            \end{pmatrix}
-$\\
-と記述できる。
-
-離散時間$n$におけるリザバーの状態を$\bm{x}(n)$のように記述すると
+入力層の信号を$\bm{s}_{\rm{in}}$，リザバー部の各ニューロンの出力信号を$\bm{x}$，
+出力層における出力信号を$\bm{s}_{\rm{out}}$とし，
+離散時間$n$におけるリザバー部の出力信号を$\bm{x}(n)$と記述すると
 \begin{equation}
     \bm{x}(n) = f_{\rm{a}}(\mathbf{W_{\rm{res}}} \bm{x}(n-1) + \mathbf{W}_{\rm{in}} \bm{s}_{\rm{in}}(n))
 \end{equation}
@@ -137,143 +218,47 @@ $\\
     \bm{s}_{\rm{out}}(n) = f_{\rm{a}}(\mathbf{W}_{\rm{out}} \bm{x}(n))
 \end{equation}
 
-これらの式よりリザバーの状態と出力層からの出力が求められる。
+これらの式よりリザバー部の出力信号と出力層の出力信号が求められる．
 
-$\bm{s}_{\rm{in}}(n)$に対応する教師データを
-$\bm{t}(n)=\left(
-                        \begin{array}{c}
-                            t_{1n} \\
-                            t_{2n} \\
-                            \vdots \\
-                            t_{Nn}
-                        \end{array}
-                      \right)
-$
-とし、時間$n$に対応するリザバーの状態を
-$\bm{x}(n)=\left(
-                        \begin{array}{c}
-                            x_{1n} \\
-                            x_{2n} \\
-                            \vdots \\
-                            x_{Mn}
-                        \end{array}
-                      \right)
-$とする。
+$\bm{s}_{\rm{in}}(n)$に対応する教師データを$\bm{t}(n)$とする．
 $n$を$1$から$n_{\rm{end}}$の範囲で考えて$\mathbf{T}=(\bm{t}(1), \bm{t}(2), \cdots \bm{t}(n_{\rm{end}}))$としさらに$\mathbf{X}=(\bm{x}(1), \bm{x}(2), \cdots \bm{x}(n_{\rm{end}}))$とすると
 \begin{equation}
     \mathbf{W}_{\rm{out}} \mathbf{X} = f_{\rm{a}}^{-1}(\mathbf{T})
 \end{equation}
-となるように$\mathbf{W}_{\rm{out}}$を学習すればよい。すなわち
+となるように$\mathbf{W}_{\rm{out}}$を学習すればよい．すなわち
 \begin{equation}
     \mathbf{W_{out}}=f_{\rm{a}}^{-1}(\mathbf{T}) \mathbf{X}_{\rm{pinv}}
 \end{equation}
-ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である。更新、学習するのは$W_{\rm{out}}$だけなので高速な学習が期待できる。
+ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である．更新，学習するのは$W_{\rm{out}}$だけなので高速な学習が期待できる．
 
-\subsection{Autoencoder}
-Autoencoder(自己符号化器)は教師なし学習に分類されているが、ニューラルネットワークにおいて入力層と同じ信号を教師データとして学習したものである。入力層のニューロンよりも少数のニューロン出力を中間層から抽出することすなわち符号化することにより次元削減ができる\cite{autoencoder}。 
 
-そしてこのAutoencoderの機能は異常検知として活用できる \cite{ad_by_autoencoder_space} \cite{ad_by_autoencoder_space_in_japanese} \cite{ad_by_autoencoder_machine_in_japanese}。正常データを符号化したものから正常データがなるべく正確に復元できるように学習する。もし異常データが入力されたら、正常データほど正確には復元できない。つまり復元の精度で異常検知をするのである。復元の精度は入力層における入力と出力層における出力の平均二乗誤差の平方根(RMSE: Root Mean Square Error)すなわち
-\begin{equation}
-    \displaystyle \sqrt{\frac{1}{L}\sum_{k=1}^{L}(s_{\rm{in}_{\textit{k}}} - s_{\rm{out}_{\textit{k}}})^2}
-\end{equation}
-の大きさで考える。これを再構成誤差ともいう。
+\section{四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}
 
-この構成の利点は学習時に異常データは必要でなく、正常データだけあればよいという点である。すべてのタスクにおいて正常、異常のラベルが付きのデータセットが手に入るわけではない。特に機械類の異常検知においてはそのようなデータセットを手に入れるのはたいへん手間がかかるし、すべての異常パターンを網羅するのは困難である。
+\subsection{システムの構成}
+図\ref{fig:system}は本研究で用いるシステムのフロントエンドである．
+また，このシステムのブロックダイアグラムを図\ref{fig:diagram}に示す．
 
-\section{従来の方法}
+送信アンテナTx1で垂直偏波を照射し，観測対象で散乱された偏波の垂直成分と水平成分を
+それぞれ，受信アンテナRx1，Rx2で同時に受信する．次に，
+送信アンテナTx2で垂直偏波を照射し，観測対象で散乱された偏波の垂直成分と水平成分を
+それぞれ，受信アンテナRx1，Rx2で同時に受信する．
+この送受信を高速で繰り返すことで測定をする．
+送信アンテナの切り替えはマイクロコンピュータで制御する．
+得られた受信偏波はIQ信号として得られ，ここからA/D変換を行ったのち，
+ストークスベクトルなどを計算する．
 
-\subsection{通常のニューラルネットワークのAutoencoderによる再構成信号を用いた従来法}
-図\ref{fig:neural_network}のような通常のニューラルネットワーク構造でAutoencoderを構成した場合の異常検知はここまで述べたようによくみられる\cite{ad_by_autoencoder_space} \cite{ad_by_autoencoder_space_in_japanese} \cite{ad_by_autoencoder_machine_in_japanese}。ただ通常のニューラルネットワークによる学習は長時間の処理が必要となる。そこで本研究ではReservoir Computing Systemで同様の異常検知ができないかを探る。これが実現できれば学習時間の短縮ひいては消費電力の削減に貢献できるであろう。
+使用する電磁波は77GHzのミリ波である．ミリ波は，直進性，分解能が高いという性質がある．
+人体に対して無害であるため，生体に対する計測にも多く用いられている．
 
-ただEcho State Network、Reservoir Computing Systemを用いてAutoencoderを構成し異常検知した先行研究は存在する。それと本研究との相違を次のサブセクションで述べる。
+\subsection{四元数リザバーコンピューティング}
 
-\subsection{Echo State Network Autoencoderを前処理として用いた従来法}
-ECG200というデータセットは心電図検査のデータを集めたものである\cite{ecg200}。学習用データが100個、テスト用データが100個含まれている。タスクは正常な心電図と異常である心筋梗塞の心電図を識別する異常検知であり、二値分類問題である。このタスクにおいては学習時に使えるデータには正常と異常を示すラベルが添付されいる。正常データのみの学習でタスク処理をするのではない。
 
-この状況でESN-RAE(Echo State Network Recurrent Autoencoder)を構成しreservoirから出力を抽出して、その出力をもってSVM(Support vector machine)をさらに学習、構成して異常検知をした先行研究がある\cite{esn_ae} \cite{esn_ae_simple}。この先行研究ではラベル付きデータを学習に使えたのでSVMを構成できた。Autoencoderは分類器であるSVMの前処理として使用されている。
-
-\section{Reservoir Computing SystemのAutoencoderによる再構成信号を用いる手法の提案}
-異常検知を実現するために通常のニューラルネットワークではなくReservoir Computing Systemを用いてAutoencoderを構成する。そしてSVMなど別の分類器を構成するのではなく、Autoencoder自体で入力データを復元、再構成しその再構成誤差の程度で異常検知を行うことを提案する。
-
-これによりReservoir Computing Systemの高速な学習の恩恵を受けつつ、正常データしかない状況であっても異常検知を実現できる。
 
 \section{実験}
-\subsection{用いるデータセット}
-ニューラルネットワークの構造、活用方法はタスクとデータセット次第である。本研究ではDCASE2020(Detection and Classification of
-Acoustic Scenes and Events) CHALLENGE Task2 においてUnsupervised Detection of Anomalous Sounds for Machine Condition Monitoring \cite{dcase2020}で提示されたデータセット\cite{dataset_toy} \cite{dataset_machine}を用いる予定である。このデータセットに含まれるのは機械類の振動音である。
 
-このタスクでは正常データのみで学習して、異常検知をすることが求められている。また異常データは振動音再生時間全体を示しているとはかぎらず、衝突音などのように瞬間的な時間における異常も含まれている。
 
-タスクの提供者側が参考として示した baseline system は図\ref{fig:neural_network}のような通常のニューラルネットワークの中間層の厚みを大きくした構造でAutoencoderを構成したものとなっている。
+\section{今後の予定}
 
-各データは10秒の振動音データ、wavファイルであり、対象となる機械の振動音だけでなくその他の様々な環境音も含まれている。また記録されている音量も各データごとに様々である。今回の実験ではfanのデータを用いた。
-
-\subsection{入力データの形態と入力方法}
-入力データの形態と入力方法で入力端子の数が決まり、Reservoir Computing Systemの構成も決まる。
-元の入力データはwavファイルであるが、採録時に8個のマイクが使用されているため8チャンネルある。全てのチャンネルのデータを同時に入力端子に入力する考えもあろうが、一つのチャンネルに絞ってデータを扱っている。その振動音データをそのまま使うのか、FFTして周波数スペクトルを入力するべきか等を検討する必要がある。
-
-最も単純なのは図\ref{fig:echo_state_input_1raw} のように振動音のデータをそのまま入力端子に入力することであろう。そして平均1、標準偏差1に正規化したデータを入力した様子を図は示している。なお図では適宜存在するバイアス（固定されたある値）の入力は省略してある。
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/Echo_State_Network_1.pdf}
-	\caption{振動音データをそのまま入力}
-	\label{fig:echo_state_input_1raw}
-\end{figure}
-
-次に考えられるのは図\ref{fig:echo_state_input_2raw}のように振動音を一定周期で区切ってその区間のデータを同時にパラレルに入力する方法である。先述のECG200を扱っていた先行研究\cite{esn_ae_simple}ではこの入力方法であった。Autoencoderを構成するため図\ref{fig:echo_state_input_1raw}と図\ref{fig:echo_state_input_2raw}において入出力の端子の数は一致している。
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/Echo_State_Network_2.pdf}
-	\caption{振動音データを一定周期で区切り空間的に展開して入力}
-	\label{fig:echo_state_input_2raw}
-\end{figure}
-
-そして図\ref{fig:echo_state_input_spectrogram}が示すようにスペクトログラムを入力端子に入力していくことが考えられる。この場合も平均1、標準偏差1に正規化してからデータをFFTした。それにより振動音の音量が均されカラーバーの範囲が安定するようになった。カラーバーの数値の単位はデシベルである。
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/Echo_State_Network_3.pdf}
-	\caption{振動音データを周波数スペクトルにして入力}
-	\label{fig:echo_state_input_spectrogram}
-\end{figure}
-
-\subsection{実験時の入力方法そしてReservoir Computing SystemとAutoencoderの構成}
-現段階でEcho State Networkをプログラムで構成しAutoencoderとなるように学習させてみた。図\ref{fig:echo_state_input_spectrogram}のようにスペクトログラムを入力することを前提に正規化した振動音データを窓関数はハニング、窓の幅16ms、時間シフトを8msとして短時間フーリエ変換(STFT)した。その結果として周波数分解能が62.5Hzで0Hzから8000Hzまでの129点、時間は8ms後から9992ms後まで8ms刻みの1249点のスペクトログラムが得られた。Echo State Networkの構成は入力層のニューロンはバイアスを加えた130個、出力のそれは129個、リザバー部のそれは200個と設定した。$\mathbf{W}_{\rm{in}}$は要素が-1から1の間の数をランダムに設定した。また$\mathbf{W}_{\rm{res}}$はスペクトル半径が0.25、行列の要素の95パーセントは0となるような条件の元でランダムに設定した。入力層から出力層に直接接続したり、出力層からリザバー部にフィードバックしないようにしてAutoencoderとして学習させた。
-
-\subsection{実験結果}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/normal_0ue.pdf}
-	\caption{入力端子に入力した正常データ}
-	\label{fig:normal_0u}
-\end{figure}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/normal_1ue.pdf}
-	\caption{入力端子に正常データを入力した時に出力端子から出力されたデータ}
-	\label{fig:normal_1u}
-\end{figure}
-
-図\ref{fig:normal_0u}と図\ref{fig:normal_1u}はそれぞれ学習したモデルに入力した正常データとその時のモデルからの出力の一例を示す。入出力データのスペクトログラム画像がよく似ているのはAutoencoderだからである。この時の全体のRMSEは0.0099であった。
-
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/abnormal_0ue.pdf}
-	\caption{入力端子に入力した異常データ}
-	\label{fig:abnormal_0u}
-\end{figure}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[width=130mm]{../img/abnormal_1ue.pdf}
-	\caption{入力端子に異常データを入力した時に出力端子から出力されたデータ}
-	\label{fig:abnormal_1u}
-\end{figure}
-
-また図\ref{fig:abnormal_0u}と図\ref{fig:abnormal_1u}はそれぞれ学習したモデルに入力した異常を含むデータとその時のモデルからの出力の一例を示す。この時のRMSEは0.012であった。
-
-\section{今後の課題}
-RMSEに差があるがこれは単に偶然のものであったり、不安定である可能性があるのでより多くの実験を重ねて確認したい。
-
-試しているデータセットはとてもノイズが多く、普通の人の耳では判断は不可能と思われる。これらのノイズを前処理で除去したり、また周波数帯域の8000Hzも制限することで明確な効果が確認できるかもしれない。また入力方法も他の方法を試したい。そして入力に対応する出力が遅れて出力されるのか、遅れるとしたらどの程度であるか、遅れを考慮してAutoencoderを構成すべきかなども検討したい。Reservoir Computing Systemはニューロンの数、ニューロン間の結合の疎密の程度やreservoir部の重み行列のスペクトル半径など手動で設定すべきパラメータが多い。それらの適正な値を探り当てるためにReservoir Computing Systemのニューロンの状態をヒートマップなどで可視化しながら検討をしていくことは重要であるし本質的であると思われる。
 
 \newpage 
 \begin{thebibliography}{99}
