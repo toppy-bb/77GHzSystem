@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  29 SEP 2022 16:16
+This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  29 SEP 2022 18:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -313,58 +313,64 @@ LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <30> not available
 (Font)              size <24.88> substituted on input line 14.
 
-LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 9.24683pt on input line 16.
-LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 9.24683pt on input line 16.
-LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 23.0061pt on input line 16.
-LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 23.0061pt on input line 16.
-LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <20.74> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 19.
-LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 19.17792pt on input line 19.
-LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <20.74> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 19.
-LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 19.17792pt on input line 19.
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 19.17792pt on input line 27.
+(Font)              scaled to size 22.19238pt on input line 16.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 19.17792pt on input line 27.
+(Font)              scaled to size 22.19238pt on input line 16.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <24> not available
+(Font)              size <24.88> substituted on input line 16.
+
+LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <24> not available
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 17.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 22.19238pt on input line 17.
+LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <24> not available
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 17.
+LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
+(Font)              scaled to size 22.19238pt on input line 17.
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <24> not available
+(Font)              size <24.88> substituted on input line 17.
+
+LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 21.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 19.17792pt on input line 21.
+LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <20.74> not available
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 21.
+LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
+(Font)              scaled to size 19.17792pt on input line 21.
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 19.17792pt on input line 29.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 19.17792pt on input line 29.
 [1
 
 ]
-LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 13.31541pt on input line 37.
-LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 13.31541pt on input line 37.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 13.31541pt on input line 37.
+(Font)              scaled to size 9.24683pt on input line 39.
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 13.31541pt on input line 39.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 13.31541pt on input line 39.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 13.31541pt on input line 39.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 13.31541pt on input line 37.
+(Font)              scaled to size 13.31541pt on input line 39.
 (./chukan.toc)
 \tf@toc=\write3
 \openout3 = `chukan.toc'.
 
 [2]
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 11.09619pt on input line 42.
+(Font)              scaled to size 11.09619pt on input line 44.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 11.09619pt on input line 42.
+(Font)              scaled to size 11.09619pt on input line 44.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 11.09619pt on input line 42.
+(Font)              scaled to size 11.09619pt on input line 44.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 11.09619pt on input line 42.
+(Font)              scaled to size 11.09619pt on input line 44.
 [3]
 File: ../img/poincar.png Graphic file (type bmp)
 <../img/poincar.png>
@@ -387,7 +393,7 @@ File: ../img/exp.png Graphic file (type bmp)
 File: ../img/20220707_test_1_AmPh4_2Tx2Rx.png Graphic file (type bmp)
 <../img/20220707_test_1_AmPh4_2Tx2Rx.png>
 
-Overfull \hbox (67.25479pt too wide) in paragraph at lines 439--440
+Overfull \hbox (67.25479pt too wide) in paragraph at lines 430--431
  [][] 
  []
 
@@ -395,6 +401,11 @@ File: ../img/20220707_test_1_IQ4_2Tx2Rx.png Graphic file (type bmp)
 <../img/20220707_test_1_IQ4_2Tx2Rx.png>
 File: ../img/20220707_test_1_PS_2.png Graphic file (type bmp)
 <../img/20220707_test_1_PS_2.png>
+
+Overfull \hbox (52.79552pt too wide) in paragraph at lines 442--443
+ [][] 
+ []
+
 [9] [10] [11] (./chukan.aux)
 
 LaTeX Font Warning: Size substitutions with differences
@@ -402,12 +413,12 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 3970 strings out of 479460
- 60350 string characters out of 5870464
+ 3974 strings out of 479460
+ 60391 string characters out of 5870464
  371144 words of memory out of 5000000
- 21628 multiletter control sequences out of 15000+600000
- 417422 words of font info for 98 fonts, out of 8000000 for 9000
+ 21632 multiletter control sequences out of 15000+600000
+ 417709 words of font info for 100 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 80i,16n,88p,653b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,16n,88p,370b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on chukan.dvi (11 pages, 28936 bytes).
+Output written on chukan.dvi (11 pages, 29848 bytes).

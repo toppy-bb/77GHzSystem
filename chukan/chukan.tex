@@ -13,8 +13,10 @@
 \begin{center}
 \vspace*{3cm} \underline{\HUGE 卒業論文中間報告 }\\
 \vspace{1cm}
-\bf{ \Huge 四元数リザバーコンピューティングに基づく
-偏波リモートセンシングによるヒトの動作の分類\\}
+\fontsize{24truept}{25truept}\selectfont
+\bf{四元数リザバーコンピューティングに基づく\\ \vspace{5mm}
+偏波リモートセンシングによる\\ \vspace{5mm}
+ヒトの動作の分類\\}
 \vspace{3cm}
 \huge 2022年9月30日提出 \\
 \vspace{3cm}
@@ -24,7 +26,7 @@
 \end{minipage}
 \begin{center}
 \begin{minipage}{0.7\hsize}
-{\huge 指導教員　　　廣瀬　明　教授\\　　　　　　　夏秋　嶺　准教授}
+{\huge 指導教員　　　廣瀬　明　教授\\　　　　　　　\ \ 夏秋　嶺　准教授}
 \vspace{1cm}\\
 \centering
 {\huge 電気電子工学科\\}
@@ -64,7 +66,7 @@
 従来，ヒトの動作の分類にはCNN，SOMなどが用いられてきた\cite{cnn}\cite{som}．
 CNNによる動作の分類では測定回数や学習コストの増加が見られる．
 また，SOMは静的な信号の処理を行うため，動作のような時系列信号には向かない．
-そこで，時系列情報の処理に呈しており，かつ学習コストの低いリザバーコンピューティング
+そこで，時系列情報の処理に適しており，かつ学習コストの低いリザバーコンピューティング
 による分類が有効であると考えられる．
 %また，四元数も複素数と同様に，単なる 4 次元の
 %データでなくひとまとまりに処理されるひとつの構造とし
@@ -173,24 +175,6 @@ $g_3$は左回り円偏波成分(left-handed circle: LHC)
 
 
 \subsection{リザバーコンピューティング}
-%まずはオーソドックスなニューラルネットワークについて説明する．この場合は図\ref{fig:neural_network}に示すようにニューロンが層状に並んでいて信号が入力端子から出力端子に向かって一方向に流れていく．各ニューロンに入力された信号たちベクトルを$\bm{x}_{\rm{in}}$そのニューロンに設定された重みという数を要素とする行列を$\mathbf{W}$そして活性化関数$f_{\rm{a}}$とすると各ニューロンの出力$\bm{x}_{\rm{out}}$は次の式で決定される．
-%\begin{equation}
-    %\bm{x}_{\rm{out}} = f_{\rm{a}}(\mathbf{W} \bm{x}_{\rm{in}})
-%\end{equation}
-%\begin{figure}[hbtp]
-%	\centering
-%	\includegraphics[width=110mm]{../img/neural_network.pdf}
-%	\caption{ニューラルネットワーク}
-%	\label{fig:neural_network}
-%\end{figure}
-
-%\begin{figure}[hbtp]
-%	\centering
-%	\includegraphics[width=110mm]{../img/Echo_State_Network.pdf}
-%	\label{fig:echo_state}
-%\end{figure}
-%それに対して図%\ref{fig:echo_state}
-%に示すように 
 
 \begin{figure}[hbtp]
 	\centering
@@ -264,8 +248,8 @@ $\mathbf{T}=(\bm{t}(1), \bm{t}(2), \cdots \bm{t}(t_{\rm{end}}))$
     \mathbf{W_{out}}=f_{\rm{a}}^{-1}(\mathbf{T}) \mathbf{X}_{\rm{pinv}}
 \end{equation}
 ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である．これにより
-$W_{\rm{out}}$を更新できる。
-$W_{\rm{in}}$、$W_{\rm{res}}$は更新されないので、高速な学習が期待できる．
+$W_{\rm{out}}$を更新できる．
+$W_{\rm{in}}$，$W_{\rm{res}}$は更新されないので，高速な学習が期待できる．
 
 
 \section{四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}
@@ -415,9 +399,14 @@ $\bm{s}_{\rm{in}}(t) =
         q_{\rm{LHC}}(t)\\
         q_{\rm{RHC}}(t)
     \end{array}
-\right)$とする．四元数を要素にもつ重みを$\bf{W_{\rm{in}}}$と$\bf{W_{\rm{res}}}$，
-活性化関数を$f_a$とし，式\ref{equa:5}- \ref{equa:8}と同様の操作を行うことにより，
-$W_{out}$を求める．現在，未実装であるため，重みの各要素の値，活性化関数，教師データは
+\right)$とする．四元数を要素にもつ重み$\bf{W_{\rm{in}}}$と$\bf{W_{\rm{res}}}$，
+活性化関数$f_a$を適当に選ぶことで式\ref{equa:5}，\ref{equa:6}により
+$\bm{s}_{\rm{out}}$を求められる．一方，四元数を要素にもつ行列は
+逆行列が求められないため，式\ref{equa:8}による$\bf{W_{\rm{out}}}$
+の更新はできない．そのため，通常のリザバーコンピューティングとは
+異なる更新の方法が必要で，主に勾配法が用いられている\cite{quaternion1}\cite{quaternion2}．
+現在，四元数リザバーコンピューティングは未実装であるため，
+重みの各要素の値，活性化関数，教師データは
 検討中である．
 
 
@@ -450,18 +439,16 @@ $W_{out}$を求める．現在，未実装であるため，重みの各要素�
 \end{figure}
 \begin{figure}[hbtp]
 	\centering
-	\includegraphics[scale=0.4]{../img/20220707_test_1_PS_2.png}
+	\includegraphics[scale=0.5]{../img/20220707_test_1_PS_2.png}
     \caption{ポアンカレ球上での偏波情報}
 	\label{fig:ps}
 \end{figure}
 
 
 \section{今後の予定}
-今回の実験ではA/D変換にarduinoを用いていたが，より分解能とサンプリングレートの高いA/D変換器を
-用いる予定である．また，四元数リザバーコンピューティング部分のソフトを完成させ，
-適切な重み，活性化関数を検討する．
+四元数リザバーコンピューティングを構築し，適切な重み，活性化関数を検討する．
 
-\newpage 
+\newpage
 \begin{thebibliography}{99}
 		
 	\bibitem{human_motion} B. Jokanovic, M. Amin and B. Erol, ”Multiple joint-variable domains recognition of human motion,” 2017 IEEE Radar Conference (RadarConf), 2017, pp. 0948- 0952
@@ -472,7 +459,11 @@ $W_{out}$を求める．現在，未実装であるため，重みの各要素�
 
     \bibitem{poincar} B. T. Walkenhorst and S. Nichols, ”Revisiting the Poincar ́e Sphere as a Repre- sentation of Polarization State,” 2020 14th European Conference on Antennas and Propagation (EuCAP), 2020, pp. 1-5
 	
-	
+    \bibitem{quaternion1} N. Matsui, T. Isokawa, H. Kusamichi, F. Peper, and H. Nishimura,
+    “Quaternion neural network with geometrical operators,” J. Intell. Fuzzy
+    Syst., vol. 15, no. 3/4, pp. 149-164, Dec. 2004
+
+    \bibitem{quaternion2} F. Shang and A. Hirose, "Quaternion Neural-Network-Based PolSAR Land Classification in Poincare-Sphere-Parameter Space," in IEEE Transactions on Geoscience and Remote Sensing, vol. 52, no. 9, pp. 5693-5703, Sept. 2014
 	    
 
 \end{thebibliography}

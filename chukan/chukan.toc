@@ -1,7 +1,7 @@
 \contentsline {section}{\numberline {1}序論}{3}{}%
 \contentsline {subsection}{\numberline {1.1}背景}{3}{}%
 \contentsline {subsection}{\numberline {1.2}目的}{3}{}%
-\contentsline {section}{\numberline {2}関連技術}{3}{}%
+\contentsline {section}{\numberline {2}基本事項}{3}{}%
 \contentsline {subsection}{\numberline {2.1}偏波とポアンカレ球}{3}{}%
 \contentsline {subsection}{\numberline {2.2}四元数}{4}{}%
 \contentsline {subsection}{\numberline {2.3}リザバーコンピューティング}{5}{}%
