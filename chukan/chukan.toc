@@ -10,4 +10,4 @@
 \contentsline {subsection}{\numberline {3.2}散乱行列による送信偏波の拡張}{8}{}%
 \contentsline {subsection}{\numberline {3.3}四元数リザバーコンピューティング}{8}{}%
 \contentsline {section}{\numberline {4}実験}{9}{}%
-\contentsline {section}{\numberline {5}今後の予定}{11}{}%
+\contentsline {section}{\numberline {5}今後の予定}{10}{}%

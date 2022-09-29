@@ -340,10 +340,10 @@ INPUT ../img/poincar.png
 INPUT ../img/poincar.png
 INPUT ../img/poincar.png
 INPUT extractbb -B cropbox -O ../img/poincar.png
-INPUT ../img/newral.png
-INPUT ../img/newral.png
-INPUT ../img/newral.png
-INPUT extractbb -B cropbox -O ../img/newral.png
+INPUT ../img/neural.png
+INPUT ../img/neural.png
+INPUT ../img/neural.png
+INPUT extractbb -B cropbox -O ../img/neural.png
 INPUT ../img/reservoir.png
 INPUT ../img/reservoir.png
 INPUT ../img/reservoir.png
@@ -360,6 +360,10 @@ INPUT ../img/process.png
 INPUT ../img/process.png
 INPUT ../img/process.png
 INPUT extractbb -B cropbox -O ../img/process.png
+INPUT ../img/exp.png
+INPUT ../img/exp.png
+INPUT ../img/exp.png
+INPUT extractbb -B cropbox -O ../img/exp.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png

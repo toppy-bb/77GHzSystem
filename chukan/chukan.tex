@@ -77,7 +77,7 @@ CNNによる動作の分類では測定回数や学習コストの増加が見�
 セキュリティー分野において重要である．
 そこで，本研究では，四元数リザバーコンピューティングを提案し，その有用性を示す．
 
-\section{関連技術}\label{section:2}
+\section{基本事項}\label{section:2}
 \subsection{偏波とポアンカレ球}
 偏波の状態は，ストークスベクトル$\bm{g}$により，
 ポアンカレ球で表現できる．4つのストークスパラメータを
@@ -194,7 +194,7 @@ $g_3$は左回り円偏波成分(left-handed circle: LHC)
 
 \begin{figure}[hbtp]
 	\centering
-	\includegraphics[width=110mm]{../img/newral.png}
+	\includegraphics[width=110mm]{../img/neural.png}
     \caption{ニューラルネットワーク}
 	\label{fig:neural}
 \end{figure}
@@ -263,7 +263,9 @@ $\mathbf{T}=(\bm{t}(1), \bm{t}(2), \cdots \bm{t}(t_{\rm{end}}))$
 \begin{equation}\label{equa:8}
     \mathbf{W_{out}}=f_{\rm{a}}^{-1}(\mathbf{T}) \mathbf{X}_{\rm{pinv}}
 \end{equation}
-ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である．更新，学習するのは$W_{\rm{out}}$だけなので高速な学習が期待できる．
+ただし$\mathbf{X}_{\rm{pinv}}$は$\mathbf{X}$の擬逆行列である．これにより
+$W_{\rm{out}}$を更新できる。
+$W_{\rm{in}}$、$W_{\rm{res}}$は更新されないので、高速な学習が期待できる．
 
 
 \section{四元数リザバーコンピューティングに基づく偏波リモートセンシングの提案}
@@ -420,7 +422,14 @@ $W_{out}$を求める．現在，未実装であるため，重みの各要素�
 
 
 \section{実験}
-システムの動作を確認するため，装置の前に何も置かず，壁に向かって送信し測定を行った．
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.4]{../img/exp.png}
+    \caption{実験の概要}
+	\label{fig:exp}
+\end{figure}
+システムの動作を確認するため，装置の前に何も置かず，
+壁に向かって送信し測定を行った(図\ref{fig:exp})．
 得られたIQ信号，そこから求められる散乱行列，
 ポアンカレベクトルを図\ref{fig:iq}-\ref{fig:ps}に示す．
 ポアンカレ球上での偏波は6つともある程度まとまっているため，
