@@ -72,11 +72,11 @@ r3 = 2*1/2*((Q1+I3)*(I2-Q4)-(I1-Q3)*(Q2+I4))
 
 
 #図の作製
-fig = plt.figure(figsize=(14,8 ))  # Figureを設定
-plt.subplots_adjust(wspace=0.2, hspace=0.3)
+fig = plt.figure(figsize=(10,17.5))  # Figureを設定
+plt.subplots_adjust(wspace=0.05, hspace=0.4)
 
 #水平
-ax1 = fig.add_subplot(2, 3, 1,projection='3d')   #2行3列の1番目
+ax1 = fig.add_subplot(3, 2, 1,projection='3d')   #2行3列の1番目
 ax1.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax1.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax1.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -97,7 +97,7 @@ ax1.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax1.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #垂直
-ax4 = fig.add_subplot(2, 3, 4,projection='3d')   #2行3列の4番目
+ax4 = fig.add_subplot(3, 2, 4,projection='3d')   #2行3列の4番目
 ax4.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax4.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax4.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -118,7 +118,7 @@ ax4.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax4.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #45度
-ax2 = fig.add_subplot(2, 3, 2,projection='3d')   #2行3列の2番目
+ax2 = fig.add_subplot(3, 2, 2,projection='3d')   #2行3列の2番目
 ax2.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax2.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax2.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -139,7 +139,7 @@ ax2.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax2.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #‐45度
-ax5 = fig.add_subplot(2, 3, 5,projection='3d')   #2行3列の5番目
+ax5 = fig.add_subplot(3, 2, 5,projection='3d')   #2行3列の5番目
 ax5.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax5.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax5.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -160,7 +160,7 @@ ax5.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax5.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #左円
-ax3 = fig.add_subplot(2, 3, 3,projection='3d')   #2行3列の3番目
+ax3 = fig.add_subplot(3, 2, 3,projection='3d')   #2行3列の3番目
 ax3.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax3.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax3.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -181,7 +181,7 @@ ax3.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax3.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #右円
-ax6 = fig.add_subplot(2, 3, 6,projection='3d')   #2行3列の6番目
+ax6 = fig.add_subplot(3, 2, 6,projection='3d')   #2行3列の6番目
 ax6.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax6.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax6.w_zaxis.set_pane_color((0., 0., 0., 0.))

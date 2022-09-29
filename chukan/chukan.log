@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  29 SEP 2022 19:00
+This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  29 SEP 2022 19:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -402,11 +402,9 @@ File: ../img/20220707_test_1_IQ4_2Tx2Rx.png Graphic file (type bmp)
 File: ../img/20220707_test_1_PS_2.png Graphic file (type bmp)
 <../img/20220707_test_1_PS_2.png>
 
-Overfull \hbox (52.79552pt too wide) in paragraph at lines 442--443
- [][] 
- []
+LaTeX Warning: Float too large for page by 21.50183pt on input line 445.
 
-[9] [10] [11] (./chukan.aux)
+[9] [10] [11] [12] (./chukan.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 5.12pt have occurred.
@@ -421,4 +419,4 @@ Here is how much of TeX's memory you used:
  934 hyphenation exceptions out of 8191
  80i,16n,88p,370b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on chukan.dvi (11 pages, 29844 bytes).
+Output written on chukan.dvi (12 pages, 29920 bytes).

@@ -1,20 +1,20 @@
 # Fdb version 3
-["dvipdf"] 1664445636 "chukan.dvi" "chukan.pdf" "chukan" 1664445651
-  "chukan.dvi" 1664445633 29844 12c3c34807561c02c73615049a50d941 "latex"
+["dvipdf"] 1664448256 "chukan.dvi" "chukan.pdf" "chukan" 1664448280
+  "chukan.dvi" 1664448252 29920 b4a1823d1577fac7f7a87f8afcb88d67 "latex"
   (generated)
   "chukan.pdf"
-["latex"] 1664445628 "/Users/uenotoshiki/Documents/soturon/77GHzSystem/chukan/chukan.tex" "chukan.dvi" "chukan" 1664445651
+["latex"] 1664448245 "/Users/uenotoshiki/Documents/soturon/77GHzSystem/chukan/chukan.tex" "chukan.dvi" "chukan" 1664448280
   "../img/20220707_test_1_AmPh4_2Tx2Rx.png" 1663126070 43495 abae2bd44ce4b14044566f1b2c56dd92 ""
   "../img/20220707_test_1_IQ4_2Tx2Rx.png" 1663126070 77400 e3424877146e2cc404e21a0d0df7d5a9 ""
-  "../img/20220707_test_1_PS_2.png" 1664441295 197589 f42e5c1dc76633e093b0b247db3387b4 ""
-  "../img/diagram.png" 1664440545 265800 f6ab1ac45f8144651dd865b010dd6c8e ""
+  "../img/20220707_test_1_PS_2.png" 1664448230 299404 7701af59a852412f61d07b25ebd1654f ""
+  "../img/diagram.png" 1664447235 254172 c29095198a523ca66aef0d6803d0a0fe ""
   "../img/exp.png" 1664431897 14173 138bb832ef0c323395ca8fadc2b3bfe9 ""
   "../img/neural.png" 1664440156 25511 77eb6988fcdd6c5aad4310f98d08df98 ""
   "../img/poincar.png" 1664392284 215223 1920263115fd7a90511f081d337e7b50 ""
   "../img/process.png" 1664400232 20809 eef3e9838fd5353b771ff53c9e5b5dc3 ""
   "../img/reservoir.png" 1664435798 35784 10365e617521c1459fab705548c2ca3f ""
   "../img/system.png" 1664396444 3024844 cc3967011a63d6c034cd4cf4a7aeeb1f ""
-  "/Users/uenotoshiki/Documents/soturon/77GHzSystem/chukan/chukan.tex" 1664445628 20660 1db5e93c82c9848d48eb890148553917 ""
+  "/Users/uenotoshiki/Documents/soturon/77GHzSystem/chukan/chukan.tex" 1664448245 20660 1db5e93c82c9848d48eb890148553917 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -71,11 +71,11 @@
   "/usr/local/texlive/2021/texmf-dist/web2c/texmf.cnf" 1616443989 39972 3d6bb4d9d719e93193fa020b58adf5d4 ""
   "/usr/local/texlive/2021/texmf-var/web2c/euptex/uplatex.fmt" 1618747224 2693209 45bd4608ee0575e4b6a6c75977e4c62b ""
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
-  "chukan.aux" 1664445633 3805 88208b891def2e38458119594f2a8cee "latex"
-  "chukan.tex" 1664445628 20660 1db5e93c82c9848d48eb890148553917 ""
-  "chukan.toc" 1664445633 991 c704da0ad55a06348953b3ac21812c50 "latex"
+  "chukan.aux" 1664448252 3805 92d1f3b0aea1ecc7f663dab10236673f "latex"
+  "chukan.tex" 1664448245 20660 1db5e93c82c9848d48eb890148553917 ""
+  "chukan.toc" 1664448252 991 c704da0ad55a06348953b3ac21812c50 "latex"
   (generated)
+  "chukan.toc"
   "chukan.dvi"
   "chukan.log"
-  "chukan.toc"
   "chukan.aux"
