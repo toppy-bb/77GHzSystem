@@ -19,7 +19,8 @@ def ReLU(x):
 
 def main():
     i_gen = InputGenerator(0, T, NUM_TIME_STEPS)
-    data = i_gen.generate_sin(amplitude=AMPLITUDE)
+    #data = i_gen.generate_sin(amplitude=AMPLITUDE)
+    data = i_gen.generate_mackey_glass()
     num_train = int(len(data) * RATIO_TRAIN)
     train_data = data[:num_train]
 
