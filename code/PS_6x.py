@@ -1,38 +1,45 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-from mpl_toolkits.mplot3d import Axes3D
 import os
+import sys
 
-date = '20220707'
-action = 'test'
-round = '1'
+date = '20221006'
+action = 'air'
+round = '2'
+#freq = 1000
 
-Vo =[2469,2481,2452,2460,-2469,-2481,-2452,-2460]
+f = sys.argv[1]
+freq =int(sys.argv[2])
+#f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), 'r')
+#df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), delimiter=",")
+df = np.genfromtxt(os.path.join(f), delimiter=",")
+df = (df-2048)/2048*250 #DA変換
 
-f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), 'r')
-df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.csv'.format(date, action, round)), delimiter=",",
-                   skip_header=1)  # np.genfromtxt()を使うと欠損値がnp.nanとして読み込まれる
+m_num = df.shape[0] #計測回数
+tmax = m_num/freq #計測時間
 
-print(type(df))
-#Vo = df.mean(axis = 0)[1:9]
-print(Vo)
+
+fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
+plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
 # Tx1-Rx1 Svv=I1+jQ1
-I1 = df[:, 1] - Vo[0]
-Q1 = df[:, 2] - Vo[1]
+I1 = df[0:-2:2, 0]
+Q1 = df[0:-2:2, 1]
 A1 = np.sqrt((I1 **2 + Q1 ** 2))
+P1=(np.arctan2(Q1,I1))
 # Tx1-Rx2 Shv=I2+jQ2
-I2 = df[:, 3] - Vo[2]
-Q2 = df[:, 4] - Vo[3]
+I2 = df[0:-2:2, 2]
+Q2 = df[0:-2:2, 3]
 A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
+P2=(np.arctan2(Q2,I2))
 # Tx2-Rx1 Svh=I3+jQ3
-I3 = df[:, 5] -Vo[4]
-Q3 = df[:, 6] - Vo[5]
+I3 = df[1::2, 0]
+Q3 = df[1::2, 1]
 A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
+P3=(np.arctan2(Q3,I3))
 # Tx2-Rx2 Shh=I4+jQ4
-I4 = df[:, 7] - Vo[6]
-Q4 = df[:, 8] - Vo[7]
+I4 = df[1::2, 2]
+Q4 = df[1::2, 3]
 A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
 P4=(np.arctan2(Q4,I4))
 cm = plt.cm.get_cmap('hsv') # カラーマップ
@@ -72,11 +79,11 @@ r3 = 2*1/2*((Q1+I3)*(I2-Q4)-(I1-Q3)*(Q2+I4))
 
 
 #図の作製
-fig = plt.figure(figsize=(10,17.5))  # Figureを設定
+fig = plt.figure(figsize=(17.5,10))  # Figureを設定
 plt.subplots_adjust(wspace=0.05, hspace=0.4)
 
 #水平
-ax1 = fig.add_subplot(3, 2, 1,projection='3d')   #2行3列の1番目
+ax1 = fig.add_subplot(2, 3, 1,projection='3d')   #2行3列の1番目
 ax1.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax1.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax1.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -97,7 +104,7 @@ ax1.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax1.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #垂直
-ax4 = fig.add_subplot(3, 2, 2,projection='3d')   #2行3列の4番目
+ax4 = fig.add_subplot(2, 3, 4,projection='3d')   #2行3列の4番目
 ax4.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax4.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax4.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -118,7 +125,7 @@ ax4.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax4.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #45度
-ax2 = fig.add_subplot(3, 2, 3,projection='3d')   #2行3列の2番目
+ax2 = fig.add_subplot(2, 3, 2,projection='3d')   #2行3列の2番目
 ax2.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax2.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax2.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -139,7 +146,7 @@ ax2.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax2.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #‐45度
-ax5 = fig.add_subplot(3, 2, 4,projection='3d')   #2行3列の5番目
+ax5 = fig.add_subplot(2, 3, 5,projection='3d')   #2行3列の5番目
 ax5.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax5.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax5.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -160,7 +167,7 @@ ax5.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax5.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #左円
-ax3 = fig.add_subplot(3, 2, 5,projection='3d')   #2行3列の3番目
+ax3 = fig.add_subplot(2, 3, 3,projection='3d')   #2行3列の3番目
 ax3.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax3.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax3.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -181,7 +188,7 @@ ax3.set_yticks(np.linspace(-1.0, 1.0, 5))
 ax3.set_zticks(np.linspace(-1.0, 1.0, 5))
 
 #右円
-ax6 = fig.add_subplot(3, 2, 6,projection='3d')   #2行3列の6番目
+ax6 = fig.add_subplot(2, 3, 6,projection='3d')   #2行3列の6番目
 ax6.w_xaxis.set_pane_color((0., 0., 0., 0.))
 ax6.w_yaxis.set_pane_color((0., 0., 0., 0.))
 ax6.w_zaxis.set_pane_color((0., 0., 0., 0.))
@@ -212,7 +219,8 @@ ax6.scatter(r1/r0, r2/r0, r3/r0, c=P4, vmin=-(np.pi), vmax=np.pi, s=8, cmap=cm)
 
 
 #plt.savefig("{0}_{1}_{2}_PS_2".format(date,action,round))
-plt.savefig(os.path.join(os.getcwd(),"img","{0}_{1}_{2}_PS_2".format(date, action, round)))
+savename = os.path.basename(f).strip('.dat')
+plt.savefig(os.path.join("img", savename+"_PS"))
 
 plt.show()
 
