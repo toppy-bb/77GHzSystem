@@ -20,24 +20,24 @@ tmax = m_num/freq #計測時間
 
 
 fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
-plt.subplots_adjust(wspace=0.4, hspace=0.6)
+#plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-# Tx1-Rx1 Svv=I1+jQ1
+# Tx1-Rx1 Svv=I1+jQ1 A1=|Svv| P1=arg(Svv)
 I1 = df[0:-2:2, 0]
 Q1 = df[0:-2:2, 1]
 A1 = np.sqrt((I1 **2 + Q1 ** 2))
 P1=(np.arctan2(Q1,I1))
-# Tx1-Rx2 Shv=I2+jQ2
-I2 = df[0:-2:2, 2]
+# Tx1-Rx2 Shv=I2+jQ2 A2=|Shv| P2=arg(Shv)
+I2 = df[0-2:2, 2]
 Q2 = df[0:-2:2, 3]
 A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
 P2=(np.arctan2(Q2,I2))
-# Tx2-Rx1 Svh=I3+jQ3
+# Tx2-Rx1 Svh=I3+jQ3 A3=|Svh| P3=arg(Svh)
 I3 = df[1::2, 0]
 Q3 = df[1::2, 1]
 A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
 P3=(np.arctan2(Q3,I3))
-# Tx2-Rx2 Shh=I4+jQ4
+# Tx2-Rx2 Shh=I4+jQ4 A4=|Shh| P4=arg(Shh)
 I4 = df[1::2, 2]
 Q4 = df[1::2, 3]
 A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
@@ -47,10 +47,10 @@ cm = plt.cm.get_cmap('hsv') # カラーマップ
 #平均ストークスベクトルg
 
 #送信-水平偏波
-g0 = (A4**2)+(A3**2)
-g1 = (A4**2)-(A3**2)
-g2= 2*(I3*I4+Q3*Q4)
-g3= 2*(I4*Q3-I3*Q4)
+g0 = (A4**2)+(A3**2) # |Shh|^2+|Svh|^2
+g1 = (A4**2)-(A3**2) # |Shh|^2-|Svh|^2
+g2= 2*(I3*I4+Q3*Q4)  # 2Re(Shh`*Svh)
+g3= 2*(I4*Q3-I3*Q4)  # 2Im(Shh`*Svh)
 #送信-垂直偏波
 h0 = (A2**2)+(A1**2)
 h1 = (A2**2)-(A1**2)
