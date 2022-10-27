@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-date = '20221006'
-action = 'air'
-round = '2'
+#date = '20221006'
+#action = 'air'
+#round = '2'
 #freq = 1000
 
 f = sys.argv[1]
