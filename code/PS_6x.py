@@ -19,7 +19,7 @@ m_num = df.shape[0] #計測回数
 tmax = m_num/freq #計測時間
 
 
-fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
+#fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
 #plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
 # Tx1-Rx1 Svv=I1+jQ1 A1=|Svv| P1=arg(Svv)
@@ -28,7 +28,7 @@ Q1 = df[0:-2:2, 1]
 A1 = np.sqrt((I1 **2 + Q1 ** 2))
 P1=(np.arctan2(Q1,I1))
 # Tx1-Rx2 Shv=I2+jQ2 A2=|Shv| P2=arg(Shv)
-I2 = df[0-2:2, 2]
+I2 = df[0:-2:2, 2]
 Q2 = df[0:-2:2, 3]
 A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
 P2=(np.arctan2(Q2,I2))

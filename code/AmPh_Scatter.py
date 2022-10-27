@@ -13,7 +13,7 @@ freq =int(sys.argv[2])
 #f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), 'r')
 #df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), delimiter=",")
 df = np.genfromtxt(os.path.join(f), delimiter=",")
-df = (df-2048)/2048*250 #DA変換
+df = (df[:4000]-2048)/2048*250 #DA変換
 
 m_num = df.shape[0] #計測回数
 tmax = m_num/freq #計測時間
