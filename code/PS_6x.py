@@ -13,7 +13,7 @@ freq =int(sys.argv[2])
 #f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), 'r')
 #df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), delimiter=",")
 df = np.genfromtxt(os.path.join(f), delimiter=",")
-df = (df-2048)/2048*250 #DA変換 [mV]
+df = (df-2048)/2048*500 #DA変換 [mV]
 
 m_num = df.shape[0] #計測回数
 tmax = m_num/freq #計測時間
@@ -23,13 +23,13 @@ tmax = m_num/freq #計測時間
 #plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
 # Tx1-Rx1 Svv=I1+jQ1 A1=|Svv| P1=arg(Svv)
-I1 = df[0::2, 0]
-Q1 = df[0::2, 1]
+I1 = df[0:-2:2, 0]
+Q1 = df[0:-2:2, 1]
 A1 = np.sqrt((I1 **2 + Q1 ** 2))
 P1=(np.arctan2(Q1,I1))
 # Tx1-Rx2 Shv=I2+jQ2 A2=|Shv| P2=arg(Shv)
-I2 = df[0::2, 2]
-Q2 = df[0::2, 3]
+I2 = df[0:-2:2, 2]
+Q2 = df[0:-2:2, 3]
 A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
 P2=(np.arctan2(Q2,I2))
 # Tx2-Rx1 Svh=I3+jQ3 A3=|Svh| P3=arg(Svh)
