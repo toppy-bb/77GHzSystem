@@ -13,7 +13,7 @@ freq =int(sys.argv[2])
 #f = open(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), 'r')
 #df = np.genfromtxt(os.path.join(os.getcwd(),"data",'{0}_{1}_{2}.dat'.format(date, action, round)), delimiter=",")
 df = np.genfromtxt(os.path.join(f), delimiter=",")
-df = (df-2048)/2048*500 #DA変換
+df = (df-2048)/2048*250 #DA変換
 
 m_num = df.shape[0] #計測回数
 tmax = m_num/freq #計測時間
@@ -22,26 +22,49 @@ tmax = m_num/freq #計測時間
 fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
 plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-# Tx1-Rx1 Svv=I1+jQ1
-I1 = df[0::2, 0]
-Q1 = df[0::2, 1]
-A1 = np.sqrt((I1 **2 + Q1 ** 2))
-P1=(np.arctan2(Q1,I1))
-# Tx1-Rx2 Shv=I2+jQ2
-I2 = df[0::2, 2]
-Q2 = df[0::2, 3]
-A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
-P2=(np.arctan2(Q2,I2))
-# Tx2-Rx1 Svh=I3+jQ3
-I3 = df[1::2, 0]
-Q3 = df[1::2, 1]
-A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
-P3=(np.arctan2(Q3,I3))
-# Tx2-Rx2 Shh=I4+jQ4
-I4 = df[1::2, 2]
-Q4 = df[1::2, 3]
-A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
-P4=(np.arctan2(Q4,I4))
+if (np.sum(np.abs(df[0])) > np.sum(np.abs(df[1]))):
+    # Tx1-Rx1 Svv=I1+jQ1
+    I1 = df[0::2, 0]
+    Q1 = df[0::2, 1]
+    A1 = np.sqrt((I1 **2 + Q1 ** 2))
+    P1=(np.arctan2(Q1,I1))
+    # Tx1-Rx2 Shv=I2+jQ2
+    I2 = df[0::2, 2]
+    Q2 = df[0::2, 3]
+    A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
+    P2=(np.arctan2(Q2,I2))
+    # Tx2-Rx1 Svh=I3+jQ3
+    I3 = df[1::2, 0]
+    Q3 = df[1::2, 1]
+    A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
+    P3=(np.arctan2(Q3,I3))
+    # Tx2-Rx2 Shh=I4+jQ4
+    I4 = df[1::2, 2]
+    Q4 = df[1::2, 3]
+    A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
+    P4=(np.arctan2(Q4,I4))
+
+else:
+        # Tx1-Rx1 Svv=I1+jQ1
+    I1 = df[1::2, 0]
+    Q1 = df[1::2, 1]
+    A1 = np.sqrt((I1 **2 + Q1 ** 2))
+    P1=(np.arctan2(Q1,I1))
+    # Tx1-Rx2 Shv=I2+jQ2
+    I2 = df[1::2, 2]
+    Q2 = df[1::2, 3]
+    A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
+    P2=(np.arctan2(Q2,I2))
+    # Tx2-Rx1 Svh=I3+jQ3
+    I3 = df[0::2, 0]
+    Q3 = df[0::2, 1]
+    A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
+    P3=(np.arctan2(Q3,I3))
+    # Tx2-Rx2 Shh=I4+jQ4
+    I4 = df[0::2, 2]
+    Q4 = df[0::2, 3]
+    A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
+    P4=(np.arctan2(Q4,I4))
 
 vmax = max(A1.max(),A2.max(),A3.max(),A4.max())+50
 
