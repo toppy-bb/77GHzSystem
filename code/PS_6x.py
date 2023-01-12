@@ -56,13 +56,13 @@ else:
     A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
     P2=(np.arctan2(Q2,I2))
     # Tx2-Rx1 Shv=I3+jQ3
-    I3 = df[0:-2:2, 0]
-    Q3 = df[0:-2:2, 1]
+    I3 = df[0::2, 0]
+    Q3 = df[0::2, 1]
     A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
     P3=(np.arctan2(Q3,I3))
     # Tx2-Rx2 Shh=I4+jQ4
-    I4 = df[0:-2:2, 2]
-    Q4 = df[0:-2:2, 3]
+    I4 = df[0::2, 2]
+    Q4 = df[0::2, 3]
     A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
     P4=(np.arctan2(Q4,I4))
 cm = plt.cm.get_cmap('hsv') # カラーマップ
