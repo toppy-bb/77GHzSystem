@@ -67,6 +67,7 @@ else:
     P4=(np.arctan2(Q4,I4))
 
 vmax = max(A1.max(),A2.max(),A3.max(),A4.max())
+vmin = max(A1.min(),A2.min(),A3.min(),A4.min())
 
 t1= np.arange(0,np.size(A1))/freq*2
 t2= np.arange(0,np.size(A3))/freq*2
@@ -83,7 +84,7 @@ plt.title("VV",fontsize=12)
 plt.xlabel("time [s]", fontsize=10)
 plt.ylabel("amplitude [mV]", fontsize=10)
 plt.xlim(0,tmax)
-plt.ylim(vmax-5,vmax+1)
+plt.ylim(vmin-5,vmax+1)
 
 #Tx1-Rx2
 ax2 = fig.add_subplot(1, 4, 2)   #1行4列の2番目
@@ -94,7 +95,7 @@ plt.title("VH",fontsize=12)
 plt.xlabel("time [s]", fontsize=10)
 plt.ylabel("amplitude [mV]", fontsize=10)
 plt.xlim(0,tmax)
-plt.ylim(vmax-5,vmax)
+plt.ylim(vmin-5,vmax)
 
 #Tx2-Rx1
 ax3 = fig.add_subplot(1, 4, 3)   #1行4列の3番目
@@ -105,7 +106,7 @@ plt.title("HV",fontsize=12)
 plt.xlabel("time [s]", fontsize=10)
 plt.ylabel("amplitude [mV]", fontsize=10)
 plt.xlim(0,tmax)
-plt.ylim(vmax-5,vmax)
+plt.ylim(vmin-5,vmax)
 
 #Tx2-Rx2
 ax4 = fig.add_subplot(1, 4, 4)   #1行4列の4番目
@@ -116,7 +117,7 @@ plt.title("HH",fontsize=12)
 plt.xlabel("time [s]", fontsize=10)
 plt.ylabel("amplitude [mV]", fontsize=10)
 plt.xlim(0,tmax)
-plt.ylim(vmax-5,vmax)
+plt.ylim(vmin-5,vmax)
 
 savename = os.path.basename(f).strip('.dat')
 

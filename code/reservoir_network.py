@@ -21,11 +21,16 @@ class ReservoirNetWork:
         self.activator = activator # 活性化関数
 
     # reservoir層のノードの次の状態を取得
+    # def _get_next_reservoir_nodes(self, input, current_state):
+    #     next_state = (1 - self.leak_rate) * current_state
+    #     next_state += self.leak_rate * (np.array([input]) @ self.weights_input
+    #         + current_state @ self.weights_reservoir)
+    #     return self.activator(next_state)
     def _get_next_reservoir_nodes(self, input, current_state):
         next_state = (1 - self.leak_rate) * current_state
-        next_state += self.leak_rate * (np.array([input]) @ self.weights_input
+        next_state += self.leak_rate * self.activator(np.array([input]) @ self.weights_input
             + current_state @ self.weights_reservoir)
-        return self.activator(next_state)
+        return next_state
 
     # 出力層の重みを更新
     def _update_weights_output(self, lambda0):

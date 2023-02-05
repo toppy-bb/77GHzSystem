@@ -1,0 +1,22 @@
+[1, 1, 1]
+Node 10 train_len 100
+train_error 6.211823545031685
+test_error 7.872904371790671
+
+[1, 1, 1]
+Node 40 train_len 100
+train_error 0.9505728792077931
+test_error 7.023223583905457
+
+[1, 1, 1]
+Node 100 train_len 100
+train_error 1.1918996317614874
+test_error 10.363849257436865
+
+----------------------------------------
+
+[-1  1  1]
+Node 10 train_len 100
+train_error 6.730289925108918
+test_error 7.705459954869663
+

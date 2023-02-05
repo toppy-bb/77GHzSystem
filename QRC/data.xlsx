@@ -1,0 +1,101 @@
+[1  1  1]
+Node 300 train_len 100
+train_error 1.2401555001664601
+test_error 27.505936982504753
+
+[1  1  1]
+Node 120 train_len 100
+train_error 0.45037173650075346
+test_error 27.505936982504753
+
+[1  1  1]
+Node 30 train_len 100
+train_error 1.8530264764717908
+test_error 26.696321849144812
+
+-----------------------------------
+
+[1 0 0]
+Node 300 train_len 100
+train_error 1.0894873495928443
+test_error 26.17525069822141
+
+[1 0 0]
+Node 120 train_len 100
+train_error 0.391853258851614
+test_error 27.374096491792987
+
+[1 0 0]
+Node 30 train_len 100
+train_error 1.9061102204534708
+test_error 26.5264706113859
+
+-----------------------------------
+
+[0 1 0]
+Node 300 train_len 100
+train_error 1.383803998370842
+test_error 26.47623172471964
+
+[0 1 0]
+Node 120 train_len 100
+train_error 0.5852846165872577
+test_error 27.41566231708597
+
+[0 1 0]
+Node 30 train_len 100
+train_error 2.447124338092511
+test_error 26.53574889458749
+
+-----------------------------------
+
+[1 1 0]
+Node 300 train_len 100
+train_error 1.2348287164163847
+test_error 25.3096252429637
+
+[1 1 0]
+Node 120 train_len 100
+train_error 0.5822313464863633
+test_error 27.66608992988363
+
+[1 1 0]
+Node 30 train_len 100
+train_error 2.2231381713252394
+test_error 26.726939524232503
+
+-----------------------------------
+
+[1 0 1]
+Node 300 train_len 100
+train_error 1.2944335501606432
+test_error 26.170522844487916
+
+[1 0 1]
+Node 120 train_len 100
+train_error 0.4778775034337299
+test_error 27.489474579189586
+
+[1 0 1]
+Node 30 train_len 100
+train_error 2.0674112863711387
+test_error 26.599592783075614
+
+-----------------------------------
+
+[0 1 1]
+Node 300 train_len 100
+train_error 1.4012296869246579
+test_error 28.1327332187542
+
+[0 1 1]
+Node 120 train_len 100
+train_error 0.4618206802698029
+test_error 27.830360974015857
+
+[0 1 1]
+Node 30 train_len 100
+train_error 2.177601224887281
+test_error 26.815993842293825
+
+
