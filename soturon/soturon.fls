@@ -310,14 +310,15 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 OUTPUT soturon.dvi
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
@@ -353,6 +354,10 @@ INPUT ../img/system.png
 INPUT ../img/system.png
 INPUT ../img/system.png
 INPUT extractbb -B cropbox -O ../img/system.png
+INPUT ../img/system_all.jpeg
+INPUT ../img/system_all.jpeg
+INPUT ../img/system_all.jpeg
+INPUT extractbb -B cropbox -O ../img/system_all.jpeg
 INPUT ../img/diagram.png
 INPUT ../img/diagram.png
 INPUT ../img/diagram.png
@@ -361,10 +366,18 @@ INPUT ../img/process.png
 INPUT ../img/process.png
 INPUT ../img/process.png
 INPUT extractbb -B cropbox -O ../img/process.png
-INPUT ../img/exp.png
-INPUT ../img/exp.png
-INPUT ../img/exp.png
-INPUT extractbb -B cropbox -O ../img/exp.png
+INPUT ../img/state1.png
+INPUT ../img/state1.png
+INPUT ../img/state1.png
+INPUT extractbb -B cropbox -O ../img/state1.png
+INPUT ../img/state2.png
+INPUT ../img/state2.png
+INPUT ../img/state2.png
+INPUT extractbb -B cropbox -O ../img/state2.png
+INPUT ../img/state3.png
+INPUT ../img/state3.png
+INPUT ../img/state3.png
+INPUT extractbb -B cropbox -O ../img/state3.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
 INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
