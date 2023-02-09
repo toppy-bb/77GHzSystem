@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  6 FEB 2023 13:24
+This is e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2021) (preloaded format=uplatex 2021.4.18)  8 FEB 2023 10:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,24 +314,24 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <30> not available
 (Font)              size <24.88> substituted on input line 14.
 
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 22.19238pt on input line 16.
+(Font)              scaled to size 17.72307pt on input line 16.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 22.19238pt on input line 16.
+(Font)              scaled to size 17.72307pt on input line 16.
 
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <24> not available
-(Font)              size <24.88> substituted on input line 16.
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <19.16666> not available
+(Font)              size <20.74> substituted on input line 16.
 
-LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <24> not available
+LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <19.16666> not available
 (Font)              Font shape `JT2/gt/m/n' tried instead on input line 17.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 22.19238pt on input line 17.
-LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <24> not available
+(Font)              scaled to size 17.72307pt on input line 17.
+LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <19.16666> not available
 (Font)              Font shape `JY2/gt/m/n' tried instead on input line 17.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 22.19238pt on input line 17.
+(Font)              scaled to size 17.72307pt on input line 17.
 
-LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <24> not available
-(Font)              size <24.88> substituted on input line 17.
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <19.16666> not available
+(Font)              size <20.74> substituted on input line 17.
 
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <20.74> not available
 (Font)              Font shape `JT2/gt/m/n' tried instead on input line 21.
@@ -374,50 +374,89 @@ LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 [3]
 File: ../img/poincar.png Graphic file (type bmp)
 <../img/poincar.png>
-[4]
+[4] [5]
 File: ../img/neural.png Graphic file (type bmp)
 <../img/neural.png>
+[6]
 File: ../img/reservoir.png Graphic file (type bmp)
 <../img/reservoir.png>
-[5]
+[7]
 File: ../img/system.png Graphic file (type bmp)
 <../img/system.png>
 File: ../img/system_all.jpeg Graphic file (type bmp)
 <../img/system_all.jpeg>
+
+Overfull \hbox (34.86365pt too wide) in paragraph at lines 291--292
+ [][] 
+ []
+
 File: ../img/diagram.png Graphic file (type bmp)
 <../img/diagram.png>
-[6] [7] [8]
+[8] [9]
 File: ../img/process.png Graphic file (type bmp)
 <../img/process.png>
-[9]
+
+Overfull \hbox (15.56107pt too wide) in paragraph at lines 412--413
+ [][] 
+ []
+
+[10] [11] [12]
 File: ../img/state1.png Graphic file (type bmp)
 <../img/state1.png>
 File: ../img/state2.png Graphic file (type bmp)
 <../img/state2.png>
 File: ../img/state3.png Graphic file (type bmp)
 <../img/state3.png>
-File: ../img/20220707_test_1_AmPh4_2Tx2Rx.png Graphic file (type bmp)
-<../img/20220707_test_1_AmPh4_2Tx2Rx.png>
-File: ../img/20220707_test_1_IQ4_2Tx2Rx.png Graphic file (type bmp)
-<../img/20220707_test_1_IQ4_2Tx2Rx.png>
-File: ../img/20220707_test_1_PS_2.png Graphic file (type bmp)
-<../img/20220707_test_1_PS_2.png>
+File: ../img/20230203_standing_4_PS_x.png Graphic file (type bmp)
+<../img/20230203_standing_4_PS_x.png>
 
-LaTeX Warning: Float too large for page by 21.50183pt on input line 475.
+LaTeX Warning: Float too large for page by 133.50183pt on input line 520.
 
-[10] [11] [12] [13] [14] (./soturon.aux)
+File: ../img/20230203_standing_4_Svv_x.png Graphic file (type bmp)
+<../img/20230203_standing_4_Svv_x.png>
+
+Overfull \hbox (53.72299pt too wide) in paragraph at lines 524--527
+ [][] 
+ []
+
+File: ../img/20230203_standing_4_Svh_x.png Graphic file (type bmp)
+<../img/20230203_standing_4_Svh_x.png>
+
+Overfull \hbox (53.72299pt too wide) in paragraph at lines 530--533
+ [][] 
+ []
+
+File: ../img/20230203_standing_4_Shv_x.png Graphic file (type bmp)
+<../img/20230203_standing_4_Shv_x.png>
+
+Overfull \hbox (53.72299pt too wide) in paragraph at lines 538--541
+ [][] 
+ []
+
+File: ../img/20230203_standing_4_Shh_x.png Graphic file (type bmp)
+<../img/20230203_standing_4_Shh_x.png>
+
+Overfull \hbox (53.72299pt too wide) in paragraph at lines 544--547
+ [][] 
+ []
+
+File: ../img/result_table7_hand.png Graphic file (type bmp)
+<../img/result_table7_hand.png>
+[13] [14] [15] [16] [17] [18
+
+] (./soturon.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 5.12pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 3991 strings out of 479460
- 60710 string characters out of 5870464
- 366136 words of memory out of 5000000
- 21644 multiletter control sequences out of 15000+600000
- 417709 words of font info for 100 fonts, out of 8000000 for 9000
+ 4007 strings out of 479460
+ 61200 string characters out of 5870464
+ 368157 words of memory out of 5000000
+ 21657 multiletter control sequences out of 15000+600000
+ 417402 words of font info for 99 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 80i,16n,88p,372b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,16n,88p,372b,368s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on soturon.dvi (14 pages, 32820 bytes).
+Output written on soturon.dvi (18 pages, 36648 bytes).

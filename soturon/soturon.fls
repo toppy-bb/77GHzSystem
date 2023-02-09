@@ -310,15 +310,14 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-h.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 OUTPUT soturon.dvi
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
@@ -378,16 +377,28 @@ INPUT ../img/state3.png
 INPUT ../img/state3.png
 INPUT ../img/state3.png
 INPUT extractbb -B cropbox -O ../img/state3.png
-INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_AmPh4_2Tx2Rx.png
-INPUT extractbb -B cropbox -O ../img/20220707_test_1_AmPh4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_IQ4_2Tx2Rx.png
-INPUT extractbb -B cropbox -O ../img/20220707_test_1_IQ4_2Tx2Rx.png
-INPUT ../img/20220707_test_1_PS_2.png
-INPUT ../img/20220707_test_1_PS_2.png
-INPUT ../img/20220707_test_1_PS_2.png
-INPUT extractbb -B cropbox -O ../img/20220707_test_1_PS_2.png
+INPUT ../img/20230203_standing_4_PS_x.png
+INPUT ../img/20230203_standing_4_PS_x.png
+INPUT ../img/20230203_standing_4_PS_x.png
+INPUT extractbb -B cropbox -O ../img/20230203_standing_4_PS_x.png
+INPUT ../img/20230203_standing_4_Svv_x.png
+INPUT ../img/20230203_standing_4_Svv_x.png
+INPUT ../img/20230203_standing_4_Svv_x.png
+INPUT extractbb -B cropbox -O ../img/20230203_standing_4_Svv_x.png
+INPUT ../img/20230203_standing_4_Svh_x.png
+INPUT ../img/20230203_standing_4_Svh_x.png
+INPUT ../img/20230203_standing_4_Svh_x.png
+INPUT extractbb -B cropbox -O ../img/20230203_standing_4_Svh_x.png
+INPUT ../img/20230203_standing_4_Shv_x.png
+INPUT ../img/20230203_standing_4_Shv_x.png
+INPUT ../img/20230203_standing_4_Shv_x.png
+INPUT extractbb -B cropbox -O ../img/20230203_standing_4_Shv_x.png
+INPUT ../img/20230203_standing_4_Shh_x.png
+INPUT ../img/20230203_standing_4_Shh_x.png
+INPUT ../img/20230203_standing_4_Shh_x.png
+INPUT extractbb -B cropbox -O ../img/20230203_standing_4_Shh_x.png
+INPUT ../img/result_table7_hand.png
+INPUT ../img/result_table7_hand.png
+INPUT ../img/result_table7_hand.png
+INPUT extractbb -B cropbox -O ../img/result_table7_hand.png
 INPUT soturon.aux

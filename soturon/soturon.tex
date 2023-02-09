@@ -1,4 +1,4 @@
-\documentclass[uplatex,a4paper]{jsarticle}
+\documentclass[uplatex,a4paper,12pt]{jsarticle}
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{multicol}
 \usepackage{url}
@@ -13,20 +13,20 @@
 \begin{center}
 \vspace*{3cm} \underline{\HUGE 卒業論文 }\\
 \vspace{1cm}
-\fontsize{24truept}{25truept}\selectfont
+\fontsize{23truept}{24truept}\selectfont
 \bf{四元数リザバーコンピューティングに基づく\\ \vspace{5mm}
 偏波リモートセンシングによる\\ \vspace{5mm}
 人体動作の分類\\}
-\vspace{3cm}
+\vspace{1cm}
 \huge 2023年2月8日提出 \\
-\vspace{3cm}
+\vspace{1cm}
 \end{center}
 \begin{minipage}{0.4\hsize}
 \hspace{1zw}
 \end{minipage}
 \begin{center}
 \begin{minipage}{0.7\hsize}
-{\huge 指導教員　　　廣瀬　明　教授\\　　　　　　　\ \ 夏秋　嶺　准教授}
+{\huge 指導教員　　廣瀬　明　教授\\　　　　\ \ 夏秋　嶺　准教授}
 \vspace{1cm}\\
 \centering
 {\huge 電気電子工学科\\}
@@ -170,6 +170,31 @@ $g_3$は左回り円偏波成分(left-handed circle: LHC)
   \right)
 \end{equation}
 
+四元数の基底は以下のハミルトニアン則を満たす．
+\begin{equation}
+    i^2 = j^2 = k^2 = ijk = -1 \quad
+    ij = -ji = k \quad
+    jk = -kj = i \quad
+    ki = -ik = j
+\end{equation}
+また，2つの四元数$\bm{p} = (p^e,p^i,p^j,p^k)$，
+$\bm{q} = (q^e,q^i,q^j,q^k)$
+同士の計算は以下のように定義される．
+\begin{align}
+    和・差&:& \bm{p}\pm\bm{q}&=
+    (p^e\pm q^e,p^i\pm q^i,p^j\pm q^j,p^k\pm q^k)\\
+    アダマール積&:& \bm{p}\odot\bm{q}&=
+    (p^e q^e,p^i q^i,p^j q^j,p^k q^k)\\
+    内積&:& \bm{p}\cdot\bm{q}&=
+    (p^e q^e + p^i q^i + p^j q^j + p^k q^k)\\
+    外積&:& \bm{p}\otimes\bm{q}&=
+    (p^e q^e - p^i q^i - p^j q^j - p^k q^k,\\ \notag
+    & & &p^e q^i + p^i q^e + p^j q^k - p^k q^j,\\ \notag
+    & & &p^e q^j + p^j q^e + p^k q^i - p^i q^k,\\ \notag
+    & & &p^e q^k + p^k q^e + p^i q^j - p^j q^i)\\
+    ノルム&:& |\bm{p}| &= \sqrt{(p^e)^2+(p^i)^2+(p^j)^2+(p^k)^2}
+\end{align}
+
 四元数は3次元空間における回転と相性が良いため，ポアンカレベクトルを四元数に拡張
 することで学習がうまく進みやすい．
 
@@ -227,7 +252,7 @@ $\mathbf{W}_{\rm{out}}$のみである．
 出力層における出力信号を$\bm{s}_{\rm{out}}$とし，
 時間$t$におけるリザバー部の出力信号を$\bm{x}(t)$と記述すると
 \begin{equation}\label{equa:5}
-    \bm{x}(t) = f_{\rm{a}}(\mathbf{W_{\rm{res}}} \bm{x}(t-1) + \mathbf{W}_{\rm{in}} \bm{s}_{\rm{in}}(t))
+    \bm{x}(t) = (1-\alpha)\bm{x}(t-1)+\alpha f_{\rm{a}}(\mathbf{W_{\rm{res}}} \bm{x}(t-1) + \mathbf{W}_{\rm{in}} \bm{s}_{\rm{in}}(t))
 \end{equation}
 
 \begin{equation}\label{equa:6}
@@ -405,15 +430,40 @@ $\bm{s}_{\rm{in}}(t) =
         q_{\rm{LHC}}(t)\\
         q_{\rm{RHC}}(t)
     \end{array}
-\right)$とする．四元数を要素にもつ重み$\bf{W_{\rm{in}}}$と$\bf{W_{\rm{res}}}$，
-活性化関数$f_a$を適当に選ぶことで式\ref{equa:5}，\ref{equa:6}により
-$\bm{s}_{\rm{out}}$を求められる．一方，四元数を要素にもつ行列は
+\right)$とする．
+四元数を要素にもつ重み$\bf{W_{\rm{in}}}$，$\bf{W_{\rm{res}}}$と
+入力$\bm{x}$の関係は
+\begin{equation}\label{equa:x}
+    \bm{s_m} =  \sum_{n} \frac{\bm{w}_{mn}\otimes \bm{x}_n\otimes \bm{w}_{mn}^{*}}{|\bm{w}_{mn}|}
+\end{equation}
+で表すことができる．また，活性化関数$f(s)$は四元数$\bm{s}$に対して以下のように作用する．
+\begin{equation}\label{equa:y}
+    \bm{f}(\bm{s})= f(s^e) + f(s^i)\bm{i} + f(s^j)\bm{j} + f(s^k)\bm{k}
+\end{equation}
+式\ref{equa:x}，\ref{equa:y}と式\ref{equa:5}，\ref{equa:6}を用いて
+$\bm{s}_{\rm{out}}$を求められる．
+一方，四元数を要素にもつ行列は
 逆行列が求められないため，式\ref{equa:8}による$\bf{W_{\rm{out}}}$
 の更新はできない．そのため，通常のリザバーコンピューティングとは
-異なる更新の方法が必要で，主に勾配法が用いられている\cite{quaternion1}\cite{quaternion2}．
-現在，四元数リザバーコンピューティングは未実装であるため，
-重みの各要素の値，活性化関数，教師データは
-検討中である．
+異なる更新の方法が必要で，以下のように勾配法を用いて
+重みを更新する\cite{quaternion1}\cite{quaternion2}．
+\begin{align}
+    \bm{w} &\leftarrow \bm{w}+k\Delta \bm{w}\\
+    \Delta \bm{\theta}_m &= 
+    (\bm{y}_m - \bm{t}_m)\odot \bm{f'}(\bm{s}_m)\\
+    \Delta \bm{w}_{mn} &= 
+    \frac{1}{|\bm{w}_{mn}|}
+    \left[\frac{\Delta\bm{\theta}_m\cdot
+    (\bm{w}_{mn}\otimes\bm{y}_{n}\otimes
+    \bm{w}_{mn}^{*})}{|\bm{w}_{mn}|^2}\bm{w}_{mn}
+    -2\Delta\bm{\theta}_{m}\otimes\bm{w}_{mn}
+    \otimes\bm{y}_{n}^{*}\right]
+\end{align}
+
+
+% 現在，四元数リザバーコンピューティングは未実装であるため，
+% 重みの各要素の値，活性化関数，教師データは
+% 検討中である．
 
 
 \section{実験・結果}
@@ -425,13 +475,18 @@ $+45^\circ$偏波，$-45^\circ$偏波，
 左回り円偏波と右回り円偏波を送信偏波であると仮定した際の受信偏波を
 計算で求めた．
 以上により得られた情報からポアンカレベクトル$\bm{P}$を取得した．
-今回の実験では，立っている状態(状態1)，前後に歩いている状態(状態2)，
+今回の実験では，測定時間60秒のうち，
+前半の30秒で立っている状態(状態1)，前後に歩いている状態(状態2)，
 左右に歩いている状態(状態3)の
-3つの動作状態を四元数リザバーコンピューティングによって分類した．
-状態1では，アンテナとの距離が50cmの位置で動作を行った(図\ref{fig:state1})．
+3つの動作状態を10秒ずつ行い，後半の30秒でも同じ順序で動作を行った．
+前半の30秒を訓練データとして用い，それをもとに後半の30秒の動作を
+四元数リザバーコンピューティングによって分類した．
+動作1では，アンテナとの距離が50cmの位置で動作を行った(図\ref{fig:state1})．
 動作2では，アンテナとの距離が50cmから3mの範囲で動作を行った(図\ref{fig:state2})．
 動作3では，アンテナから50cm離れた位置を左右に3mの幅で動作を行った(図\ref{fig:state3})．
 
+\subsection{実験結果}
+\subsection{今後の課題}
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[scale=0.4]{../img/state1.png}
@@ -451,35 +506,63 @@ $+45^\circ$偏波，$-45^\circ$偏波，
 	\label{fig:state3}
 \end{figure}
 
-
-\subsection{実験結果}
-
-
-\begin{figure}[hbtp]
+% \begin{figure}[hbtp]
+% 	\centering
+% 	\includegraphics[scale=0.5]{../img/20220707_test_1_AmPh4_2Tx2Rx.png}
+%     \caption{水平偏波および垂直偏波を送信し得られたIQ信号}
+% 	\label{fig:iq}
+% \end{figure}
+\begin{figure}[t]
 	\centering
-	\includegraphics[scale=0.5]{../img/20220707_test_1_AmPh4_2Tx2Rx.png}
-    \caption{水平偏波および垂直偏波を送信し得られたIQ信号}
-	\label{fig:iq}
-\end{figure}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[scale=0.4]{../img/20220707_test_1_IQ4_2Tx2Rx.png}
-    \caption{散乱行列の各要素}
-	\label{fig:scatter}
-\end{figure}
-\begin{figure}[hbtp]
-	\centering
-	\includegraphics[scale=0.5]{../img/20220707_test_1_PS_2.png}
+	\includegraphics[scale=0.5]{../img/20230203_standing_4_PS_x.png}
     \caption{ポアンカレ球上での偏波情報}
 	\label{fig:ps}
 \end{figure}
+\begin{figure}[hbtp]
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[scale=0.2]{../img/20230203_standing_4_Svv_x.png}
+        % \caption{IQ信号の時間変化}
+        \label{fig:vv}   
+    \end{minipage}
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[scale=0.2]{../img/20230203_standing_4_Svh_x.png}
+        % \caption{IQ信号の時間変化}
+    	\label{fig:vh}
+    \end{minipage}
+\end{figure}
+\begin{figure}[hbtp]
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[scale=0.2]{../img/20230203_standing_4_Shv_x.png}
+        % \caption{IQ信号の時間変化}
+        \label{fig:hv}
+    \end{minipage}
+    \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[scale=0.2]{../img/20230203_standing_4_Shh_x.png}
+        % \caption{IQ信号の時間変化}
+        \label{fig:hh}
+    \end{minipage}\caption{ヒトが立っている状態のIQ信号の時間変化}
+\end{figure}
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[scale=0.5]{../img/result_table7_hand.png}
+    \caption{分類結果}
+	\label{fig:class}
+\end{figure}
+\clearpage
 
-\subsection{今後の課題}
 
-\newpage
+
 \section{結論}
+本研究では，偏波リモートセンシングシステムを用いた人体動作の分類を提案した．
+観測した信号から6つの送信波に対する受信偏波を計算し，ポアンカレベクトルで表現した．
+ポアンカレベクトルを四元数に拡張したものを入力として
+四元数リザバーコンピューティングにより動作の分類を行った．
 
-\newpage
+% \newpage
 \begin{thebibliography}{99}
 		
 	\bibitem{human_motion} B. Jokanovic, M. Amin and B. Erol, ”Multiple joint-variable domains recognition of human motion,” 2017 IEEE Radar Conference (RadarConf), 2017, pp. 0948- 0952

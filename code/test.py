@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
+import pandas as pd
 from quaternion_calculation import *
 from qmodel import ESN, QGC
 import os
@@ -91,12 +91,12 @@ def to_3Ddata(qdata):
     return data
 
 if __name__ == '__main__':
-    f = "data/20230207_class_3.dat"
+    f = "data/20230207_class_12_hand_60s.dat"
     df = np.genfromtxt(os.path.join(f), delimiter=",")
     df = (df-2048)/2048*100 #DA変換 [mV]
 
     #N = df.shape[0]           # サンプル数
-    N=600
+    N=1200
     freq = 20 # 周波数
     tmax = N/freq #計測時間
     # データのパラメータ
@@ -245,8 +245,8 @@ if __name__ == '__main__':
     r2 = 2*1/2*((I1-Q3)*(I2-Q4)+(Q1+I3)*(Q2+I4))
     r3 = 2*1/2*((Q1+I3)*(I2-Q4)-(I1-Q3)*(Q2+I4))
 
-    T_train = 150  # 学習データの長さ
-    T_test = 150  # テストデータの長さ
+    T_train = 300  # 学習データの長さ
+    T_test = 300  # テストデータの長さ
 
     qdata = np.array([
     to_quaternion(np.array([g1/g0,g2/g0,g3/g0]).T),to_quaternion(np.array([h1/h0,h2/h0,h3/h0]).T),
@@ -255,24 +255,24 @@ if __name__ == '__main__':
     ]).T
 
     QD1 = np.array([
-    to_quaternion([[1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
+    to_quaternion([[1,-1,-1]]),to_quaternion([[1,-1,-1]]),
     to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
     to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]])
-    ]*50)
+    ]*100)
     QD2 = np.array([
-    to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,1,-1]]),
     to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
+    to_quaternion([[1,-1,-1]]),to_quaternion([[1,-1,-1]]),
     to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]])
-    ]*50)
+    ]*100)
     QD3 = np.array([
     to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
-    to_quaternion([[1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
-    to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]])
-    ]*50)
+    to_quaternion([[-1,-1,-1]]),to_quaternion([[-1,-1,-1]]),
+    to_quaternion([[1,-1,-1]]),to_quaternion([[1,-1,-1]])
+    ]*100)
 
-    QD1 =QD1.reshape(50,6)
-    QD2 =QD2.reshape(50,6)
-    QD3 =QD3.reshape(50,6)
+    QD1 =QD1.reshape(100,6)
+    QD2 =QD2.reshape(100,6)
+    QD3 =QD3.reshape(100,6)
     QD = np.concatenate([QD1, QD2, QD3])
 
     print(QD.shape)
@@ -290,7 +290,7 @@ if __name__ == '__main__':
 
 
     # ESNモデル
-    N_x = 100  # リザバーのノード数
+    N_x = 15  # リザバーのノード数
     rho = 0.01
     model = ESN(1, 1, N_x, \
                 density=0.1, input_scale=0.1, rho=rho)
@@ -304,41 +304,87 @@ if __name__ == '__main__':
     # print(train_Y)
     qtest_Y = model.qfree_run(test_QU)
     test_Y = to_3Ddata(qtest_Y)
-    print(test_Y,test_Y.shape)
+    # print(QD1[0][0].data)
+    # print(qtest_Y[0].data)
+    # print(qtest_Y.data[0])
+    # print(qtest_Y,)
 
-    y = []
-    div1 = []
-    div2= []
-    div3 = []
-    E1= []
-    E2 = []
-    E3 = []
-    P = []
-    P1 = []
-    P2 = []
-    P3 = []
-    for i in range(T_test):
-        y[i] = qtest_Y[i::150]
-        div1[i] = QD1[0]-y[i]
-        div2[i] = QD2[0]-y[i]
-        div3[i] = QD3[0]-y[i]
+    # import csv
+    # f = open('out3.csv', 'w', newline='')
+    # writer = csv.writer(f)
+    # writer.writerows(test_Y)
+    # f.close()
+    x=300
+    y = [0]*x
+    div1 = [0]*x
+    div2= [0]*x
+    div3 = [0]*x
+    E1= [0]*x
+    E2 = [0]*x
+    E3 = [0]*x
+    P = [0]*x
+    P1 = [0]*x
+    P2 = [0]*x
+    P3 = [0]*x
+    alpha = 0.0001
+    beta = 0.00001
+    for i in range(x):
+        y[i] = [qtest_Y[i].data,qtest_Y[i+150].data,qtest_Y[i+300].data,qtest_Y[i+450].data,qtest_Y[i+600].data,qtest_Y[i+750].data]
+        # y[i] = qtest_Y[i].data
+        div1[i] = np.array([QD1[0][0].data,QD1[0][1].data,QD1[0][2].data,QD1[0][3].data,QD1[0][4].data,QD1[0][5].data])-np.array(y[i])                                                                                                   
+        div2[i] = np.array([QD2[0][0].data,QD2[0][1].data,QD2[0][2].data,QD2[0][3].data,QD2[0][4].data,QD2[0][5].data])-np.array(y[i])
+        div3[i] = np.array([QD3[0][0].data,QD3[0][1].data,QD3[0][2].data,QD3[0][3].data,QD3[0][4].data,QD3[0][5].data])-np.array(y[i])
         E1[i] = 0
         E2[i] = 0
         E3[i] = 0
         for j in range(6):
-            E1[i] += absolute_value(div1[i][j])*absolute_value(div1[i][j])
-            E2[i] += absolute_value(div2[i][j])*absolute_value(div2[i][j])
-            E3[i] += absolute_value(div3[i][j])*absolute_value(div3[i][j])
+            # print(np.abs(div1[i][j]))
+            E1[i] += np.sum(div1[i][j] ** 2)
+            E2[i] += np.sum(div2[i][j] ** 2)
+            E3[i] += np.sum(div3[i][j] ** 2)
         E1[i] = -E1[i]/2
         E2[i] = -E2[i]/2
         E3[i] = -E3[i]/2
-        P1[i] = np.exp(E1[i].data)
-        P2[i] = np.exp(E2[i].data)
-        P3[i] = np.exp(E3[i].data)
+        P1[i] = np.exp(E1[i])
+        P2[i] = np.exp(E2[i])
+        P3[i] = np.exp(E3[i])
+        print(P1[i],P2[i],P3[i])
         if max(P1[i],P2[i],P3[i]) == P1[i]:
-            P[i] = 1
+            if (P1[i] > alpha and P2[i] < beta) and P3[i] < beta:
+                P[i] = 1
         elif P2[i] - P3[i] > 0:
-            P[i] = 2
+            if (P2[i] > alpha and P1[i] < beta) and P3[i] < beta:
+                P[i] = 2
         else:
-            P[i] = 3
+            if (P3[i] > alpha and P1[i] < beta) and P2[i] < beta:
+                P[i] = 3
         print("P[i]: "+str(P[i]))
+    p1 = np.array(P[0:100])
+    p2 = np.array(P[100:200])
+    p3 = np.array(P[200:300])
+    m11 = np.count_nonzero(p1==1)
+    m12 = np.count_nonzero(p1==2)
+    m13 = np.count_nonzero(p1==3)
+    m21 = np.count_nonzero(p2==1)
+    m22 = np.count_nonzero(p2==2)
+    m23 = np.count_nonzero(p2==3)
+    m31 = np.count_nonzero(p3==1)
+    m32 = np.count_nonzero(p3==2)
+    m33 = np.count_nonzero(p3==3)
+    move1 = [m11,m12,m13]
+    move2 = [m21,m22,m23]
+    move3 = [m31,m32,m33]
+
+    df = pd.DataFrame(data=[move1,move2,move3],
+    columns=["standing","up and down", "walking"],
+    index=["standing","up and down", "walking"])
+
+    # 画像にする
+    f = plt.figure(figsize=(6, 3))
+    a = f.gca()
+    a.axis("off")
+    a.table(cellText=df.values,colLabels=df.columns,rowLabels=df.index,
+            loc="center")
+    plt.tight_layout()
+    plt.savefig("img/result_table12.png")
+    plt.show()
