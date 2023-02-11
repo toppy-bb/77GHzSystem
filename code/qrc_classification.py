@@ -47,6 +47,10 @@ from sklearn.metrics import confusion_matrix
 
 
 np.random.seed(seed=0)
+N_u = 6
+N_y = 3
+q = 4
+label_array = [[[0,1,1,1],[0,-1,-1,-1],[0,-1,-1,-1]],[[0,-1,-1,-1],[0,1,1,1],[0,-1,-1,-1]],[[0,-1,-1,-1],[0,-1,-1,-1],[0,1,1,1]]] # (N_y, N_y, 4)
 
 # 音声信号を前処理したデータ(コクリアグラム)の読み込み
 def read_motion_data(dir_name, motion_train_list):
@@ -60,9 +64,6 @@ def read_motion_data(dir_name, motion_train_list):
     # データに関する情報
     n_time = 200  # サンプル数
     n_motion = 3  # ラベル数(motionの数)
-    N_u = 6
-    N_y = 1
-    q = 4 # quaternion
 
     # 初期化
     train_input = np.empty((0, N_u, q))  # 教師入力
@@ -91,8 +92,8 @@ def read_motion_data(dir_name, motion_train_list):
                 # 入力データ
                 train_input = np.vstack((train_input, data)) # [N_u*4] * n_time
                 # 出力データ（n_time x n_label，値はすべて'-1'）
-                tmp = -np.ones((n_time, 1, 4))
-                tmp[:, :, label] = 1  # labelの列のみ1
+                tmp = np.zeros((n_time, N_y, 4))
+                tmp[:] = label_array[label-1]
                 train_output = np.vstack((train_output, tmp))
                 # データ長
                 train_length = np.hstack((train_length, n_time))
@@ -102,8 +103,8 @@ def read_motion_data(dir_name, motion_train_list):
                 # 入力データ
                 test_input = np.vstack((test_input, data)) # [N_u*4] * n_time
                 # 出力データ（n_time x n_label，値はすべて'-1'）
-                tmp = np.ones((n_time, 1, 4))
-                tmp[:, :, label] = 1  # labelの列のみ1
+                tmp = np.zeros((n_time, N_y, 4))
+                tmp[:] = label_array[label-1]
                 test_output = np.vstack((test_output, tmp))
                 # データ長
                 test_length = np.hstack((test_length, n_time))
@@ -155,7 +156,7 @@ def rot(W,x):
         s = np.vstack((s, np.sum(tmp,axis=0)))
     return s
 
-N_x_list = [10,15,20,25,30]
+N_x_list = np.arange(3,15)
 for N_x in N_x_list:
     # 訓練データ，検証データの取得
     n_motion = 3  # ラベル数
@@ -174,8 +175,8 @@ for N_x in N_x_list:
     test_WER = np.empty(0)
 
     # ESNモデル
-    model = ESN(train_input.shape[1], train_output.shape[1], N_x,
-                density=1, input_scale=0.1, rho=0.8, fb_scale=0.0)
+    model = ESN(N_u, N_y, N_x,
+                density=1, input_scale=1, rho=0.8, fb_scale=0.0)
 
     ########## 訓練データに対して
     # リザバー状態行列
@@ -191,17 +192,25 @@ for N_x in N_x_list:
     # 学習（疑似逆行列）
     # Wout = np.dot(teachCollectMat.T, np.linalg.pinv(stateCollectMat.T))
 
-    
+    lr =  1e-4
 
+    label_array = [[[0,1,1,1],[0,-1,-1,-1],[0,-1,-1,-1]],[[0,-1,-1,-1],[0,1,1,1],[0,-1,-1,-1]],[[0,-1,-1,-1],[0,-1,-1,-1],[0,1,1,1]]] # (N_y, N_y, 4)
+    err_array = np.zeros((train_length[0], N_y, N_y, 4))
+    err_value = np.zeros((train_length[0], N_y))
     # ラベル出力
-    Y_pred, Wout = model.adapt(train_input,train_output,SGD(N_x, train_output.shape[1], lr=0.01))
+    Y_pred, Wout, err_train = model.adapt(train_input,train_output,SGD(N_x, N_y, lr))
     pred_train = np.empty(0, np.int)
     start = 0
     # print(len(train_length))
     for i in range(len(train_length)): # 訓練データの数
-        tmp = Y_pred[start:start+train_length[i],0]  # 1つのデータに対する出力　??
-        max_index = np.argmax(tmp[:,1:], axis=1)+1  # 最大出力を与える出力ノード番号
-        histogram = np.bincount(max_index)  # 出力ノード番号のヒストグラム
+        tmp = Y_pred[start:start+train_length[i]]  # (train_length[i], N_y, N_y, 4)
+        for j in range(N_y):
+            err_array = tmp - [label_array[j]]*train_length[i] # (train_length[i], N_y, 4)
+            for k in range(train_length[i]):
+                err_value[i,j] = np.linalg.norm(norm_array(err_array[k]))           
+        max_index = np.argmax(err_value[i])+1  # 最大出力を与える出力ノード番号
+        # print(err_value[i], max_index)
+        histogram = np.bincount([max_index])  # 出力ノード番号のヒストグラム
         pred_train = np.hstack((pred_train, np.argmax(histogram)))  # 最頻値 
         start = start + train_length[i]
     # print(pred_train)
@@ -210,12 +219,16 @@ for N_x in N_x_list:
     for i in range(len(train_length)):
         if pred_train[i] != train_label[i]:
             count = count + 1 
-    print("訓練誤差： WER = %5.4lf" % (count/len(train_length)))
-    train_WER = np.hstack((train_WER, count/len(train_length)))
+    
+    # train_WER = np.hstack((train_WER, count/len(train_length)))
     # 混同行列
     cm_train = confusion_matrix(train_label-1, pred_train-1, range(n_motion))
     print("正解率： ACC = %5.4lf" % (np.sum(np.diag(cm_train))/len(test_length)))
     print(cm_train)
+    # print(err_train[0:10])
+    # t = [x for x in range(len(train_length)*200)]
+    # plt.plot(t, err_train)
+    plt.savefig(os.path.join("img", "err_qrc_Node"+str(N_x)))
         
     ########## 検証データに対して
     # リザバー状態行列
@@ -228,22 +241,26 @@ for N_x in N_x_list:
     pred_test = np.empty(0, np.int)
     start = 0
     for i in range(len(test_length)):
-        tmp = Y_pred[start:start+test_length[i],0]  # 1つのデータに対する出力
-        max_index = np.argmax(tmp[:,1:], axis=1)+1  # 最大出力を与える出力ノード番号
-        histogram = np.bincount(max_index)  # 出力ノード番号のヒストグラム
-        pred_test = np.hstack((pred_test, np.argmax(histogram)))  # 最頻値
-        start = start + test_length[i]
-        
+        tmp = Y_pred[start:start+test_length[i]]  # (test_length[i], N_y, N_y, 4)
+        for j in range(N_y):
+            err_array = tmp - [label_array[j]]*train_length[i] # (test_length[i], N_y, 4)
+            for k in range(train_length[i]):
+                err_value[i,j] = np.linalg.norm(norm_array(err_array[k]))           
+        max_index = np.argmax(err_value[i])+1  # 最大出力を与える出力ノード番号
+        histogram = np.bincount([max_index])  # 出力ノード番号のヒストグラム
+        pred_test = np.hstack((pred_test, np.argmax(histogram)))  # 最頻値 
+        start = start + train_length[i]
+    # print(err_value[0:10,:])
     # 検証誤差(WER)
     count = 0
     for i in range(len(test_length)):
         if pred_test[i] != test_label[i]:
             count = count + 1 
     
-    test_WER = np.hstack((test_WER, count/len(test_length)))
+    # test_WER = np.hstack((test_WER, count/len(test_length)))
     # 混同行列
     cm_test = confusion_matrix(test_label-1, pred_test-1, range(n_motion))
-    print("検証誤差： WER = %5.4lf" % (count/len(test_length)))
+    # print("検証誤差： WER = %5.4lf" % (count/len(test_length)))
     print("正解率： ACC = %5.4lf" % (np.sum(np.diag(cm_test))/len(test_length)))
     print(cm_test)
         
@@ -270,4 +287,4 @@ for N_x in N_x_list:
     plt.ylabel('True')
 
     plt.savefig(os.path.join("img", "qrc_Node"+str(N_x)))   
-    plt.show()
+    # plt.show()

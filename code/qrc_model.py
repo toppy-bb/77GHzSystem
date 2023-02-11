@@ -62,7 +62,7 @@ class Reservoir:
         N = np.array(connection)
         # print(W)
         # 非ゼロ要素を一様分布に従う乱数として生成
-        rec_scale = 1e-1
+        rec_scale = 1e-2
         np.random.seed(seed=self.seed)
         W = np.random.uniform(-rec_scale, rec_scale, (N_x, N_x,4))
         N *= np.random.uniform(-rec_scale, rec_scale, (N_x, N_x))
@@ -225,7 +225,7 @@ class RLS:
 
 # 確率的勾配法（SGD）法
 class SGD:
-    def __init__(self, N_x, N_y, lr , seed = 0 , input_scale = 1e-2):
+    def __init__(self, N_x, N_y, lr , seed = 0 , input_scale = 1e-1):
         '''
         param N_x: リザバーのノード数
         param N_y: 出力次元
@@ -425,6 +425,7 @@ class ESN:
     def adapt(self, U, D, optimizer):
         data_len = len(U)
         Y_pred = []
+        err = []
         # Wout_abs_mean = []
 
         # 出力結合重み更新
@@ -439,13 +440,14 @@ class ESN:
             # モデル出力
             y = rot(Wout, x)
             Y_pred.append(y)
-            if n % 100 == 0:
-                print('進捗: %.2lf' % (n/data_len))
+            # if n % 100 == 0:
+            #     print('進捗: %.2lf' % (n/data_len))
             # Wout_abs_mean.append(np.mean(np.abs(Wout)))
             # if n < 10:
                 # print(Wout)
-            # print(Wout)
-        return np.array(Y_pred), Wout
+            err.append(np.linalg.norm(y-d))
+            # print(y, d)
+        return np.array(Y_pred), Wout, err
         # , np.array(Wout_abs_mean)
 
 def outer_product(a, b):

@@ -116,7 +116,7 @@ def read_motion_data(dir_name, motion_train_list):
            test_input, test_output, test_length, test_label
 
 
-N_x_list = np.arange(300, 400, 10)
+N_x_list = np.arange(10,100,10)
 for N_x in N_x_list:
     # 訓練データ，検証データの取得
     n_label = 3  # ラベル数
