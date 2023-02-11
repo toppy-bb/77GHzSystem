@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import sys
@@ -15,56 +16,150 @@ freq =int(sys.argv[2])
 df = np.genfromtxt(os.path.join(f), delimiter=",")
 df = (df-2048)/2048*100 #DA変換 [mV]
 
-m_num = df.shape[0] #計測回数
-tmax = m_num/freq #計測時間
-
+N= 400 #計測回数
+tmax = N/freq #計測時間
+dt = 1/freq          # サンプリング間隔
+fc = 2  # カットオフ周波数
+t = np.arange(0, N*dt, dt)  # 時間軸
+fq = np.linspace(0, 1.0/dt, N//2)  # 周波数軸
 
 #fig = plt.figure(figsize=(13, 4),dpi=100)  # Figureを設定
 #plt.subplots_adjust(wspace=0.4, hspace=0.6)
 
-if (np.sum(np.abs(df[0])) > np.sum(np.abs(df[1]))):
+if df[0,4] > df[1,4]:
     # Tx1-Rx1 Svv=I1+jQ1
-    I1 = df[0::2, 0]
-    Q1 = df[0::2, 1]
+    I1 = df[0:N:2, 0]
+    Q1 = df[0:N:2, 1]
     A1 = np.sqrt((I1 **2 + Q1 ** 2))
     P1=(np.arctan2(Q1,I1))
     # Tx1-Rx2 Svh=I2+jQ2
-    I2 = df[0::2, 2]
-    Q2 = df[0::2, 3]
+    I2 = df[0:N:2, 2]
+    Q2 = df[0:N:2, 3]
     A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
     P2=(np.arctan2(Q2,I2))
     # Tx2-Rx1 Shv=I3+jQ3
-    I3 = df[1::2, 0]
-    Q3 = df[1::2, 1]
+    I3 = df[1:N:2, 0]
+    Q3 = df[1:N:2, 1]
     A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
     P3=(np.arctan2(Q3,I3))
     # Tx2-Rx2 Shh=I4+jQ4
-    I4 = df[1::2, 2]
-    Q4 = df[1::2, 3]
+    I4 = df[1:N:2, 2]
+    Q4 = df[1:N:2, 3]
     A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
     P4=(np.arctan2(Q4,I4))
 
 else:
         # Tx1-Rx1 Svv=I1+jQ1
-    I1 = df[1::2, 0]
-    Q1 = df[1::2, 1]
-    A1 = np.sqrt((I1 **2 + Q1 ** 2))
-    P1=(np.arctan2(Q1,I1))
+    I1 = df[1:N:2, 0]
+    Q1 = df[1:N:2, 1]
+    # A1 = np.sqrt((I1 **2 + Q1 ** 2))
+    # P1=(np.arctan2(Q1,I1))
     # Tx1-Rx2 Svh=I2+jQ2
-    I2 = df[1::2, 2]
-    Q2 = df[1::2, 3]
-    A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
-    P2=(np.arctan2(Q2,I2))
+    I2 = df[1:N:2, 2]
+    Q2 = df[1:N:2, 3]
+    # A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
+    # P2=(np.arctan2(Q2,I2))
     # Tx2-Rx1 Shv=I3+jQ3
-    I3 = df[0::2, 0]
-    Q3 = df[0::2, 1]
-    A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
-    P3=(np.arctan2(Q3,I3))
+    I3 = df[0:N:2, 0]
+    Q3 = df[0:N:2, 1]
+    # A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
+    # P3=(np.arctan2(Q3,I3))
     # Tx2-Rx2 Shh=I4+jQ4
-    I4 = df[0::2, 2]
-    Q4 = df[0::2, 3]
-    A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
-    P4=(np.arctan2(Q4,I4))
+    I4 = df[0:N:2, 2]
+    Q4 = df[0:N:2, 3]
+    # A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
+    # P4=(np.arctan2(Q4,I4))
+
+# 高速フーリエ変換（周波数信号に変換）
+F1 = np.fft.fft(I1)
+F2 = np.fft.fft(I2)
+F3 = np.fft.fft(I3)
+F4 = np.fft.fft(I4)
+G1 = np.fft.fft(Q1) 
+G2 = np.fft.fft(Q2)
+G3 = np.fft.fft(Q3)
+G4 = np.fft.fft(Q4)
+
+# 正規化 + 交流成分2倍
+F1 = F1/(N/2/2)
+F1[0] = F1[0]/2
+F2 = F2/(N/2/2)
+F2[0] = F2[0]/2
+F3 = F3/(N/2/2)
+F3[0] = F3[0]/2
+F4 = F4/(N/2/2)
+F4[0] = F4[0]/2
+G1 = G1/(N/2/2)
+G1[0] = G1[0]/2
+G2 = G2/(N/2/2)
+G2[0] = G2[0]/2
+G3 = G3/(N/2/2)
+G3[0] = G3[0]/2
+G4 = G4/(N/2/2)
+G4[0] = G4[0]/2
+
+# 配列Fをコピー
+FF1 = F1.copy()
+FF2 = F2.copy()
+FF3 = F3.copy()
+FF4 = F4.copy()
+GG1 = G1.copy()
+GG2 = G2.copy()
+GG3 = G3.copy()
+GG4 = G4.copy()
+
+# print(FF1.shape)
+# ローパスフィルタ処理（カットオフ周波数を超える帯域の周波数信号を0にする)
+FF1[(fq > fc)] = 0
+FF2[(fq > fc)] = 0
+FF3[(fq > fc)] = 0
+FF4[(fq > fc)] = 0
+GG1[(fq > fc)] = 0
+GG2[(fq > fc)] = 0
+GG3[(fq > fc)] = 0
+GG4[(fq > fc)] = 0
+#F2[(freq == 0)] = 0 
+
+# 高速逆フーリエ変換（時間信号に戻す）
+f1 = np.fft.ifft(FF1)
+f2 = np.fft.ifft(FF2)
+f3 = np.fft.ifft(FF3)
+f4 = np.fft.ifft(FF4)
+g1 = np.fft.ifft(GG1)
+g2 = np.fft.ifft(GG2)
+g3 = np.fft.ifft(GG3)
+g4 = np.fft.ifft(GG4)
+
+# 振幅を元のスケールに戻す
+f1 = np.real(f1*N)
+f2 = np.real(f2*N)
+f3 = np.real(f3*N)
+f4 = np.real(f4*N)
+g1 = np.real(g1*N)
+g2 = np.real(g2*N)
+g3 = np.real(g3*N)
+g4 = np.real(g4*N)
+
+I1 = f1 - np.mean(f1)
+I2 = f2 - np.mean(f2)
+I3 = f3 - np.mean(f3)
+I4 = f4 - np.mean(f4)
+Q1 = g1 - np.mean(g1)
+Q2 = g2 - np.mean(g2)
+Q3 = g3 - np.mean(g3)
+Q4 = g4 - np.mean(g4)
+
+A1 = np.sqrt((I1 **2 + Q1 ** 2))
+P1=(np.arctan2(Q1,I1))
+A2 = np.sqrt((I2 ** 2 + Q2 ** 2))
+P2=(np.arctan2(Q2,I2))
+A3 = np.sqrt((I3 ** 2 + Q3 ** 2))
+P3=(np.arctan2(Q3,I3))
+A4 = np.sqrt((I4 ** 2 + Q4 ** 2))
+P4=(np.arctan2(Q4,I4))
+
+
+
 cm = plt.cm.get_cmap('hsv') # カラーマップ
 
 #平均ストークスベクトルg
@@ -245,10 +340,56 @@ ax6.scatter(r1/r0, r2/r0, r3/r0, c=P4, vmin=-(np.pi), vmax=np.pi, s=8, cmap=cm)
 savename = os.path.basename(f).strip('.dat')
 plt.savefig(os.path.join("img", savename+"_PS"))
 
-plt.show()
+# plt.show()
 
-print("finished")
+# print("finished")
 #RG=np.exp(1j*P4)
 #print(RG)
 #print(g1/g0*RG)
 #print(g1/g0)
+
+data = []
+for i in range(len(g0)):
+    data.append([0, h1[i]/h0[i], h2[i]/h0[i], h3[i]/h0[i],0, g1[i]/g0[i], g2[i]/g0[i], g3[i]/g0[i],0, m1[i]/m0[i], m2[i]/m0[i], m3[i]/m0[i], \
+        0, n1[i]/n0[i], n2[i]/n0[i], n3[i]/n0[i],0, l1[i]/l0[i], l2[i]/l0[i], l3[i]/l0[i],0, r1[i]/r0[i], r2[i]/r0[i], r3[i]/r0[i]])
+# print(np.shape(data))
+
+df = pd.DataFrame(data)
+datafile_name = f[14:].strip('dat')
+df.to_csv("data/"+datafile_name+"csv",header=False,index=False)
+# df.to_csv("data/test.csv",header=False,index=False)
+# ff = open("test.dat", 'x', encoding='UTF-8')
+
+# ff.writelines(df)
+
+# ff.close()
+# import matplotlib.pyplot as plt 
+import matplotlib.animation as animation
+# from IPython.display import HTML
+# import numpy as np
+
+fig = plt.figure(figsize=(6,6))
+ax = fig.gca(projection='3d')
+ax.set_box_aspect((1,1,1))
+ax.set_xlim(-1, 1)
+ax.set_ylim(-1, 1)
+ax.set_zlim(-1, 1)
+
+x = g1/g0
+y = g2/g0
+z = g3/g0
+print(np.shape(x))
+scat1, = ax.plot(x,y,z,alpha=0.5, lw=0, marker="o",color='tab:green')
+
+def init():
+    return scat1,
+
+def animate(i):
+    scat1.set_data((x[:i],y[:i]))
+    scat1.set_3d_properties(z[:i])
+    return scat1,
+    
+
+ani = animation.FuncAnimation(fig, animate, 300,
+                                   interval=100, init_func=init, blit=True, repeat=True)
+ani.save('class_3.mp4', writer="ffmpeg",dpi=100)

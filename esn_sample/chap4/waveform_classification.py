@@ -17,66 +17,66 @@ from model import ESN, Tikhonov
 np.random.seed(seed=0)
 
 # 正弦波とのこぎり波の混合波形生成
-# class SinSaw:
-#     def __init__(self, period):
-#         self.period = period  # 周期
+class SinSaw:
+    def __init__(self, period):
+        self.period = period  # 周期
 
-#     # 正弦波
-#     def sinusoidal(self):
-#         n = np.arange(self.period)
-#         x = np.sin(2*np.pi*n/self.period)
+    # 正弦波
+    def sinusoidal(self):
+        n = np.arange(self.period)
+        x = np.sin(2*np.pi*n/self.period)
 
-#         return x
+        return x
 
-#     # のこぎり波
-#     def saw_tooth(self):
-#         n = np.arange(self.period)
-#         x = 2*(n/self.period - np.floor(n/self.period+0.5))
+    # のこぎり波
+    def saw_tooth(self):
+        n = np.arange(self.period)
+        x = 2*(n/self.period - np.floor(n/self.period+0.5))
 
-#         return x
+        return x
 
-#     def make_output(self, label):
-#         y = np.zeros((self.period, 2))
-#         y[:, label] = 1
+    def make_output(self, label):
+        y = np.zeros((self.period, 2))
+        y[:, label] = 1
 
-#         return y
+        return y
 
-#     # 混合波形及びラベルの出力
-#     def generate_data(self, label):
-#         '''
-#         :param label: 0または1を要素に持つリスト
-#         :return: u: 混合波形
-#         :return: d: 2次元ラベル（正弦波[1,0], のこぎり波[0,1]）
-#         '''
-#         u = np.empty(0)
-#         d = np.empty((0, 2))
-#         for i in label:
-#             if i:
-#                 u = np.hstack((u, self.saw_tooth()))
-#             else:
-#                 u = np.hstack((u, self.sinusoidal()))
-#             d = np.vstack((d, self.make_output(i)))
+    # 混合波形及びラベルの出力
+    def generate_data(self, label):
+        '''
+        :param label: 0または1を要素に持つリスト
+        :return: u: 混合波形
+        :return: d: 2次元ラベル（正弦波[1,0], のこぎり波[0,1]）
+        '''
+        u = np.empty(0)
+        d = np.empty((0, 2))
+        for i in label:
+            if i:
+                u = np.hstack((u, self.saw_tooth()))
+            else:
+                u = np.hstack((u, self.sinusoidal()))
+            d = np.vstack((d, self.make_output(i)))
 
-#         return u, d
+        return u, d
 
 
-# # 出力のスケーリング
-# class ScalingShift:
-#     def __init__(self, scale, shift):
-#         '''
-#         :param scale: 出力層のスケーリング（scale[n]が第n成分のスケーリング）
-#         :param shift: 出力層のシフト（shift[n]が第n成分のシフト）
-#         '''
-#         self.scale = np.diag(scale)
-#         self.shift = np.array(shift)
-#         self.inv_scale = np.linalg.inv(self.scale)
-#         self.inv_shift = -np.dot(self.inv_scale, self.shift)
+# 出力のスケーリング
+class ScalingShift:
+    def __init__(self, scale, shift):
+        '''
+        :param scale: 出力層のスケーリング（scale[n]が第n成分のスケーリング）
+        :param shift: 出力層のシフト（shift[n]が第n成分のシフト）
+        '''
+        self.scale = np.diag(scale)
+        self.shift = np.array(shift)
+        self.inv_scale = np.linalg.inv(self.scale)
+        self.inv_shift = -np.dot(self.inv_scale, self.shift)
 
-#     def __call__(self, x):
-#         return np.dot(self.scale, x) + self.shift
+    def __call__(self, x):
+        return np.dot(self.scale, x) + self.shift
 
-#     def inverse(self, x):
-#         return np.dot(self.inv_scale, x) + self.inv_shift
+    def inverse(self, x):
+        return np.dot(self.inv_scale, x) + self.inv_shift
 
 
 if __name__ == '__main__':
@@ -87,8 +87,7 @@ if __name__ == '__main__':
 
     # 時系列入力データ生成
     period = 50
-    # dynamics = SinSaw(period)
-    dynamics = []
+    dynamics = SinSaw(period)
     label = np.random.choice(2, n_wave_train+n_wave_test)
     u, d = dynamics.generate_data(label)
     T = period*n_wave_train
